@@ -1,0 +1,1 @@
+export { default as Neworden } from "./src/screens/Neworden.js";
