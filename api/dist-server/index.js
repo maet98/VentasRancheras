@@ -16,7 +16,7 @@ var _products = _interopRequireDefault(require("./src/products/products.route"))
 
 var _auth2 = _interopRequireDefault(require("./src/auth/auth.route"));
 
-var _router = _interopRequireDefault(require("./src/bills/router"));
+var _route = _interopRequireDefault(require("./src/payment/route"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -32,7 +32,7 @@ app.use('/order', _orders["default"]);
 app.use('/product', _products["default"]);
 app.get('/callback', _auth.callback);
 app.use('/auth', _auth2["default"]);
-app.use('/bill', _router["default"]);
+app.use('/payment', _route["default"]);
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log("Connected to port: ".concat(port));

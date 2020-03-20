@@ -1,7 +1,7 @@
 import {Router} from "express";
 var router = Router();
 
-import {getAll} from './controller';
+import {getAll, create} from './controller';
 import {refresh} from '../../ERP/index';
 
 router.use(refresh);

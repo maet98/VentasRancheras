@@ -1,9 +1,14 @@
----
-inventory:
-    build: .
-    command: npm start
-    ports:
-    -   "8080:8080"
-    environment:
-    -   NODE_ENV=production
+version: '3.1'
 
+services:
+    db:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_DATABASE: RancherasDB
+            MYSQL_USER: Ranchera
+            MYSQL_PASSWORD: 12345678
+            MYSQL_ROOT_PASSWORD: password
+        ports: 
+            - 3306:3306
