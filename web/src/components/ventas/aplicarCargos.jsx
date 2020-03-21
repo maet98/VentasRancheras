@@ -1,7 +1,7 @@
 import React from "react";
 import cargoImg from "../../cargo.svg";
 
-export class AplicarCargo extends React.Component {
+export class AplicarCargos extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -43,3 +43,5 @@ export class AplicarCargo extends React.Component {
     );
   }
 }
+
+export default AplicarCargos;

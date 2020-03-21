@@ -1,5 +1,5 @@
 import React from "react";
-import pagosImg from "../../pagos.svg";
+import pagosImg from "../../logo.svg";
 
 export class ConfirmarPagos extends React.Component {
   constructor(props) {
@@ -38,3 +38,4 @@ export class ConfirmarPagos extends React.Component {
     );
   }
 }
+export default ConfirmarPagos

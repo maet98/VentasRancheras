@@ -3,14 +3,46 @@ import loginImg from "../../login.svg";
 
 export class Login extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+
+        this.onChangeEmail = this.onChangeEmail.bind(this)
+        this.onChangePassword = this.onChangePassword.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+
+        this.state = {
+
+            email: '',
+            password: '',
   }
+}
+onChangeEmail(e) {
+  this.setState ({
+      email: e.target.value
+  })
+}
+onChangePassword(e) {
+  this.setState ({
+      password: e.target.value
+  })
+}
+
+
+onSubmit(e) {
+ console.log("testing");
+ window.location = "/menu"
+  }
+
+handleClick(e) {
+  e.preventDefault();
+  window.location = "/menu"
+}
 
 
   render() {
     return (
 
       <div className="base-container" ref={this.props.containerRef}>
+        <form onSubmit ={this.onSubmit}>
         <div className="header">Login</div>
         <div className="content">
           <div className="image">
@@ -28,13 +60,14 @@ export class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn">
+          <button type="submit" className="btn">
             Login
-          </button> {' '}
-          <button type="button" className="btn" href="../ventas/menu.jsx">
+          </button>
+          <button type="button" className="btn" onClick = {this.handleClick}>
             Menu
           </button>
         </div>
+        </form>
       </div>
     );
   }
