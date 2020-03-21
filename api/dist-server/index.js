@@ -18,6 +18,10 @@ var _auth2 = _interopRequireDefault(require("./src/auth/auth.route"));
 
 var _route = _interopRequireDefault(require("./src/payment/route"));
 
+var _router = _interopRequireDefault(require("./src/route/router"));
+
+var _db = require("./src/db");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -33,6 +37,14 @@ app.use('/product', _products["default"]);
 app.get('/callback', _auth.callback);
 app.use('/auth', _auth2["default"]);
 app.use('/payment', _route["default"]);
+app.use('/route', _router["default"]);
+
+_db.db.authenticate().then(function () {
+  console.log("Connected to DB");
+})["catch"](function (err) {
+  console.error("Error: ".concat(errr));
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log("Connected to port: ".concat(port));

@@ -15,6 +15,8 @@ import OrderRouter from "./src/orders/orders.route";
 import ProductRouter from "./src/products/products.route";
 import AuthRouter from "./src/auth/auth.route";
 import PaymentRouter from "./src/payment/route";
+import routeRouter from "./src/route/router";
+import { db } from './src/db';
 
 app.use('/client',ClientRouter);
 app.use('/order',OrderRouter);
@@ -22,8 +24,18 @@ app.use('/product',ProductRouter);
 app.get('/callback',callback);
 app.use('/auth',AuthRouter);
 app.use('/payment',PaymentRouter);
+app.use('/route',routeRouter);
+
+db.authenticate()
+.then(() =>{
+    console.log("Connected to DB");
+})
+.catch(err =>{
+    console.error(`Error: ${errr}`);
+})
 
 var port = process.env.PORT || 3000;
+
 
 app.listen(port,() =>{
     console.log(`Connected to port: ${port}`);
