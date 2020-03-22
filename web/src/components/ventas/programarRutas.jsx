@@ -1,5 +1,9 @@
 import React from "react";
+<<<<<<< HEAD
 import rutasImg from "../../ruta.svg";
+=======
+import rutasImg from "../../logo.svg";
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
 
 export class ProgramarRutas extends React.Component {
   constructor(props) {
