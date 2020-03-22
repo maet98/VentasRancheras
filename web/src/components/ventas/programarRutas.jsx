@@ -35,6 +35,11 @@ export class ProgramarRutas extends React.Component {
               <label htmlFor="direccion">Direccion</label>
               <input type="text" name="direccion" placeholder="Direccion" />
             </div>
+            <div className = "form-group">
+            <button type="button" className="btn">
+              Programar
+          </button>
+            </div>
           </div>
         </div>
      

@@ -36,6 +36,11 @@ export class ConfirmarPagos extends React.Component {
               <label htmlFor="fecha">Fecha</label>
               <input type="text" name="fecha" placeholder="Fecha" />
             </div>
+            <div className = "form-group">
+            <button type="button" className="btn">
+              Confirmar
+          </button>
+            </div>
           </div>
         </div>
 

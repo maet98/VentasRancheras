@@ -40,6 +40,11 @@ export class AplicarCargos extends React.Component {
               <label htmlFor="pagar">Monto a Pagar</label>
               <input type="text" name="pagar" placeholder="Monto a pagar" />
             </div>
+            <div className = "form-group">
+            <button type="button" className="btn">
+              Aplicar
+          </button>
+            </div>
           </div>
         </div>
 
