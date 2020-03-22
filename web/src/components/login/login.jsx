@@ -10,6 +10,27 @@ export class Login extends React.Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+<<<<<<< HEAD
+
+            email: '',
+            password: '',
+  }
+}
+onChangeEmail(e) {
+  this.setState ({
+      email: e.target.value
+  })
+}
+onChangePassword(e) {
+  this.setState ({
+      password: e.target.value
+  })
+}
+onSubmit(e) {
+ console.log("testing");
+ window.location = "/menu"
+  }
+=======
 
             email: '',
             password: '',
@@ -32,11 +53,15 @@ onSubmit(e) {
  window.location = "/menu"
   }
 
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
 handleClick(e) {
   e.preventDefault();
   window.location = "/menu"
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
 
   render() {
     return (
@@ -62,7 +87,11 @@ handleClick(e) {
         <div className="footer">
           <button type="submit" className="btn">
             Login
+<<<<<<< HEAD
+          </button> {' '}
+=======
           </button>
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
           <button type="button" className="btn" onClick = {this.handleClick}>
             Menu
           </button>

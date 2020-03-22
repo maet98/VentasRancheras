@@ -1,5 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+<<<<<<< HEAD
+import 'bootstrap/dist/css/bootstrap.min.css';
+=======
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
 
 import PantallaInicial from './components/login/PantallaInicial.jsx';
 import Menu from './components/ventas/menu.jsx';

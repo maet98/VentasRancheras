@@ -1,6 +1,10 @@
 import React from "react";
 import "./PantallaInicial.scss";
+<<<<<<< HEAD
+import { Login } from "./index";
+=======
 import { Login, Register } from "./index";
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
 import Menu from "../ventas/menu";
 
 
@@ -32,8 +36,13 @@ class PantallaInicial extends React.Component {
 
   render() {
     const { isLogginActive } = this.state;
+<<<<<<< HEAD
+    const current = isLogginActive ? "Login" : "Login";
+    const currentActive = isLogginActive ? "login" : "login";
+=======
     const current = isLogginActive ? "Register" : "Login";
     const currentActive = isLogginActive ? "login" : "register";
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
     return (
       <div className="PantllaInicial">
         <div className="login">
@@ -42,14 +51,21 @@ class PantallaInicial extends React.Component {
               <Login containerRef={ref => (this.current = ref)} />
             )}
             {!isLogginActive && (
+<<<<<<< HEAD
+              <Login containerRef={ref => (this.current = ref)} />
+=======
               <Register containerRef={ref => (this.current = ref)} />
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
             )}
           </div>
           <RightSide
             current={current}
             currentActive={currentActive}
             containerRef={ref => (this.rightSide = ref)}
+<<<<<<< HEAD
+=======
             onClick={this.changeState.bind(this)}
+>>>>>>> d4f4ce7c075da3487509b0c1dc5ec465e900ad77
           />
         </div>
       </div>
