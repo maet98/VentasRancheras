@@ -1,5 +1,5 @@
 import React from "react";
-import inventarioImg from "../../inventario.svg";
+import inventarioImg from "../../logo.svg";
 
 export class EditarInventario extends React.Component {
   constructor(props) {
@@ -28,3 +28,4 @@ export class EditarInventario extends React.Component {
     );
   }
 }
+export default EditarInventario;

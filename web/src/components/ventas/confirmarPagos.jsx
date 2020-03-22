@@ -38,3 +38,4 @@ export class ConfirmarPagos extends React.Component {
     );
   }
 }
+export default ConfirmarPagos

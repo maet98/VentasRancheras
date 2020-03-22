@@ -1,5 +1,5 @@
 import React from "react";
-import rutasImg from "../../rutas.svg";
+import rutasImg from "../../ruta.svg";
 
 export class ProgramarRutas extends React.Component {
   constructor(props) {
@@ -38,3 +38,4 @@ export class ProgramarRutas extends React.Component {
     );
   }
 }
+export default ProgramarRutas

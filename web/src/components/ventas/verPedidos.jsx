@@ -33,3 +33,4 @@ export class VerPedido extends React.Component {
     );
   }
 }
+export default VerPedido
