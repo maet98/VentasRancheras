@@ -12,7 +12,7 @@ import editarInventario from "./components/ventas/editarInventario"
 
 
 function App() {
-  return (
+  return ( 
     <Router>
       <Route path="/" exact component ={PantallaInicial} />
       <Route path ="/menu" component =  {Menu} />
