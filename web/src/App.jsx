@@ -7,9 +7,10 @@ import confirmarPagos from "./components/ventas/confirmarPagos"
 import programarRutas from "./components/ventas/programarRutas"
 import aplicarCargos from "./components/ventas/aplicarCargos"
 import verPedidos from "./components/ventas/verPedidos"
+import EditarInventario from './components/ventas/editarInventario.jsx';
 
 function App() {
-  return (
+  return ( 
     <Router>
       <Route path="/" exact component ={PantallaInicial} />
       <Route path ="/menu" component =  {Menu} />
@@ -17,7 +18,7 @@ function App() {
       <Route path ="/programarRutas" component =  {programarRutas} />
       <Route path ="/aplicarCargos" component =  {aplicarCargos} />
       <Route path ="/verPedidos" component =  {verPedidos} />
-      
+      <Route path ="/editarInventario" component = {EditarInventario} />
     </Router>
   );
 }
