@@ -55,10 +55,11 @@ export class Register extends React.Component {
                 <input type="password" name="password" placeholder="password" />
               </div>
               <div className = "form-group">
-                <DropdownButton id="dropdown-basic-button" title="Cargo">
-                <Dropdown.Item as="button">Vendedor</Dropdown.Item>
-                <Dropdown.Item as="button">Repartidor</Dropdown.Item>
-                </DropdownButton>
+                <label htmlFor="Cargo">Cargo</label>
+                <select>
+                    <option selected value="Vendedor">Vendedor</option>
+                    <option value="Repartidor">Repartidor</option>
+                </select>
               </div>
             </div>
           </div>
