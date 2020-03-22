@@ -1,6 +1,7 @@
 import React from "react";
 import logoImg from "../../logo.svg";
 import NavBar from "./NavBar";
+import { Carousel } from 'react-bootstrap';
 
 export class Menu extends React.Component {
     constructor(props) {
@@ -14,8 +15,30 @@ export class Menu extends React.Component {
                 <div>
                     <NavBar />
                 </div>
-                <div className="image">
-                    <img src={logoImg} />
+                <div className="imageCar">
+                    <Carousel className="Letra">
+                        <Carousel.Item>
+                            <img src={logoImg} />
+                            <Carousel.Caption>
+                                <h3>Ventas Rancheras</h3>
+                                <p >Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={logoImg} />
+                            <Carousel.Caption>
+                                <h3>Ventas Rancheras</h3>
+                                <p >Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img src={logoImg} />
+                            <Carousel.Caption>
+                                <h3>Ventas Rancheras</h3>
+                                <p>Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
                 </div>
             </div>
         );
