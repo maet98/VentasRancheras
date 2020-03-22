@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import loginImg from "../../login.svg";
 import Navbar from "../ventas/NavBar"
-import "../login/style.scss"
-
 
 
 export class Register extends React.Component {

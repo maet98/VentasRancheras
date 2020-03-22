@@ -1,6 +1,8 @@
 import React from "react";
 import inventarioImg from "../../inventario2.svg";
+import productoImg from "../../producto.svg";
 import NavBar from "../ventas/NavBar";
+import { Card, ButtonGroup, ToggleButton, Col, Row } from 'react-bootstrap';
 
 export class verInventario extends React.Component {
     constructor(props) {
@@ -21,8 +23,26 @@ export class verInventario extends React.Component {
                         <img src={inventarioImg} />
                     </div>
                 </div>
+
+                <div className="classCard">
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src={productoImg} />
+                        <Card.Body className="form">
+                            <Card.Title>Hojas de colores</Card.Title>
+                            <Card.Text>
+                                Amplia gama de papel de colores. Papel de gran calidad y colores de gran intensidad y
+                                saturación. Apto para cualquier tipo de impresión.
+                            </Card.Text>
+                            <ButtonGroup toggle className="mb-2">
+                                <ToggleButton type="checkbox" defaultChecked value="1">
+                                    Checked
+                                </ToggleButton>
+                            </ButtonGroup>
+                        </Card.Body>
+                    </Card>
+                </div>
             </div>
-    );
-  }
+        );
+    }
 }
 export default verInventario
