@@ -9,6 +9,7 @@ import programarRutas from "./components/ventas/programarRutas"
 import Registrar from "./components/login/register"
 import verPedidos from "./components/ventas/verPedidos"
 import editarInventario from "./components/ventas/editarInventario"
+import verInventario from "./components/ventas/verInventario"
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
       <Route path ="/programarRutas" component =  {programarRutas} />
       <Route path ="/registrar" component =  {Registrar} />
       <Route path ="/verPedidos" component =  {verPedidos} />
-      <Route path ="/editarinventario" component =  {editarInventario} />
+      <Route path ="/editarInventario" component =  {editarInventario} />
+      <Route path ="/verInventario" component =  {verInventario} />
       
     </Router>
   );

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import loginImg from "../../login.svg";
 import Navbar from "../ventas/NavBar"
-import {Dropdown,DropdownButton} from "react-bootstrap";
+import "../login/style.scss"
 
- 
+
+
 export class Register extends React.Component {
   constructor(props) {
     super(props)
@@ -14,10 +15,11 @@ export class Register extends React.Component {
 
     this.state = {
 
-      email: '', 
+      email: '',
       password: '',
     }
   }
+
   onChangeEmail(e) {
     this.setState({
       email: e.target.value
@@ -33,12 +35,11 @@ export class Register extends React.Component {
     console.log("test");
   }
 
-
   render() {
     return (
 
       <div className="base-container" ref={this.props.containerRef}>
-          <div><Navbar /></div>
+        <div><Navbar /></div>
         <form onSubmit={this.onSubmit}>
           <div className="header">Registrar Empleado</div>
           <div className="content">
@@ -48,25 +49,28 @@ export class Register extends React.Component {
             <div className="form">
               <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input type="text" name="username" placeholder="username" />
+                <input type="text" name="username" placeholder="Username" />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" placeholder="password" />
+                <input type="password" name="password" placeholder="Password" />
               </div>
-              <div className = "form-group">
-                <label htmlFor="Cargo">Cargo</label>
-                <select>
-                    <option selected value="Vendedor">Vendedor</option>
-                    <option value="Repartidor">Repartidor</option>
-                </select>
+              <div className="form-group">
+                <div class="form-group col-md-4">
+                  <label for="inputCargo">Cargo</label>
+                  <select type="text" id="inputCargo" class="form-control" placeholder="Cargo">
+                    <option value="" disabled selected hidden>Cargo</option>
+                    <option value="repartidor">Repartidor</option>
+                    <option value="vendedor">Vendedor</option>
+                  </select>
+                </div>
+              </div>
+              <div className="form-group">
+                <button type="submit" className="btn">
+                  Registrar
+                </button>
               </div>
             </div>
-          </div>
-          <div className="footer">
-            <button type="submit" className="btn">
-              Registrar
-          </button>
           </div>
         </form>
       </div>

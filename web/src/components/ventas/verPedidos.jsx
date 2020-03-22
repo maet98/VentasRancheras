@@ -30,10 +30,10 @@ export class VerPedido extends React.Component {
               <label htmlFor="numero">Numero de Orden</label>
               <input type="text" name="numero" placeholder="Numero de Orden" />
             </div>
-            <div className = "form-group">
-            <button type="button" className="btn">
-              Confirmar
-          </button>
+            <div className="form-group">
+              <button type="button" className="btn">
+                Confirmar
+              </button>
             </div>
           </div>
         </div>

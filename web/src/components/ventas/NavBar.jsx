@@ -1,8 +1,9 @@
 import React from "react";
-import { Navbar, Nav} from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import logoImg from "../../logo2.svg";
 
 export class NavBar extends React.Component {
- 
+
 
     render() {
 
@@ -12,9 +13,9 @@ export class NavBar extends React.Component {
                     <Navbar.Brand href="menu">
                         <img
                             alt=""
-                            src="/src/logoIcon.svg"
-                            width="30"
-                            height="30"
+                            src={logoImg}
+                            width="35"
+                            height="35"
                             className="d-inline-block align-top"
                         />{' '}
                         Ventas Rancheras
@@ -27,9 +28,10 @@ export class NavBar extends React.Component {
                             <Nav.Link href="programarRutas">Programar Rutas</Nav.Link>
                             <Nav.Link href="registrar">Registrar Empleado</Nav.Link>
                             <Nav.Link href="verPedidos">Ver Pedidos</Nav.Link>
+                            <Nav.Link href="verInventario">Inventario</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
-                </Navbar>
+                </Navbar>    
             </div>
         );
     }
