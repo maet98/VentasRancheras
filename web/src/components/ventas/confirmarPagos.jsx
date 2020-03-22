@@ -1,5 +1,6 @@
 import React from "react";
-import pagosImg from "../../logo.svg";
+import pagosImg from "../../pagos.svg";
+import Menu from "../ventas/menu";
 
 export class ConfirmarPagos extends React.Component {
   constructor(props) {
@@ -10,7 +11,11 @@ export class ConfirmarPagos extends React.Component {
   render() {
     return (
 
+
       <div className="base-container" ref={this.props.containerRef}>
+        <div>
+          <Menu />
+        </div>
         <div className="header">Confirmar Pagos</div>
         <div className="content">
           <div className="image">
@@ -19,21 +24,21 @@ export class ConfirmarPagos extends React.Component {
           <div className="form">
             <div className="form-group">
               <label htmlFor="cliente">Nombre del Cliente</label>
-              <input type="text" name="cliente" placeholder="Nombre del Cliente"/>
+              <input type="text" name="cliente" placeholder="Nombre del Cliente" />
             </div>
 
             <div className="form-group">
               <label htmlFor="numero">Numero de Orden </label>
-              <input type="text" name="numero" placeholder="Numero de Orden"/>
+              <input type="text" name="numero" placeholder="Numero de Orden" />
             </div>
 
             <div className="form-group">
               <label htmlFor="fecha">Fecha</label>
-              <input type="text" name="fecha" placeholder="Fecha"/>
+              <input type="text" name="fecha" placeholder="Fecha" />
             </div>
           </div>
         </div>
-     
+
       </div>
     );
   }
