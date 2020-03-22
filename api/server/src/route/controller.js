@@ -23,6 +23,22 @@ export async function createStop(req) {
     })
 }
 
+export function getRouteByUser(req,res) {
+    route.findAll({
+        limit: 1,
+        where: {
+            user: req.params.userId
+        },
+        order:[[ 'createdAt', 'DESC']]
+    })
+    .then((ans) =>{
+        res.json(ans);
+    })
+    .catch(err =>{
+        res.status(400).json(err);
+    });
+}
+
 export function getRoute(req,res) {
     route.findAll()
     .then((routes) =>{

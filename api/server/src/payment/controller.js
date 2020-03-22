@@ -11,10 +11,16 @@ export function getAll(req, res){
 }
 
 export function create(req,res){
-    qbo.createPayment(req.body,(err,payment) =>{
+    const payment = {
+        TotalAmt: req.body.totalAmt,
+        CustomerRef: {
+            value: req.body.ClientId
+        }
+    }
+    qbo.createPayment(payment,(err,payment) =>{
         if(err){
             return res.status(400).json(err);
         }
-        res.json(payment.QueryResponse);
+        res.json(payment);
     })
 }

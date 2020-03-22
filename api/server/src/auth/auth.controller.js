@@ -17,7 +17,7 @@ export function callback(req, res, next){
     
     oauthClient.createToken(parseRedirect)
     .then(function(authResponse) {
-        
+        res.json(authResponse);
     })
     .catch(function(e) {
         console.error(e.intuit_tid);

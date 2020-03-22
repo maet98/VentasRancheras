@@ -3,9 +3,9 @@ import { refresh } from '../../ERP';
 import { getStop, getRoute, createStop, createRoute } from './controller';
 const router = express.Router();
 
-router.get("/",getStop);
+router.get("/stop",getStop);
 
-router.get("/route", getRoute);
+router.get("/", getRoute);
 
 router.post("/",createRoute);
 

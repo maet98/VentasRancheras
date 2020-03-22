@@ -1,11 +1,11 @@
 import {qbo} from "../../ERP/index";
 
 export function getAll(req,res){
-    qbo.findCustomers({fetchAll: true},(err,customers) =>{
+    qbo.findCustomers({fetchAll: true},(err,ans) =>{
         if(err){
             return res.json(err);
         }
-        return res.json(customers.QueryResponse);
+        res.json(ans.QueryResponse.Customer);
     })
 }
     
@@ -19,16 +19,17 @@ export function getOne(req,res){
 }
 
 export function createOne(req,res) {
-    const {DisplayName, PrimaryEmailAddr, PrimaryPhone} = req.body;
+    const {DisplayName, PrimaryEmailAddr, PrimaryPhone, CompanyName} = req.body;
     qbo.createCustomer({
         DisplayName: DisplayName,
         PrimaryEmailAddr: PrimaryEmailAddr,
         PrimaryPhone: PrimaryPhone,
+        CompanyName: CompanyName
     }, (err,customer)=>{
         if(err){
             return res.json({message: err});
         }
-        return res.json(customer.QueryResponse);
+        return res.json(customer);
     })
 }
 

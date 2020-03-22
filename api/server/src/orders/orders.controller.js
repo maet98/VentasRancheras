@@ -1,7 +1,7 @@
 import {qbo} from '../../ERP/index';
 
 export function createOrder(req, res){
-    qbo.createInvoice({fetchAll: true}, (err, estimate) =>{
+    qbo.createEstimate({fetchAll: true}, (err, estimate) =>{
         if(err){
             res.json({error: err});
         }

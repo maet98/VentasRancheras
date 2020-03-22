@@ -31,7 +31,7 @@ db.authenticate()
     console.log("Connected to DB");
 })
 .catch(err =>{
-    console.error(`Error: ${errr}`);
+    console.error(`Error: ${err}`);
 })
 
 var port = process.env.PORT || 3000;
