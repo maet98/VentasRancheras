@@ -6,7 +6,7 @@ import PantallaInicial from './components/login/PantallaInicial.jsx';
 import Menu from './components/ventas/menu.jsx';
 import confirmarPagos from "./components/ventas/confirmarPagos"
 import programarRutas from "./components/ventas/programarRutas"
-import aplicarCargos from "./components/ventas/aplicarCargos"
+import Registrar from "./components/login/register"
 import verPedidos from "./components/ventas/verPedidos"
 import editarInventario from "./components/ventas/editarInventario"
 
@@ -18,7 +18,7 @@ function App() {
       <Route path ="/menu" component =  {Menu} />
       <Route path ="/confirmarPagos" component =  {confirmarPagos} />
       <Route path ="/programarRutas" component =  {programarRutas} />
-      <Route path ="/aplicarCargos" component =  {aplicarCargos} />
+      <Route path ="/registrar" component =  {Registrar} />
       <Route path ="/verPedidos" component =  {verPedidos} />
       <Route path ="/editarinventario" component =  {editarInventario} />
       

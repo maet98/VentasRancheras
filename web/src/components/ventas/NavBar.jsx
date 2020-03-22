@@ -2,9 +2,7 @@ import React from "react";
 import { Navbar, Nav} from 'react-bootstrap';
 
 export class NavBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+ 
 
     render() {
 
@@ -27,7 +25,7 @@ export class NavBar extends React.Component {
                             <Nav.Link href="confirmarPagos">Confirmar Pagos</Nav.Link>
                             <Nav.Link href="editarInventario">Editar Inventario</Nav.Link>
                             <Nav.Link href="programarRutas">Programar Rutas</Nav.Link>
-                            <Nav.Link href="aplicarCargos">Aplicar Cargos</Nav.Link>
+                            <Nav.Link href="registrar">Registrar Empleado</Nav.Link>
                             <Nav.Link href="verPedidos">Ver Pedidos</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

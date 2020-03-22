@@ -35,7 +35,7 @@ class PantallaInicial extends React.Component {
     const current = isLogginActive ? "Login" : "Login";
     const currentActive = isLogginActive ? "login" : "login";
     return (
-      <div className="PantllaInicial">
+      <div className="PantallaInicial">
         <div className="login">
           <div className="container" ref={ref => (this.container = ref)}>
             {isLogginActive && (
