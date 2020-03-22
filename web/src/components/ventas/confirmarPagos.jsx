@@ -1,6 +1,6 @@
 import React from "react";
 import pagosImg from "../../pagos.svg";
-import Menu from "../ventas/menu";
+import NavBar from "../ventas/NavBar";
 
 export class ConfirmarPagos extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export class ConfirmarPagos extends React.Component {
 
       <div className="base-container" ref={this.props.containerRef}>
         <div>
-          <Menu />
+          <NavBar />
         </div>
         <div className="header">Confirmar Pagos</div>
         <div className="content">

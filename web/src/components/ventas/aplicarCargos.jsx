@@ -1,6 +1,6 @@
 import React from "react";
 import cargoImg from "../../cargo.svg";
-import Menu from "../ventas/menu";
+import NavBar from "./NavBar";
 
 export class AplicarCargos extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export class AplicarCargos extends React.Component {
 
       <div className="base-container" ref={this.props.containerRef}>
         <div>
-          <Menu />
+          <NavBar />
         </div>
         <div className="header">Aplicar Cargos</div>
         <div className="content">

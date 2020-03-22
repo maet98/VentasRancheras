@@ -1,6 +1,6 @@
 import React from "react";
 import inventarioImg from "../../inventario.svg";
-import Menu from "../ventas/menu";
+import NavBar from "../ventas/NavBar";
 
 export class EditarInventario extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export class EditarInventario extends React.Component {
 
       <div className="base-container" ref={this.props.containerRef}>
         <div>
-          <Menu />
+          <NavBar />
         </div>
         <div className="header">Editar Inventario</div>
         <div className="content">

@@ -1,6 +1,6 @@
 import React from "react";
 import pedidoImg from "../../pedido.svg";
-import Menu from "../ventas/menu";
+import NavBar from "../ventas/NavBar";
 
 export class VerPedido extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export class VerPedido extends React.Component {
 
       <div className="base-container" ref={this.props.containerRef}>
         <div>
-          <Menu />
+          <NavBar />
         </div>
         <div className="header">Ver Pedidos</div>
         <div className="content">
