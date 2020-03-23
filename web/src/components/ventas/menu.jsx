@@ -1,5 +1,5 @@
 import React from "react";
-import logoImg from "../../logo.svg";
+import logoImg from "../../logo2.svg";
 import NavBar from "./NavBar";
 import { Carousel } from 'react-bootstrap';
 import "../login/style.scss"
@@ -22,21 +22,21 @@ export class Menu extends React.Component {
                             <img src={logoImg} />
                             <Carousel.Caption>
                                 <h3>Ventas Rancheras</h3>
-                                <p>Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
+                                <p className="Space">Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
                             <img src={logoImg} />
                             <Carousel.Caption>
                                 <h3>Ventas Rancheras</h3>
-                                <p >Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
+                                <p className="Space">Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
                             <img src={logoImg} />
                             <Carousel.Caption>
                                 <h3>Ventas Rancheras</h3>
-                                <p>Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
+                                <p className="Space">Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                     </Carousel>
