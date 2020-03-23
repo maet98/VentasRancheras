@@ -21,11 +21,18 @@ function getAll(req, res) {
 }
 
 function create(req, res) {
-  _index.qbo.createPayment(req.body, function (err, payment) {
+  var payment = {
+    TotalAmt: req.body.totalAmt,
+    CustomerRef: {
+      value: req.body.ClientId
+    }
+  };
+
+  _index.qbo.createPayment(payment, function (err, payment) {
     if (err) {
       return res.status(400).json(err);
     }
 
-    res.json(payment.QueryResponse);
+    res.json(payment);
   });
 }

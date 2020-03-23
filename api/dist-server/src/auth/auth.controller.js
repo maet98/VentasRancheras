@@ -11,6 +11,8 @@ var _intuitOauth = _interopRequireDefault(require("intuit-oauth"));
 
 var _config = _interopRequireDefault(require("config"));
 
+var _token = require("../models/token");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var con = _config["default"].get('quickbooks');
@@ -26,7 +28,13 @@ exports["default"] = _default;
 
 function callback(req, res, next) {
   var parseRedirect = req.url;
-  oauthClient.createToken(parseRedirect).then(function (authResponse) {})["catch"](function (e) {
+  oauthClient.createToken(parseRedirect).then(function (authResponse) {
+    _token.token.create(authResponse.token).then(function (ans) {
+      res.json(ans);
+    })["catch"](function (err) {
+      res.status(400).json(err);
+    });
+  })["catch"](function (e) {
     console.error(e.intuit_tid);
     res.status(400).json(e);
   });

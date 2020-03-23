@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getStop = getStop;
 exports.createStop = createStop;
+exports.getRouteByUser = getRouteByUser;
 exports.getRoute = getRoute;
 exports.createRoute = createRoute;
 
@@ -60,6 +61,20 @@ function _createStop() {
     }, _callee);
   }));
   return _createStop.apply(this, arguments);
+}
+
+function getRouteByUser(req, res) {
+  _route["default"].findAll({
+    limit: 1,
+    where: {
+      user: req.params.userId
+    },
+    order: [['createdAt', 'DESC']]
+  }).then(function (ans) {
+    res.json(ans);
+  })["catch"](function (err) {
+    res.status(400).json(err);
+  });
 }
 
 function getRoute(req, res) {

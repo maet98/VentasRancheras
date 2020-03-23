@@ -24,7 +24,10 @@ var stop = _index.db.define('stop', {
   name: {
     type: _sequelize.STRING
   },
-  address: {
+  longitude: {
+    type: _sequelize.INTEGER
+  },
+  latitude: {
     type: _sequelize.INTEGER
   }
 });

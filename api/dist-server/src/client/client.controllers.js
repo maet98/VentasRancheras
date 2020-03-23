@@ -13,12 +13,12 @@ var _index = require("../../ERP/index");
 function getAll(req, res) {
   _index.qbo.findCustomers({
     fetchAll: true
-  }, function (err, customers) {
+  }, function (err, ans) {
     if (err) {
       return res.json(err);
     }
 
-    return res.json(customers.QueryResponse);
+    res.json(ans.QueryResponse.Customer);
   });
 }
 
@@ -38,12 +38,14 @@ function createOne(req, res) {
   var _req$body = req.body,
       DisplayName = _req$body.DisplayName,
       PrimaryEmailAddr = _req$body.PrimaryEmailAddr,
-      PrimaryPhone = _req$body.PrimaryPhone;
+      PrimaryPhone = _req$body.PrimaryPhone,
+      CompanyName = _req$body.CompanyName;
 
   _index.qbo.createCustomer({
     DisplayName: DisplayName,
     PrimaryEmailAddr: PrimaryEmailAddr,
-    PrimaryPhone: PrimaryPhone
+    PrimaryPhone: PrimaryPhone,
+    CompanyName: CompanyName
   }, function (err, customer) {
     if (err) {
       return res.json({
@@ -51,7 +53,7 @@ function createOne(req, res) {
       });
     }
 
-    return res.json(customer.QueryResponse);
+    return res.json(customer);
   });
 }
 

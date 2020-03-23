@@ -9,7 +9,7 @@ exports.getAvailable = getAvailable;
 var _index = require("../../ERP/index");
 
 function createOrder(req, res) {
-  _index.qbo.createInvoice({
+  _index.qbo.createEstimate({
     fetchAll: true
   }, function (err, estimate) {
     if (err) {

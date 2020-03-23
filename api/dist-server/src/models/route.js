@@ -14,9 +14,6 @@ var route = _index.db.define('route', {
   },
   user: {
     type: _sequelize.INTEGER
-  },
-  name: {
-    type: _sequelize.STRING
   }
 });
 

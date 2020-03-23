@@ -16,7 +16,10 @@ export const stop = db.define('stop', {
     name: {
         type: STRING
     },
-    address: {
+    longitude: {
+        type: INTEGER
+    },
+    latitude: {
         type: INTEGER
     }
 })

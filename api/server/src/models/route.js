@@ -10,9 +10,6 @@ const route = db.define('route', {
     },
     user: {
         type: INTEGER
-    },
-    name: {
-        type: STRING
     }
 })
 

@@ -1,5 +1,6 @@
 import oauth from "intuit-oauth";
 import config from "config";
+import {token} from "../models/token";
 
 var con = config.get('quickbooks');
 
@@ -17,7 +18,13 @@ export function callback(req, res, next){
     
     oauthClient.createToken(parseRedirect)
     .then(function(authResponse) {
-        res.json(authResponse);
+        token.create(authResponse.token)
+        .then((ans) => {
+            res.json(ans);
+        })
+        .catch(err =>{
+            res.status(400).json(err);
+        })
     })
     .catch(function(e) {
         console.error(e.intuit_tid);

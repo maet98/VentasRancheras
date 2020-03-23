@@ -22,6 +22,8 @@ var _router = _interopRequireDefault(require("./src/route/router"));
 
 var _db = require("./src/db");
 
+var _router2 = _interopRequireDefault(require("./src/employee/router"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -38,11 +40,12 @@ app.get('/callback', _auth.callback);
 app.use('/auth', _auth2["default"]);
 app.use('/payment', _route["default"]);
 app.use('/route', _router["default"]);
+app.use('/employee', _router2["default"]);
 
 _db.db.authenticate().then(function () {
   console.log("Connected to DB");
 })["catch"](function (err) {
-  console.error("Error: ".concat(errr));
+  console.error("Error: ".concat(err));
 });
 
 var port = process.env.PORT || 3000;

@@ -17,6 +17,7 @@ import AuthRouter from "./src/auth/auth.route";
 import PaymentRouter from "./src/payment/route";
 import routeRouter from "./src/route/router";
 import { db } from './src/db';
+import EmployeeRouter from './src/employee/router';
 
 app.use('/client',ClientRouter);
 app.use('/order',OrderRouter);
@@ -25,6 +26,7 @@ app.get('/callback',callback);
 app.use('/auth',AuthRouter);
 app.use('/payment',PaymentRouter);
 app.use('/route',routeRouter);
+app.use('/employee',EmployeeRouter);
 
 db.authenticate()
 .then(() =>{

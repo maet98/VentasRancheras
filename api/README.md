@@ -554,3 +554,81 @@ Respuesta @True
 }
 ```
 
+### Employee
+
+### GetEmployee
+
+```json
+Metodo Get
+http://localhost:3000/employee
+{
+    
+}
+
+Respuesta @True
+{
+    "Employee": [
+        {
+            "BillableTime": false,
+            "domain": "QBO",
+            "sparse": false,
+            "Id": "55",
+            "SyncToken": "0",
+            "MetaData": {
+                "CreateTime": "2020-02-02T11:21:48-08:00",
+                "LastUpdatedTime": "2020-02-02T11:21:48-08:00"
+            },
+            "GivenName": "Emily",
+            "FamilyName": "Platt",
+            "DisplayName": "Emily Platt",
+            "PrintOnCheckName": "Emily Platt",
+            "Active": true
+        },
+        {
+            "BillableTime": false,
+            "HiredDate": "2020-01-04",
+            "domain": "QBO",
+            "sparse": false,
+            "Id": "54",
+            "SyncToken": "1",
+            "MetaData": {
+                "CreateTime": "2020-02-02T11:21:28-08:00",
+                "LastUpdatedTime": "2020-02-02T11:46:26-08:00"
+            },
+            "GivenName": "John",
+            "FamilyName": "Johnson",
+            "DisplayName": "John Johnson",
+            "PrintOnCheckName": "John Johnson",
+            "Active": true,
+            "PrimaryPhone": {
+                "FreeFormNumber": "(540) 555-9645"
+            }
+        },
+        {
+            "BillableTime": false,
+            "domain": "QBO",
+            "sparse": false,
+            "Id": "63",
+            "SyncToken": "0",
+            "MetaData": {
+                "CreateTime": "2020-03-22T15:39:16-07:00",
+                "LastUpdatedTime": "2020-03-22T15:39:16-07:00"
+            },
+            "GivenName": "Miguel",
+            "FamilyName": "Estevez",
+            "DisplayName": "Miguel Estevez",
+            "PrintOnCheckName": "Miguel Estevez",
+            "Active": true
+        }
+    ],
+    "startPosition": 1,
+    "maxResults": 3
+}
+```
+
+#### CreateEmploye
+
+```json
+
+```
+
