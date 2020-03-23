@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import loginImg from "../../login.svg";
 import Navbar from "../ventas/NavBar"
+import "../login/style.scss"
 
 
 export class Register extends React.Component {
@@ -42,7 +43,7 @@ export class Register extends React.Component {
           <div className="header">Registrar Empleado</div>
           <div className="content">
             <div className="image">
-              <img src={loginImg} />
+              <img class="centrado" src={loginImg} />
             </div>
             <div className="form">
               <div className="form-group">
@@ -56,8 +57,8 @@ export class Register extends React.Component {
               <div className="form-group">
                 <div class="form-group col-md-4">
                   <label for="inputCargo">Cargo</label>
-                  <select type="text" id="inputCargo" class="form-control" placeholder="Cargo">
-                    <option value="" disabled selected hidden>Cargo</option>
+                  <select type="text" id="inputCargo" class="form-control">
+                    <option value="" disabled selected hidden>Elegir cargo</option>
                     <option value="repartidor">Repartidor</option>
                     <option value="vendedor">Vendedor</option>
                   </select>

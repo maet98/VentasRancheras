@@ -1,6 +1,7 @@
 import React from "react";
 import inventarioImg from "../../inventario.svg";
 import NavBar from "../ventas/NavBar";
+import "../login/style.scss"
 
 export class EditarInventario extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class EditarInventario extends React.Component {
         <div className="header">Editar Inventario</div>
         <div className="content">
           <div className="image">
-            <img src={inventarioImg} />
+            <img class="centrado" src={inventarioImg} />
           </div>
           <div className="form">
             <div className="form-group">

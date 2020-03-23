@@ -44,9 +44,14 @@
         flex-direction: column;
         .image {
             width: 20em;
+            margin-top: 1em;
             img {
                 width: 50%;
                 height: 50%;
+            }
+            .centrado {
+                margin: 10px auto;
+                display: block;
             }
         }
         .form {

@@ -2,6 +2,7 @@ import React from "react";
 import inventarioImg from "../../inventario2.svg";
 import productoImg from "../../producto.svg";
 import NavBar from "../ventas/NavBar";
+import "../login/style.scss"
 import { Card, ButtonGroup, ToggleButton, Col, Row } from 'react-bootstrap';
 
 export class verInventario extends React.Component {
@@ -20,7 +21,7 @@ export class verInventario extends React.Component {
                 <div className="header">Inventario</div>
                 <div className="content">
                     <div className="image">
-                        <img src={inventarioImg} />
+                        <img class="centrado" src={inventarioImg} />
                     </div>
                 </div>
 

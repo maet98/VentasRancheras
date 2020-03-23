@@ -1,6 +1,7 @@
 import React from "react";
 import pedidoImg from "../../pedido.svg";
 import NavBar from "../ventas/NavBar";
+import "../login/style.scss"
 
 export class VerPedido extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class VerPedido extends React.Component {
         <div className="header">Ver Pedidos</div>
         <div className="content">
           <div className="image">
-            <img src={pedidoImg} />
+            <img class="centrado" src={pedidoImg} />
           </div>
           <div className="form">
             <div className="form-group">

@@ -1,6 +1,7 @@
 import React from "react";
 import pagosImg from "../../pagos.svg";
 import NavBar from "../ventas/NavBar";
+import "../login/style.scss"
 
 export class ConfirmarPagos extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export class ConfirmarPagos extends React.Component {
         <div className="header">Confirmar Pagos</div>
         <div className="content">
           <div className="image">
-            <img src={pagosImg} />
+            <img class="centrado" src={pagosImg} />
           </div>
           <div className="form">
             <div className="form-group">

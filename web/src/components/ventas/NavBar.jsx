@@ -14,10 +14,10 @@ export class NavBar extends React.Component {
                         <img
                             alt=""
                             src={logoImg}
-                            width="35"
-                            height="35"
-                            className="d-inline-block align-top"
-                        />{' '}
+                            width="70"
+                            height="70"
+                            className="d-inline-block align-center"
+                        />&nbsp;
                         Ventas Rancheras
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

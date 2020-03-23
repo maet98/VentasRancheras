@@ -1,6 +1,7 @@
 import React from "react";
 import rutasImg from "../../ruta.svg";
 import NavBar from "../ventas/NavBar";
+import "../login/style.scss"
 
 export class ProgramarRutas extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class ProgramarRutas extends React.Component {
         <div className="header">Programar Rutas</div>
         <div className="content">
           <div className="image">
-            <img src={rutasImg} />
+            <img class="centrado" src={rutasImg} />
           </div>
           <div className="form">
             <div className="form-group">
