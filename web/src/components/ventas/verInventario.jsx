@@ -1,6 +1,6 @@
 import React from "react";
-import inventarioImg from "../../inventario2.svg";
-import productoImg from "../../producto.svg";
+import inventarioImg from "../../images/inventario2.svg";
+import productoImg from "../../images/producto.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import { Card, ButtonGroup, ToggleButton, Col, Row } from 'react-bootstrap';

@@ -1,5 +1,5 @@
 import React from "react";
-import rutasImg from "../../ruta.svg";
+import rutasImg from "../../images/ruta.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 

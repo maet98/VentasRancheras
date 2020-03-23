@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import loginImg from "../../login.svg";
+import loginImg from "../../images/login.svg";
 import Navbar from "../ventas/NavBar"
 import "../login/style.scss"
 
@@ -47,8 +47,8 @@ export class Register extends React.Component {
             </div>
             <div className="form">
               <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input type="text" name="username" placeholder="Username" />
+                <label htmlFor="Email">Email</label>
+                <input type="text" name="Email" placeholder="Email" />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>

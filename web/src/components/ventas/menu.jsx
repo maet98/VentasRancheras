@@ -1,5 +1,5 @@
 import React from "react";
-import logoImg from "../../logo2.svg";
+import logoImg from "../../images/logo2.svg";
 import NavBar from "./NavBar";
 import { Carousel } from 'react-bootstrap';
 import "../login/style.scss"

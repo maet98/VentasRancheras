@@ -1,5 +1,5 @@
 import React from "react";
-import pedidoImg from "../../pedido.svg";
+import pedidoImg from "../../images/pedido.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 

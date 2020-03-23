@@ -1,5 +1,5 @@
 import React from "react";
-import cargoImg from "../../cargo.svg";
+import cargoImg from "../../images/cargo.svg";
 import NavBar from "./NavBar";
 
 export class AplicarCargos extends React.Component {
