@@ -19,7 +19,7 @@ export class ProgramarRutas extends React.Component {
         <div className="header">Programar Rutas</div>
         <div className="content">
           <div className="image">
-            <img class="centrado" src={rutasImg} />
+            <img className="centrado" src={rutasImg} />
           </div>
           <div className="form">
             <div className="form-group">

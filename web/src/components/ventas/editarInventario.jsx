@@ -19,7 +19,7 @@ export class EditarInventario extends React.Component {
         <div className="header">Editar Inventario</div>
         <div className="content">
           <div className="image">
-            <img class="centrado" src={inventarioImg} />
+            <img className="centrado" src={inventarioImg} />
           </div>
           <div className="form">
             <div className="form-group">

@@ -31,7 +31,7 @@ export class Register extends React.Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    console.log("test");
+    console.log("hola");
   }
 
   render() {
@@ -43,7 +43,7 @@ export class Register extends React.Component {
           <div className="header">Registrar Empleado</div>
           <div className="content">
             <div className="image">
-              <img class="centrado" src={loginImg} />
+              <img className="centrado" src={loginImg} />
             </div>
             <div className="form">
               <div className="form-group">
@@ -55,10 +55,10 @@ export class Register extends React.Component {
                 <input type="password" name="password" placeholder="Password" />
               </div>
               <div className="form-group">
-                <div class="form-group col-md-4">
-                  <label for="inputCargo">Cargo</label>
-                  <select type="text" id="inputCargo" class="form-control">
-                    <option value="" disabled selected hidden>Elegir cargo</option>
+                <div className="form-group col-md-4">
+                  <label htmlFor="inputCargo">Cargo</label>
+                  <select type="text" id="inputCargo" className="form-control">
+                    <option value="" hidden>Elegir cargo</option>
                     <option value="repartidor">Repartidor</option>
                     <option value="vendedor">Vendedor</option>
                   </select>

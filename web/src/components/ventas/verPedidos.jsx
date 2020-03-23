@@ -19,7 +19,7 @@ export class VerPedido extends React.Component {
         <div className="header">Ver Pedidos</div>
         <div className="content">
           <div className="image">
-            <img class="centrado" src={pedidoImg} />
+            <img className="centrado" src={pedidoImg} />
           </div>
           <div className="form">
             <div className="form-group">
