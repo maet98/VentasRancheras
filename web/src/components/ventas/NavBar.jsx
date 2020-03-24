@@ -27,7 +27,7 @@ export class NavBar extends React.Component {
                             <Nav.Link href="programarRutas">Programar Rutas</Nav.Link>
                             <Nav.Link href="registrar">Registrar Empleado</Nav.Link>
                             <Nav.Link href="verPedidos">Ver Pedidos</Nav.Link>
-                            <Nav.Link href="verInventario">Editar Inventario</Nav.Link>
+                            <Nav.Link href="verInventario">Ver Inventario</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>    

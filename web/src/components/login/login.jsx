@@ -1,6 +1,6 @@
 import React from "react";
 import loginImg from "../../images/login.svg";
-import axios from "axios"
+//import axios from "axios"
 
 export class Login extends React.Component {
   constructor(props) {
@@ -77,9 +77,6 @@ export class Login extends React.Component {
           <div className="footer">
             <button type="submit" className="btn">
               Login
-          </button> {' '}
-            <button type="button" className="btn" onClick={this.handleClick}>
-              Menu
           </button>
           </div>
         </form>
