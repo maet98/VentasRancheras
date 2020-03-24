@@ -1,7 +1,10 @@
 import qb from "node-quickbooks";
 import config from "config";
 import {oauth}from "../src/auth/auth.controller";
+import { Token,getToken } from "./token";
 
+var token = getToken();
+console.log(token);
 var quickbooks = config.get("quickbooks");
 var token = quickbooks.get("token");
 var refreshToken = quickbooks.get("refresh");
@@ -24,7 +27,7 @@ export const qbo = new qb(
 export function refresh(req,res,next){
     qbo.refreshAccessToken((err) =>{
         if(err){
-            return res.redirect('http://localhost/auth/signin');
+            return res.redirect(`http://localhost:${process.env.PORT || 3000}/auth/signin`);
         }
         else{
             next();

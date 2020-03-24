@@ -28,13 +28,6 @@ app.use('/payment',PaymentRouter);
 app.use('/route',routeRouter);
 app.use('/employee',EmployeeRouter);
 
-db.authenticate()
-.then(() =>{
-    console.log("Connected to DB");
-})
-.catch(err =>{
-    console.error(`Error: ${err}`);
-})
 
 var port = process.env.PORT || 3000;
 

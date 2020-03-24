@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -12,7 +14,10 @@ var _config = _interopRequireDefault(require("config"));
 
 var _auth = require("../src/auth/auth.controller");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _token = require("./token");
+
+var token = (0, _token.getToken)();
+console.log(token);
 
 var quickbooks = _config["default"].get("quickbooks");
 
@@ -31,7 +36,7 @@ exports.qbo = qbo;
 function refresh(req, res, next) {
   qbo.refreshAccessToken(function (err) {
     if (err) {
-      return res.redirect('http://localhost/auth/signin');
+      return res.redirect("http://localhost:".concat(process.env.PORT || 3000, "/auth/signin"));
     } else {
       next();
     }

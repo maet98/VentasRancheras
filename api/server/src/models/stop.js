@@ -1,7 +1,8 @@
 import {INTEGER,STRING} from "sequelize"
 import {db} from "../db/index";
+import route from "./route";
 
-export const stop = db.define('stop', {
+export var stop = db.define('stop', {
     id: {
         primaryKey: true,
         type: INTEGER,
@@ -16,10 +17,13 @@ export const stop = db.define('stop', {
     name: {
         type: STRING
     },
+    orderId:{
+        type: INTEGER
+    },
     longitude: {
         type: INTEGER
     },
     latitude: {
         type: INTEGER
     }
-})
+});

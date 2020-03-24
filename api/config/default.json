@@ -1,5 +1,6 @@
 {
     "saltRounds": 10,
+    "jwtSecret":"12345678s",
     "development": {
         "username": "admindb",
         "password": "Password",

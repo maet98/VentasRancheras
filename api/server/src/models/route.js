@@ -1,8 +1,8 @@
 import {INTEGER,STRING} from "sequelize"
 import {db} from "../db/index";
-import { stop } from "./stop";
+import stop from "./stop";
 
-const route = db.define('route', {
+var route = db.define('route', {
     id: {
         primaryKey: true,
         type: INTEGER,
@@ -10,9 +10,7 @@ const route = db.define('route', {
     },
     user: {
         type: INTEGER
-    }
-})
+    },
+});
 
-route.hasMany(stop,{as:'stops'});
-
-module.exports = route;
+export default route;

@@ -1,7 +1,7 @@
 import { stop } from "../models/stop";
 import route from "../models/route";
 
-
+route.hasMany(stop, {foreignKey: 'route_id'});
 export function getStop(req,res) {
     stop.findAll()
     .then((stop) =>{
@@ -12,9 +12,13 @@ export function getStop(req,res) {
     });
 }
 
-export async function createStop(req) {
-    const {client, priority,name, address, route} = req.body;
-    stop.create({name: name, client: client, address: address, routeId:route, priority: priority})
+let createStop = async function(element,route) {
+    const { priority,name, latitude, longitude} = element;
+    var newStop = {name: name, latitude: latitude, longitude:longitude, route_id:route, priority: priority}
+    if(!element.client){
+        newStop.client = element.client;
+    }
+    stop.create(newStop)
     .then((ans) =>{
         return ans;
     })
@@ -24,12 +28,15 @@ export async function createStop(req) {
 }
 
 export function getRouteByUser(req,res) {
+    console.log(req.params.userId);
     route.findAll({
         limit: 1,
         where: {
             user: req.params.userId
         },
         order:[[ 'createdAt', 'DESC']]
+        ,
+        include:[stop]
     })
     .then((ans) =>{
         res.json(ans);
@@ -40,32 +47,33 @@ export function getRouteByUser(req,res) {
 }
 
 export function getRoute(req,res) {
-    route.findAll()
+    route.findAll({include:[stop]})
     .then((routes) =>{
         res.json(routes);
     })
     .catch(err => console.error(err));
 }
 
-export function createRoute(req,res) {
-    const {stops, name, user} = req.body;
-    route.create({user:user,name:name})
+let createStops = async (stops, id) =>{
+    var arr = [];
+    stops.forEach(element => {
+        createStop(element,id)
+        .then((ans) =>{
+            arr.push(ans);
+        })
+    })
+}
+
+export function createRoute(req,res,next) {
+    const {stops, user} = req.body;
+    let count = stops.lenght;
+    route.create({user:user})
     .then((ans) => {
         ans.stops = [];
-        stops.forEach(element => {
-            element.route = ans.id;
-            createStop(element)
-            .then(ele =>{
-                if(ele){
-                    ans.stops.add(ele);
-                }
-                else{
-                    return res.status(400).json(msg);
-                }
-            })
-            .catch(err => res.json(err));
+        createStops(stops,ans.id)
+        .then(() =>{
+            res.json(ans);
         });
-        res.json(ans);
     })
     
 }

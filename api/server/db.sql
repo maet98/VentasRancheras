@@ -12,7 +12,6 @@ create table routes
 
 create table employees
 (
-    id         int auto_increment,
     employeeId int                                   null,
     username   varchar(40)                           null,
     password   varchar(150)                          null,
@@ -21,7 +20,7 @@ create table employees
     createdAt  timestamp default NOW() not null,
     updatedAt  timestamp default NOW() not null on update NOW(),
     constraint employees_pk
-        primary key(id)
+        primary key(email)
 );
 
 create table RancherasDB.tokens

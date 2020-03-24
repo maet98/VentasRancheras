@@ -1,8 +1,5 @@
-## API
-Si al consumir el api le sale un error de que el token no es valido. Hagan lo siguiente,
-   acceden a https://localhost:3000/auth/signin, esto lo redireccionara a un login de quickbooks.
-   usuario: maletaveras@outlook.com
-   password:	Bonneti_1234
+## API Documentation
+Por ahora la api estara corriendo en mi computadora 
 
 ### Script
 - dev
@@ -59,7 +56,7 @@ Respuesta @True
 ```json
 Metodo Get
 
-http://localhost:3000/route/:id
+http://localhost:3000/route/:userId
 params:
 {
 	id: number
@@ -73,12 +70,14 @@ Respuesta @True
 	"createAt": date,
 	"updateAt": date,
 	"stops":[
-		"id": 1,
-		"client": 2,
-		"priority": 3,
-		"name": "orden de la sirena",
-		"longitud": 12323213,
-		"latitud": 123213123
+        {
+            "id": 1,
+            "client": 2,
+            "priority": 3,
+            "name": "orden de la sirena",
+            "longitud": 12323213,
+            "latitud": 123213123
+        }
 	]
 }
 
@@ -95,12 +94,10 @@ http://localhost:3000/route
 {
 	"id": 1,
 	"user": 1,
-	"name": "ruta Santiago",
 	"stops":[
 		"id": 1,
 		"client": 2,
 		"priority": 3,
-		"name": "orden de la sirena",
 		"longitud": 12323213,
 		"latitud": 123213123
 	]
@@ -629,6 +626,17 @@ Respuesta @True
 #### CreateEmploye
 
 ```json
+Metodo POST
+http://localhost:3000/employee
+{
+	"firstName":"min",
+	"lastName":"Estevez",
+	"email":"maletaveras@gmail.com",
+	"password":"miguel98",
+	"type":"Repartidor",
+}
+
+Respuesta @True
 
 ```
 

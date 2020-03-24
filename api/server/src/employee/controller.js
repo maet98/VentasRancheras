@@ -1,7 +1,8 @@
 import { qbo } from "../../ERP/index";
 import {employee} from "../models/employee";
 import config from "config";
-import bcrypt from "bcrypt"
+import bcrypt, { compareSync } from "bcrypt"
+import jwt from "jsonwebtoken";
 
 export function getAll(req, res) {
     qbo.findEmployees({fetchAll: true},(err,ans) =>{
@@ -16,14 +17,14 @@ export function getAll(req, res) {
 
 export function createEmployee(req, res) {
     const newEmployee = {
-        GivenName: req.body.firstName,
+        GivenName: req.body.firstName +" "+req.body.lastName,
         FamilyName: req.body.lastName,
     }
     qbo.createEmployee(newEmployee,(err,ans) =>{
         if(err){
             return res.status(400).json(err);
         }
-        const hash = bcrypt.hashSync(req.body.passwrod, config.get("saltRounds"));
+        const hash = bcrypt.hashSync(req.body.password, config.get("saltRounds"));
         const dbEmployee = {
             employeeId: ans.Id,
             username: req.body.username,
@@ -32,11 +33,38 @@ export function createEmployee(req, res) {
             type: req.body.type
         };
         employee.create(dbEmployee)
-        .then(ans =>{
-            res.json(ans);
+        .then(resp =>{
+            res.json(resp);
         })
         .catch(err =>{
             res.status(400).json(err);
         })
     })
+}
+
+export function login(req, res) {
+    const {email, password} = req.body;
+    employee.findOne({email: email})
+    .then(ans => {
+        if(bcrypt.compareSync(password,ans.password)){
+            jwt.sign({
+                id: ans.email
+            },
+            config.get('jwtSecret'), {
+                expiresIn: 3600
+            },
+            (err, token) => {
+                if (err) throw err;
+                var response = {token, ans};
+                res.json(response);
+            });
+        }
+        else{
+            res.status(400).json({msg:"Incorrect Password"});
+        }
+    })
+    .catch(err =>{
+        res.status(400).json({msg:`User not found with that email: ${email}`});
+    })
+    bcrypt.compareSync
 }
