@@ -1,5 +1,6 @@
 import React from "react";
 import loginImg from "../../images/login.svg";
+import axios from "axios"
 
 export class Login extends React.Component {
   constructor(props) {
@@ -26,13 +27,19 @@ export class Login extends React.Component {
     })
   }
   onSubmit(e) {
-    console.log("testing");
-    window.location = "/menu"
+    e.preventDefault()
+   /* const newUser = {
+        email: this.state.email,
+        password: this.state.password
+    }
+
+    axios.post('152.0.255.93:3000/auth/login', newUser)
+    .then(res => {
+        console.log(res.data)
+    });*/
+    window.location ="/menu"
   }
-  handleClick(e) {
-    e.preventDefault();
-    window.location = "/menu"
-  }
+   
 
   render() {
     return (
@@ -47,11 +54,23 @@ export class Login extends React.Component {
             <div className="form">
               <div className="form-group">
                 <label htmlFor="Email">Email</label>
-                <input type="text" name="Email" placeholder="Email" />
+                <input
+                 type="text" 
+                 name="Email" 
+                 placeholder="Email" 
+                 value = {this.state.email}
+                 onChange = {this.onChangeEmail}
+                 />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" placeholder="password" />
+                <input
+                 type="password"
+                 name="password"
+                 placeholder="password"
+                 value = {this.state.password}
+                 onChange = {this.onChangePassword} 
+                />
               </div>
             </div>
           </div>

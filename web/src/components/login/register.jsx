@@ -10,15 +10,31 @@ export class Register extends React.Component {
 
     this.onChangeEmail = this.onChangeEmail.bind(this)
     this.onChangePassword = this.onChangePassword.bind(this)
+    this.onChangeFirstName = this.onChangeFirstName.bind(this)
+    this.onChangeLastName = this.onChangeLastName.bind(this)
+    this.onChangeType = this.onChangeType.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
 
     this.state = {
 
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
+      type: ''
     }
   }
 
+  onChangeFirstName(e) {
+    this.setState({
+      firstName: e.target.value
+    })
+  }
+  onChangeLastName(e) {
+    this.setState({
+      lastName: e.target.value
+    })
+  }
   onChangeEmail(e) {
     this.setState({
       email: e.target.value
@@ -29,9 +45,20 @@ export class Register extends React.Component {
       password: e.target.value
     })
   }
+  onChangeType(e) {
+    this.setState({
+      type: e.target.value
+    })
+  }
   onSubmit(e) {
     e.preventDefault();
-    console.log("hola");
+    const newUser = {
+      email: this.state.email,
+      password: this.state.password,
+      type: this.state.type
+
+    }
+    console.log(newUser)
   }
 
   render() {
@@ -46,21 +73,54 @@ export class Register extends React.Component {
               <img className="centrado" src={loginImg} />
             </div>
             <div className="form">
+            <div className="form-group">
+                <label htmlFor="firstName">Nombre</label>
+                <input type="text" 
+                name="firstName" 
+                placeholder="Nombre" 
+                value = {this.state.firstName}
+                onChange = {this.onChangeFirstName}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Apellido</label>
+                <input type="text" 
+                name="lastName" 
+                placeholder="Apellido" 
+                value = {this.state.lastName}
+                onChange = {this.onChangeLastName}
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="Email">Email</label>
-                <input type="text" name="Email" placeholder="Email" />
+                <input type="text" 
+                name="Email" 
+                placeholder="Email" 
+                value = {this.state.email}
+                onChange = {this.onChangeEmail}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" placeholder="Password" />
+                <input type="password" 
+                name="password" 
+                placeholder="Password" 
+                value = {this.state.password}
+                onChange = {this.onChangePassword}
+                />
               </div>
               <div className="form-group">
                 <div className="form-group col-md-4">
                   <label htmlFor="inputCargo">Cargo</label>
-                  <select type="text" id="inputCargo" className="form-control">
+                  <select type="text" 
+                  id="inputCargo" 
+                  className="form-control"
+                  value = {this.state.type}
+                  onChange = {this.onChangeType}
+                  >
                     <option value="" hidden>Elegir cargo</option>
-                    <option value="repartidor">Repartidor</option>
-                    <option value="vendedor">Vendedor</option>
+                    <option value="Repartidor">Repartidor</option>
+                    <option value="Vendedor">Vendedor</option>
                   </select>
                 </div>
               </div>
