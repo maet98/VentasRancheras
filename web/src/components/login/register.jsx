@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import loginImg from "../../images/login.svg";
 import Navbar from "../ventas/NavBar"
 import "../login/style.scss"
+import axios from "axios"
 
 
 export class Register extends React.Component {
@@ -53,12 +54,28 @@ export class Register extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     const newUser = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
       type: this.state.type
 
     }
-    console.log(newUser)
+     console.log("Executing Request....")
+    axios.post("http://152.0.255.93:3000/employee", newUser)
+    .then(
+      res => {
+        console.log(res.data)
+      }
+    )
+
+    this.setState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      type: ''
+    })
   }
 
   render() {
