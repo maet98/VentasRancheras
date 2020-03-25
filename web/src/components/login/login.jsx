@@ -1,6 +1,6 @@
 import React from "react";
 import loginImg from "../../images/login.svg";
-//import axios from "axios"
+import axios from "axios"
 
 export class Login extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ export class Login extends React.Component {
 
       email: '',
       password: '',
+      type: 'Supervisor'
     }
   }
   onChangeEmail(e) {
@@ -28,16 +29,22 @@ export class Login extends React.Component {
   }
   onSubmit(e) {
     e.preventDefault()
-   /* const newUser = {
+    const newUser = {
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        type: this.state.type
     }
 
-    axios.post('152.0.255.93:3000/auth/login', newUser)
+    console.log('Executing Request....')
+    axios.post('http://152.0.255.93:3000/auth/login', newUser)
     .then(res => {
         console.log(res.data)
-    });*/
-    window.location ="/menu"
+        window.location ='/menu'
+    });
+    this.setState({
+      email: '',
+      password: ''
+    })
   }
    
 
