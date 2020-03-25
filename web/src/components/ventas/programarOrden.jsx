@@ -1,9 +1,9 @@
 import React from "react";
-import rutasImg from "../../images/ruta.svg";
+import ordenImg from "../../images/orden.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 
-export class ProgramarRutas extends React.Component {
+export class ProgramarOrden extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,18 +16,18 @@ export class ProgramarRutas extends React.Component {
            <div>
           <NavBar />
         </div>
-        <div className="header">Programar Rutas</div>
+        <div className="header">Programar Orden</div>
         <div className="content">
           <div className="image">
-            <img className="centrado" src={rutasImg} />
+            <img className="centrado" src={ordenImg} />
           </div>
           <div className="form">
             <div className="form-group">
-              <label htmlFor="delivery">Nombre del Delivery </label>
-              <input type="text" name="delivery" placeholder="Nombre del Delivery" />
+              <label htmlFor="vendedor">Nombre del Vendedor </label>
+              <input type="text" name="vendedor" placeholder="Nombre del Vendedor" />
             </div>
             <div className = "form-group">
-            <button type="button" className="btn" src="./components/ventas/verRutas">
+            <button type="button" className="btn" src="./components/ventas/verClientes">
               Programar
           </button>
             </div>
@@ -38,4 +38,4 @@ export class ProgramarRutas extends React.Component {
     );
   }
 }
-export default ProgramarRutas
+export default ProgramarOrden
