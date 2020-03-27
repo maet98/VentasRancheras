@@ -6,11 +6,6 @@ import {
     getOne,
     filterName
 } from "./client.controllers";
-import {
-    refresh
-} from "../../ERP/index";
-
-router.use(refresh);
 
 router.get('/',getAll);
 router.post('/',createOne);

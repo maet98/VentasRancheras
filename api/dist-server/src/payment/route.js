@@ -9,11 +9,8 @@ var _express = require("express");
 
 var _controller = require("./controller");
 
-var _index = require("../../ERP/index");
-
 var router = (0, _express.Router)();
-router.use(_index.refresh); //Get a list of payments
-
+//Get a list of payments
 router.get("/", _controller.getAll); //Create a payment
 
 router.post("/", _controller.create);

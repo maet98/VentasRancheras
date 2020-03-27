@@ -7,12 +7,6 @@ import {
     products
 } from "./products.controller";
 
-import {
-    refresh
-} from "../../ERP/index";
-
-router.use(refresh);
-
 router.get('',getAll);
 router.get('/:name',findItem);
 router.post('',createItem);

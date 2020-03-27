@@ -1,6 +1,7 @@
-import {qbo} from "../../ERP/index";
+import QBO from "../../ERP/index";
 
-export function getAll(req, res){
+export async function getAll(req, res){
+    const qbo = await QBO.getQbo();
     qbo.findPayments({fetchAll: true},
     (err, payments) =>{
         if(err){
@@ -10,7 +11,8 @@ export function getAll(req, res){
     });
 }
 
-export function create(req,res){
+export async function create(req,res){
+    const qbo = await QBO.getQbo();
     const payment = {
         TotalAmt: req.body.totalAmt,
         CustomerRef: {

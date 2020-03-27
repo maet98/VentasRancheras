@@ -45,7 +45,10 @@ create table stops
 	name varchar(30) null,
 	longitude float null,
 	latitude float null,
+    route_id int,
 	constraint stops_pk
-		primary key (id)
+		primary key (id),
+    CONSTRAINT stops_routes_fk FOREIGN KEY (route_id)
+    REFERENCES routes(id)
 );
 

@@ -1,10 +1,11 @@
-import { qbo } from "../../ERP/index";
+const QBO = require("../../ERP/index");
 import {employee} from "../models/employee";
 import config from "config";
 import bcrypt, { compareSync } from "bcrypt"
 import jwt from "jsonwebtoken";
 
-export function getAll(req, res) {
+export async function getAll(req, res) {
+    const qbo = await QBO.getQbo();
     qbo.findEmployees({fetchAll: true},(err,ans) =>{
         if(err){
             res.status(400).json(err);
@@ -15,7 +16,8 @@ export function getAll(req, res) {
     });
 }
 
-export function createEmployee(req, res) {
+export async function createEmployee(req, res) {
+    const qbo = await QBO.getQbo();
     const newEmployee = {
         GivenName: req.body.firstName +" "+req.body.lastName,
         FamilyName: req.body.lastName,

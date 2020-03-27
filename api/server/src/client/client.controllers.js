@@ -1,15 +1,18 @@
-import {qbo} from "../../ERP/index";
+const QBO = require("../../ERP/index");
 
-export function getAll(req,res){
+export async function getAll(req,res){
+    const qbo = await QBO.getQbo();
     qbo.findCustomers({fetchAll: true},(err,ans) =>{
         if(err){
-            return res.json(err);
+            if(err.fault.type === "AUTHENTICATION") res.redirect('/auth/signin');
+            return err;
         }
         res.json(ans.QueryResponse.Customer);
     })
 }
     
-export function getOne(req,res){
+export async function getOne(req,res){
+    const qbo = await QBO.getQbo();
     qbo.getCustomer(req.param.id,(err,customer) =>{
         if(err){
             return res.json({message: err});
@@ -18,7 +21,8 @@ export function getOne(req,res){
     })
 }
 
-export function createOne(req,res) {
+export async function createOne(req,res) {
+    const qbo = await QBO.getQbo();
     const {DisplayName, PrimaryEmailAddr, PrimaryPhone, CompanyName} = req.body;
     qbo.createCustomer({
         DisplayName: DisplayName,
@@ -33,7 +37,8 @@ export function createOne(req,res) {
     })
 }
 
-export function filterName(req, res){
+export async function filterName(req, res){
+    const qbo = await QBO.getQbo();
     var name = req.params.name;
     name = '%'+name+'%';
     qbo.findCustomers([

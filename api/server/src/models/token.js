@@ -1,7 +1,7 @@
 import {INTEGER,STRING} from "sequelize"
 import {db} from "../db/index";
 
-export const token = db.define('token', {
+var Token = db.define('token', {
     id_token: {
         type: STRING,
         primaryKey: true
@@ -27,4 +27,6 @@ export const token = db.define('token', {
     latency:{
         type:INTEGER
     }
-})
+});
+
+export default Token;

@@ -1,6 +1,7 @@
-import {qbo} from '../../ERP/index'
+import QBO from '../../ERP/index'
 
-export function getAll(req,res){
+export async function getAll(req,res){
+    const qbo = await QBO.getQbo();
     qbo.findItems({
         fetchAll: true
     },(err, item) =>{
@@ -11,7 +12,8 @@ export function getAll(req,res){
     })    
 }
 
-export function findItem(req, res){
+export async function findItem(req, res){
+    const qbo = await QBO.getQbo();
     var name = req.params.name;
     name = '%' + name + '%';
     qbo.findItems([
@@ -26,8 +28,8 @@ export function findItem(req, res){
     }
 )}
 
-export function createItem(req,res){
-    console.log(req.body);
+export async function createItem(req,res){
+    const qbo = await QBO.getQbo();
     const {name, qty, description, unitPrice} = req.body;
     qbo.createItem({name: name, 
         UnitPrice: unitPrice,

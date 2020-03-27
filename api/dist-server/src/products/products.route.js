@@ -11,10 +11,7 @@ var express = _interopRequireWildcard(require("express"));
 
 var _products = require("./products.controller");
 
-var _index = require("../../ERP/index");
-
 var router = express.Router();
-router.use(_index.refresh);
 router.get('', _products.getAll);
 router.get('/:name', _products.findItem);
 router.post('', _products.createItem);

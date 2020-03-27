@@ -1,13 +1,13 @@
 import express from 'express';
 import { refresh } from '../../ERP';
 import { getStop, getRoute, createStop, createRoute, getRouteByUser } from './controller';
-const router = express.Router();
+const router = express.Router();    
 
-router.get("/stop",getStop);
+router.get("/",getStop);
 
 router.get("/:userId",getRouteByUser);
 
-router.get("/", getRoute);
+router.get("/route", getRoute);
 
 router.post("/",createRoute);
 
