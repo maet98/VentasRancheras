@@ -1,0 +1,1 @@
+export { default as Welcom } from "./src/screens/Welcom.js";
