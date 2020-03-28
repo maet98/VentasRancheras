@@ -29,7 +29,7 @@ export class VerPedido extends React.Component {
 
             <div className="form-group">
               <label htmlFor="numero">Numero de Orden</label>
-              <input type="text" name="numero" placeholder="Numero de Orden" />
+              <input type="number" name="numero" placeholder="Numero de Orden" />
             </div>
             <div className="form-group">
               <button type="button" className="btn">

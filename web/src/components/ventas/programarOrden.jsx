@@ -6,8 +6,12 @@ import "../login/style.scss"
 export class ProgramarOrden extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this)
   }
 
+handleClick() {
+  window.location ='/verRutas'
+}
 
   render() {
     return (
@@ -27,7 +31,7 @@ export class ProgramarOrden extends React.Component {
               <input type="text" name="vendedor" placeholder="Nombre del Vendedor" />
             </div>
             <div className = "form-group">
-            <button type="button" className="btn" src="./components/ventas/verClientes">
+            <button type="button" className="btn" onClick =  {this.handleClick}>
               Programar
           </button>
             </div>

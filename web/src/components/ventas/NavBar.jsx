@@ -25,7 +25,6 @@ export class NavBar extends React.Component {
                         <Nav className="mr-auto">
                             <Nav.Link href="confirmarPagos">Confirmar Pagos</Nav.Link>
                             <Nav.Link href="programarRutas">Programar Rutas</Nav.Link>
-                            <Nav.Link href="programarOrden">Programar Orden</Nav.Link>
                             <Nav.Link href="registrar">Registrar Empleado</Nav.Link>
                             <Nav.Link href="verPedidos">Ver Pedidos</Nav.Link>
                             <Nav.Link href="verInventario">Ver Inventario</Nav.Link>
