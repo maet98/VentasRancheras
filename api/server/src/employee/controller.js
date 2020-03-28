@@ -1,7 +1,8 @@
 const QBO = require("../../ERP/index");
 import {employee} from "../models/employee";
 import config from "config";
-import bcrypt, { compareSync } from "bcrypt"
+import bcrypt, { compareSync } from "bcrypt";
+import { employeeCustomer } from "../models/employee-customer";
 import jwt from "jsonwebtoken";
 
 export async function getAll(req, res) {
@@ -14,6 +15,21 @@ export async function getAll(req, res) {
             res.json(ans.QueryResponse);
         }
     });
+}
+
+export async function filterName(req, res){
+    const qbo = await QBO.getQbo();
+    var name = req.params.name;
+    name = '%'+name+'%';
+    qbo.findEmployees([
+    {field:'fetchAll',value: true},
+    {field:'DisplayName',value:name,operator:'LIKE'}
+    ],(err,employees) =>{
+        if(err){
+            return res.status(400).json(err);
+        }
+        res.json(employees.QueryResponse);
+    })
 }
 
 export async function createEmployee(req, res) {
@@ -69,4 +85,37 @@ export function login(req, res) {
         res.status(400).json({msg:`User not found with that email: ${email}`});
     })
     bcrypt.compareSync
+}
+
+
+export async function getCustomer(req, res){
+    const id = req.params.id;
+    const qbo = await QBO.getQbo();
+    qbo.findCustomers({fetchAll: true},(err,ans) =>{
+        if(err){
+            return res.status(400).json(err);
+        }
+        var customers = ans.QueryResponse.Customer;
+        var arr =[]
+        employeeCustomer.findAll({
+            where:{
+                employeeId: id
+            }
+        })
+        .then(employee =>{
+            for(let i = 0;i < customers.length;i++){
+                let can = false;
+                for(let j = 0;j < employee.length;j++){
+                    if(employee[j].dataValues.CustomerId == customers[i].Id){
+                        can = true;
+                        break;
+                    }
+                }
+                if(can == true){
+                    arr.push(customers[i])
+                }
+            }
+            return res.json(arr);  
+        })
+    })
 }

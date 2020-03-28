@@ -11,10 +11,22 @@ export async function getAll(req, res){
     });
 }
 
+export async function getPaymentByUser(req, res){
+    const qbo = await QBO.getQbo();
+    qbo.findPayments(
+        {CustomerRef: req.params.Id}
+    ,(err,ans)=>{
+        if(err){
+            res.status(400).json(err);
+        }
+        res.json(ans.QueryResponse);
+    })
+}
+
 export async function create(req,res){
     const qbo = await QBO.getQbo();
     const payment = {
-        TotalAmt: req.body.totalAmt,
+        TotalAmt: req.body.TotalAmt,
         CustomerRef: {
             value: req.body.ClientId
         }

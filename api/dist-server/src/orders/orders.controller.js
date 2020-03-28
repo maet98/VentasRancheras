@@ -6,11 +6,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createOrder = createOrder;
-exports.getAvailable = getAvailable;
+exports.getAvailableOrders = getAvailableOrders;
+exports.getAll = getAll;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _stop = require("../models/stop");
 
 var QBO = require("../../ERP/index");
 
@@ -51,7 +54,8 @@ function _createOrder() {
               CustomerRef: {
                 value: clientId
               },
-              Line: line
+              Line: line,
+              ShipAddr: req.body.ShipAddr
             };
             qbo.createEstimate(Order, function (err, estimate) {
               if (err) {
@@ -73,12 +77,12 @@ function _createOrder() {
   return _createOrder.apply(this, arguments);
 }
 
-function getAvailable(_x3, _x4) {
-  return _getAvailable.apply(this, arguments);
+function getAvailableOrders(_x3, _x4) {
+  return _getAvailableOrders.apply(this, arguments);
 }
 
-function _getAvailable() {
-  _getAvailable = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
+function _getAvailableOrders() {
+  _getAvailableOrders = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
     var qbo;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
@@ -93,12 +97,38 @@ function _getAvailable() {
               fetchAll: true
             }, function (err, estimate) {
               if (err) {
-                res.json({
+                console.log(err);
+                return res.json({
                   error: err
                 });
               }
 
-              res.json(estimate.QueryResponse);
+              var orders = estimate.QueryResponse.Estimate;
+              var ans = [];
+
+              _stop.stop.findAll({
+                where: {
+                  entregado: false
+                }
+              }).then(function (stops) {
+                for (var i = 0; i < orders.length; i++) {
+                  var can = false;
+
+                  for (var j = 0; j < stops.length; j++) {
+                    if (orders[i].Id == stops[j].orderId) {
+                      can = true;
+                    }
+                  }
+
+                  if (!can) {
+                    ans.push(orders[i]);
+                  }
+                }
+
+                res.json({
+                  "orders": ans
+                });
+              });
             });
 
           case 4:
@@ -108,5 +138,43 @@ function _getAvailable() {
       }
     }, _callee2);
   }));
-  return _getAvailable.apply(this, arguments);
+  return _getAvailableOrders.apply(this, arguments);
+}
+
+function getAll(_x5, _x6) {
+  return _getAll.apply(this, arguments);
+}
+
+function _getAll() {
+  _getAll = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+    var qbo;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return QBO.getQbo();
+
+          case 2:
+            qbo = _context3.sent;
+            qbo.findEstimates({
+              fetchAll: true
+            }, function (err, estimate) {
+              if (err) {
+                res.json({
+                  error: err
+                });
+              }
+
+              res.json(estimate.QueryResponse.Estimate);
+            });
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _getAll.apply(this, arguments);
 }

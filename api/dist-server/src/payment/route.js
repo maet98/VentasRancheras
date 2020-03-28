@@ -10,7 +10,9 @@ var _express = require("express");
 var _controller = require("./controller");
 
 var router = (0, _express.Router)();
-//Get a list of payments
+//Get payments by the id of the customers
+router.get("/:Id", _controller.getPaymentByUser); //Get a list of payments
+
 router.get("/", _controller.getAll); //Create a payment
 
 router.post("/", _controller.create);

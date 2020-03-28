@@ -1,4 +1,4 @@
-import {INTEGER,STRING} from "sequelize"
+import {INTEGER,STRING,BOOLEAN} from "sequelize"
 import {db} from "../db/index";
 import route from "./route";
 
@@ -25,5 +25,8 @@ export var stop = db.define('stop', {
     },
     latitude: {
         type: INTEGER
+    },
+    entregado: {
+        type: BOOLEAN
     }
 });

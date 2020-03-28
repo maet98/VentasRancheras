@@ -9,10 +9,13 @@ exports.getAll = getAll;
 exports.getOne = getOne;
 exports.createOne = createOne;
 exports.filterName = filterName;
+exports.getAvailable = getAvailable;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _employeeCustomer = require("../models/employee-customer");
 
 var QBO = require("../../ERP/index");
 
@@ -95,7 +98,7 @@ function createOne(_x5, _x6) {
 
 function _createOne() {
   _createOne = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-    var qbo, _req$body, DisplayName, PrimaryEmailAddr, PrimaryPhone, CompanyName;
+    var qbo, _req$body, DisplayName, PrimaryEmailAddr, PrimaryPhone, CompanyName, Latitude, Longitude;
 
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
@@ -106,12 +109,13 @@ function _createOne() {
 
           case 2:
             qbo = _context3.sent;
-            _req$body = req.body, DisplayName = _req$body.DisplayName, PrimaryEmailAddr = _req$body.PrimaryEmailAddr, PrimaryPhone = _req$body.PrimaryPhone, CompanyName = _req$body.CompanyName;
+            _req$body = req.body, DisplayName = _req$body.DisplayName, PrimaryEmailAddr = _req$body.PrimaryEmailAddr, PrimaryPhone = _req$body.PrimaryPhone, CompanyName = _req$body.CompanyName, Latitude = _req$body.Latitude, Longitude = _req$body.Longitude;
             qbo.createCustomer({
               DisplayName: DisplayName,
               PrimaryEmailAddr: PrimaryEmailAddr,
               PrimaryPhone: PrimaryPhone,
-              CompanyName: CompanyName
+              CompanyName: CompanyName,
+              ShipAddr: req.body.ShipAddr
             }, function (err, customer) {
               if (err) {
                 return res.json({
@@ -173,4 +177,63 @@ function _filterName() {
     }, _callee4);
   }));
   return _filterName.apply(this, arguments);
+}
+
+function getAvailable(_x9, _x10) {
+  return _getAvailable.apply(this, arguments);
+}
+
+function _getAvailable() {
+  _getAvailable = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
+    var qbo;
+    return _regenerator["default"].wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return QBO.getQbo();
+
+          case 2:
+            qbo = _context5.sent;
+            qbo.findCustomers({
+              fetchAll: true
+            }, function (err, customers) {
+              if (err) {
+                return res.status(400).json(err);
+              }
+
+              var arr = [];
+              customers = customers.QueryResponse.Customer;
+              console.log(customers);
+
+              _employeeCustomer.employeeCustomer.findAll().then(function (relation) {
+                for (var i = 0; i < customers.length; i++) {
+                  var can = false;
+
+                  for (var j = 0; j < relation.length; j++) {
+                    if (customers[i].Id == relation[j].dataValues.CustomerId) {
+                      can = true;
+                      break;
+                    }
+                  }
+
+                  if (can == false) {
+                    arr.push(customers[i]);
+                  }
+                }
+
+                res.json(arr);
+              })["catch"](function (err) {
+                res.status(400).json(err);
+              });
+            });
+
+          case 4:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+  return _getAvailable.apply(this, arguments);
 }

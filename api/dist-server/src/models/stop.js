@@ -36,6 +36,9 @@ var stop = _index.db.define('stop', {
   },
   latitude: {
     type: _sequelize.INTEGER
+  },
+  entregado: {
+    type: _sequelize.BOOLEAN
   }
 });
 

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getAll = getAll;
+exports.getPaymentByUser = getPaymentByUser;
 exports.create = create;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
@@ -50,13 +51,13 @@ function _getAll() {
   return _getAll.apply(this, arguments);
 }
 
-function create(_x3, _x4) {
-  return _create.apply(this, arguments);
+function getPaymentByUser(_x3, _x4) {
+  return _getPaymentByUser.apply(this, arguments);
 }
 
-function _create() {
-  _create = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-    var qbo, payment;
+function _getPaymentByUser() {
+  _getPaymentByUser = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
+    var qbo;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -66,8 +67,44 @@ function _create() {
 
           case 2:
             qbo = _context2.sent;
+            qbo.findPayments({
+              CustomerRef: req.params.Id
+            }, function (err, ans) {
+              if (err) {
+                res.status(400).json(err);
+              }
+
+              res.json(ans.QueryResponse);
+            });
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _getPaymentByUser.apply(this, arguments);
+}
+
+function create(_x5, _x6) {
+  return _create.apply(this, arguments);
+}
+
+function _create() {
+  _create = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+    var qbo, payment;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _index["default"].getQbo();
+
+          case 2:
+            qbo = _context3.sent;
             payment = {
-              TotalAmt: req.body.totalAmt,
+              TotalAmt: req.body.TotalAmt,
               CustomerRef: {
                 value: req.body.ClientId
               }
@@ -82,10 +119,10 @@ function _create() {
 
           case 5:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2);
+    }, _callee3);
   }));
   return _create.apply(this, arguments);
 }
