@@ -39,10 +39,10 @@ export class verInventario extends React.Component {
                 <div className="classCard">
                 <Row xs="2">
 
-                    {vals.map(val => 
+                    {vals.map((val, index) => 
                         {
                         return( 
-                        <Col>
+                        <Col key={index}>
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={productoImg} />
                             <Card.Body className="form">

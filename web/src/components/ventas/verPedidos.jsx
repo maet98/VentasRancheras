@@ -8,6 +8,7 @@ export class VerPedido extends React.Component {
     super(props);
 
     this.onChangeName = this.onChangeName.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
     
     this.state = {
       name: ''
@@ -21,7 +22,8 @@ onChangeName(e) {
 }
 
 onSubmit(e) {
-  window.location = '/pedidos'
+  e.preventDefault()
+  window.location = '/pedidos/' + this.state.name
 }
 
   render() {

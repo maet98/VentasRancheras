@@ -28,7 +28,7 @@ function App() {
       <Route path ="/verInventario" component =  {verInventario} />
       <Route path ="/verOrdenes/:id" component =  {verOrdenes} />
       <Route path ="/verClientes/:id" component =  {verClientes} />
-      <Route path ="/pedidos" component = {ListarPedidos} />
+      <Route path ="/pedidos/:id" component = {ListarPedidos} />
       
     </Router>
   );

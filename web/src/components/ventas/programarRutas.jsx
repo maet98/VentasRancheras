@@ -45,18 +45,6 @@ handleClick(e) {
     }
   )
 
-/*
-  axios.get("http://152.0.255.93:3000/employee/"+ id)
-  .then(
-    res => {
-     console.log(res)
-    }
-  )
-*/
-
-
-
-
 }
 
 
