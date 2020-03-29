@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createOrder = createOrder;
+exports.getOrdersByClientId = getOrdersByClientId;
 exports.getAvailableOrders = getAvailableOrders;
 exports.getAll = getAll;
 
@@ -77,22 +78,59 @@ function _createOrder() {
   return _createOrder.apply(this, arguments);
 }
 
-function getAvailableOrders(_x3, _x4) {
-  return _getAvailableOrders.apply(this, arguments);
+function getOrdersByClientId(_x3, _x4) {
+  return _getOrdersByClientId.apply(this, arguments);
 }
 
-function _getAvailableOrders() {
-  _getAvailableOrders = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-    var qbo;
+function _getOrdersByClientId() {
+  _getOrdersByClientId = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
+    var id, qbo;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
+            id = req.params.CustomerId;
+            _context2.next = 3;
+            return QBO.getQbo();
+
+          case 3:
+            qbo = _context2.sent;
+            qbo.findEstimates({
+              CustomerRef: id
+            }, function (err, customers) {
+              if (err) {
+                return res.status(400).json(err);
+              }
+
+              res.json(customers);
+            });
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _getOrdersByClientId.apply(this, arguments);
+}
+
+function getAvailableOrders(_x5, _x6) {
+  return _getAvailableOrders.apply(this, arguments);
+}
+
+function _getAvailableOrders() {
+  _getAvailableOrders = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+    var qbo;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
             return QBO.getQbo();
 
           case 2:
-            qbo = _context2.sent;
+            qbo = _context3.sent;
             qbo.findEstimates({
               fetchAll: true
             }, function (err, estimate) {
@@ -133,30 +171,30 @@ function _getAvailableOrders() {
 
           case 4:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2);
+    }, _callee3);
   }));
   return _getAvailableOrders.apply(this, arguments);
 }
 
-function getAll(_x5, _x6) {
+function getAll(_x7, _x8) {
   return _getAll.apply(this, arguments);
 }
 
 function _getAll() {
-  _getAll = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+  _getAll = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
     var qbo;
-    return _regenerator["default"].wrap(function _callee3$(_context3) {
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
-            _context3.next = 2;
+            _context4.next = 2;
             return QBO.getQbo();
 
           case 2:
-            qbo = _context3.sent;
+            qbo = _context4.sent;
             qbo.findEstimates({
               fetchAll: true
             }, function (err, estimate) {
@@ -171,10 +209,10 @@ function _getAll() {
 
           case 4:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3);
+    }, _callee4);
   }));
   return _getAll.apply(this, arguments);
 }

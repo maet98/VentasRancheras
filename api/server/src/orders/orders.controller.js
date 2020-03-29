@@ -33,6 +33,18 @@ export async function createOrder(req, res){
     })
 }
 
+export async function getOrdersByClientId(req,res){
+    const id = req.params.CustomerId;
+    const qbo = await QBO.getQbo();
+    qbo.findEstimates({CustomerRef: id},
+        (err,customers)=>{
+            if(err){
+                return res.status(400).json(err);
+            }
+            res.json(customers);
+        });
+}
+
 export async function getAvailableOrders(req,res){
     const qbo = await QBO.getQbo();
     qbo.findEstimates({fetchAll: true},(err,estimate) =>{

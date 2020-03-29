@@ -1,7 +1,7 @@
 const QBO = require("../../ERP/index");
 import {employee} from "../models/employee";
 import config from "config";
-import bcrypt, { compareSync } from "bcrypt";
+import bcrypt from "bcrypt";
 import { employeeCustomer } from "../models/employee-customer";
 import jwt from "jsonwebtoken";
 
@@ -17,18 +17,24 @@ export async function getAll(req, res) {
     });
 }
 
-export async function filterName(req, res){
-    const qbo = await QBO.getQbo();
-    var name = req.params.name;
-    name = '%'+name+'%';
-    qbo.findEmployees([
-    {field:'fetchAll',value: true},
-    {field:'DisplayName',value:name,operator:'LIKE'}
-    ],(err,employees) =>{
-        if(err){
-            return res.status(400).json(err);
+export async function getById(req, res){
+    console.log(req.params.Id);
+    employee.findAll({
+        where:{
+            employeeId: req.params.Id
+        },
+        limit: 1
+    })
+    .then(ans =>{
+        if(ans.length === 0){
+            res.json({"msg": "There is not Employee with that id: "+req.params.Id})
         }
-        res.json(employees.QueryResponse);
+        else{
+            res.json(ans[0]);
+        }
+    })
+    .catch(err =>{
+        res.status(400).json(err);
     })
 }
 
