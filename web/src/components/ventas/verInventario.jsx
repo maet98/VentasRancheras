@@ -3,53 +3,26 @@ import inventarioImg from "../../images/inventario2.svg";
 import productoImg from "../../images/producto.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
+import axios from "axios"
 import { Card, ButtonGroup, ToggleButton, Col, Row } from 'react-bootstrap';
 
 export class verInventario extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            vals: [
-                {
-                    title: 'Carta 1',
-                    text: 'Dynamically Loaded'    
-                },
-                {
-                    title: 'Carta 2',
-                    text: 'Dynamically Loaded'
-                },
-                {
-                    title: 'Carta 3',
-                    text: 'Dynamically Loaded'
-                },
-                {
-                    title: 'Carta 4',
-                    text: 'Dynamically Loaded'
-                },
-                 {
-                    title: 'Carta 5',
-                    text: 'Dynamically Loaded'    
-                },
-                {
-                    title: 'Carta 6',
-                    text: 'Dynamically Loaded'
-                },
-                {
-                    title: 'Carta 7',
-                    text: 'Dynamically Loaded'
-                },
-                {
-                    title: 'Carta 8',
-                    text: 'Dynamically Loaded'
-                }
-            ]
+            vals: []
         }
     }
 
+    componentDidMount(){
+        console.log("Executing Request...")
+        axios.get('http://152.0.255.93:3000/product/').then(res => {
+            this.setState({vals: res.data.Item})
+        })
+    }
 
     render() {
         let vals = this.state.vals
-        let count = 0
         return (
 
             <div className="base-container" ref={this.props.containerRef}>
@@ -73,9 +46,9 @@ export class verInventario extends React.Component {
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={productoImg} />
                             <Card.Body className="form">
-                                <Card.Title>{val.title}</Card.Title>
+                                <Card.Title>{val.Name}</Card.Title>
                                 <Card.Text>
-                                   {val.text}
+                                   {val.Description}
                                 </Card.Text>
                                 <ButtonGroup toggle className="mb-2">
                                     <ToggleButton type="checkbox" defaultChecked value="1">
