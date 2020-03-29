@@ -17,6 +17,21 @@ export async function getAll(req, res) {
     });
 }
 
+export async function filterName(req,res){
+    const qbo = await QBO.getQbo();
+    var name = req.params.name;
+    name = '%'+name+'%';
+    qbo.findEmployees([
+    {field:'fetchAll',value: true},
+    {field:'DisplayName',value:name,operator:'LIKE'}
+    ],(err,employees) =>{
+        if(err){
+            return res.status(400).json(err);
+        }
+        res.json(employees.QueryResponse);
+    })
+}
+
 export async function getById(req, res){
     console.log(req.params.Id);
     employee.findAll({
