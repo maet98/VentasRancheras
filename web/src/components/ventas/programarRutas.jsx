@@ -7,9 +7,12 @@ import axios from "axios"
 export class ProgramarRutas extends React.Component {
   constructor(props) {
     super(props);
+    this.onChangeName = this.onChangeName.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.state = {
-      name: ''
+      name: '',
+      id: '',
+      type: ''
     }
   }
 
@@ -17,12 +20,43 @@ export class ProgramarRutas extends React.Component {
   this.setState({
     name: e.target.value
   })
+  
   }
 
-handleClick() {
-  const user = this.state.name
+handleClick(e) {
+  e.preventDefault()
 
-  
+  const name = this.state.name
+  console.log("Executing Request....")
+  axios.get("http://152.0.255.93:3000/employee/name/" + name)
+  .then(
+    res => {
+      axios.get("http://152.0.255.93:3000/employee/" + res.data.Employee[0].Id)
+  .then(
+    res => {
+      if(res.data.type == "Repartidor"){
+         window.location = '/verOrdenes/' + name
+       }
+       else if(res.data.type == "Vendedor") {
+         window.location = '/verClientes/' + name
+       }
+    }
+  )
+    }
+  )
+
+/*
+  axios.get("http://152.0.255.93:3000/employee/"+ id)
+  .then(
+    res => {
+     console.log(res)
+    }
+  )
+*/
+
+
+
+
 }
 
 

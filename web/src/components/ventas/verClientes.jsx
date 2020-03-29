@@ -18,7 +18,7 @@ export class verClientes extends React.Component {
                 <div>
                     <NavBar />
                 </div>
-                <div className="header">Ver Clientes</div>
+                <div className="header">Ver Clientes Asignados al Empleado: {this.props.match.params.id}</div>
                 <div className="content">
                     <div className="image">
                         <img className="centrado" src={ordenImg} />

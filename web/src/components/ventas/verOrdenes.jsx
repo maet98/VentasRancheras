@@ -3,11 +3,12 @@ import rutasImg from "../../images/ruta.svg";
 import paqueteImg from "../../images/paquete.svg";
 import NavBar from "./NavBar";
 import "../login/style.scss"
-import { Card,ListGroup,ListGroupItem, Col, Row, Button } from 'react-bootstrap';
+import { Card,ListGroup,ListGroupItem, Col, Row, Button, Nav } from 'react-bootstrap';
 
 export class verRutas extends React.Component {
     constructor(props) {
         super(props);
+        this.return = this.return.bind(this)
         this.handleClick = this.handleClick.bind(this)
 this.state = {
     vals:['Dynamically','Loading','From Array 1'],
@@ -17,6 +18,10 @@ this.state = {
  
 }
 
+    return(e) {
+        e.preventDefault()
+        window.location ='/menu'
+    }
    handleClick(e) {
     e.preventDefault()   
     console.log('test')
@@ -29,9 +34,9 @@ this.state = {
 
             <div className="base-container" ref={this.props.containerRef}>
                 <div>
-                    <NavBar />
+                   <NavBar />
                 </div>
-                <div className="header">Ver Rutas</div>
+        <div className="header">Asignar Ordenes al cliente: {this.props.match.params.id}</div>
                 <div className="content">
                     <div className="image">
                         <img className="centrado" src={rutasImg} />

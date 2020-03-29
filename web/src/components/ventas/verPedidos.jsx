@@ -6,8 +6,23 @@ import "../login/style.scss"
 export class VerPedido extends React.Component {
   constructor(props) {
     super(props);
+
+    this.onChangeName = this.onChangeName.bind(this)
+    
+    this.state = {
+      name: ''
+    }
   }
 
+onChangeName(e) {
+  this.setState({
+    name: e.target.value
+  })
+}
+
+onSubmit(e) {
+  window.location = '/pedidos'
+}
 
   render() {
     return (
@@ -24,15 +39,15 @@ export class VerPedido extends React.Component {
           <div className="form">
             <div className="form-group">
               <label htmlFor="cliente">Cliente</label>
-              <input type="text" name="cliente" placeholder="cliente" />
+              <input type="text" 
+              name="cliente" 
+              placeholder="cliente"
+              value={this.state.name}
+              onChange={this.onChangeName} 
+              />
             </div>
-
             <div className="form-group">
-              <label htmlFor="numero">Numero de Orden</label>
-              <input type="number" name="numero" placeholder="Numero de Orden" />
-            </div>
-            <div className="form-group">
-              <button type="button" className="btn">
+              <button type="submit" className="btn" onClick={this.onSubmit}>
                 Confirmar
               </button>
             </div>

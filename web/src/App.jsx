@@ -12,6 +12,7 @@ import editarInventario from "./components/ventas/editarInventario"
 import verInventario from "./components/ventas/verInventario"
 import verOrdenes from "./components/ventas/verOrdenes"
 import verClientes from "./components/ventas/verClientes"
+import ListarPedidos from "./components/ventas/ListarPedidos"
 
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
       <Route path ="/verPedidos" component =  {verPedidos} />
       <Route path ="/editarInventario" component =  {editarInventario} />
       <Route path ="/verInventario" component =  {verInventario} />
-      <Route path ="/verOrdenes" component =  {verOrdenes} />
-      <Route path ="/verClientes" component =  {verClientes} />
+      <Route path ="/verOrdenes/:id" component =  {verOrdenes} />
+      <Route path ="/verClientes/:id" component =  {verClientes} />
+      <Route path ="/pedidos" component = {ListarPedidos} />
       
     </Router>
   );
