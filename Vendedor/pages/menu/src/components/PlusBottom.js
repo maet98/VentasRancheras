@@ -14,12 +14,15 @@ class PlusBottom extends PureComponent {
 
 const styles = StyleSheet.create({
 	container: {
+		//flex: 1,
 		backgroundColor: "rgba(0,0,0,1)",
 		alignItems: "center",
+		//	position: "absolute",
 		justifyContent: "center",
 		elevation: 2,
 		minWidth: 40,
 		minHeight: 40,
+		width: 85,
 		borderRadius: 28,
 		shadowOffset: {
 			height: 2,

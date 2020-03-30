@@ -11,53 +11,85 @@ import {
 	Platform
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { SearchBar } from "react-native-elements";
+import { SearchBar, ListItem } from "react-native-elements";
 import listItem from "../../../../data/OrdenJson";
 //console.log("ListItem : ",{this.state.dataSource});
 import ViewCard from "../components/ViewCard";
 import FooterCard from "../components/FooterCard";
 import PlusBottom from "../components/PlusBottom";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { connect } from "react-redux";
+import { getAllProduct } from "../../../../redux/actions/product";
 
-export default class Menu extends React.Component {
+class Menu extends React.Component {
 	constructor(props) {
 		super(props);
 		//setting default state
-		this.state = { isLoading: true, search: "" };
+		this.state = {
+			isLoading: true,
+			search: "",
+			viewFlat: true,
+			saveOldArray: true,
+			setIt: true,
+			dataSource: this.props.listProduct
+		};
 		this.arrayholder = [];
+		//this.handleButtonChange = this.handleButtonChange.bind(this);
+
+		//this.getAllProduct.bind(this);
 	}
-	componentDidMount() {
-		console.log("ListItem : ", listItem);
-		return fetch("https://jsonplaceholder.typicode.com/posts")
-			.then(response => response.json())
-			.then(responseJson => {
-				this.setState(
-					{
-						isLoading: false,
-						dataSource: listItem
-					},
-					function() {
-						this.arrayholder = listItem;
-					}
-				);
-			})
-			.catch(error => {
-				console.error(error);
-			});
+
+	handleButtonChange(value) {
+		this.setState({
+			dataSource: value,
+			setIt: false
+		});
+		this.arrayholder = value;
+		//console.log("SetIT : ", this.state.s);
 	}
+	async componentDidMount() {
+		this.arrayholder = await this.props.dispatch(getAllProduct());
+	}
+
+	onPressSignIN = () => {
+		this.props.navigation.navigate("Login");
+	};
+
+	addNewOrden = () => {
+		this.props.navigation.navigate("NewOrden");
+	};
+
+	renderFlatList = Item => {
+		this.props.navigation.navigate("OneProduct");
+	};
 
 	onChangeListItem = status => {
-		//const status = "2";
-		if (status > 0) {
-			//listItem: this.state.listItem.filter(item => item.status === status),
-			this.arrayholder = listItem.filter(item => item.status === status);
-			this.setState({
-				//setting the filtered newData on datasource
-				//After setting the data it will automatically re-render the view
-				dataSource: this.arrayholder
-			});
-
-			console.log("Array Holder : ", this.arrayholder);
-		}
+		this.setState({
+			viewFlat: false
+		});
+		// const { dataSource } = this.state;
+		// console.log("DataSourece : ", status);
+		// if (saveOldArray) {
+		// 	this.setState({
+		// 		//setting the filtered newData on datasource
+		// 		//After setting the data it will automatically re-render the view
+		// 		dataSource: this.arrayholder,
+		// 		saveOldArray: false
+		// 	});
+		// }
+		// //const status = "2";
+		// if (status > 0) {
+		// 	//listItem: this.state.listItem.filter(item => item.status === status),
+		// 	this.arrayholder = this.state.dataSource.filter(item => item.status === status);
+		// 	// this.setState({
+		// 	// 	//setting the filtered newData on datasource
+		// 	// 	//After setting the data it will automatically re-render the view
+		// 	// 	dataSource: this.arrayholder
+		// 	// });
+		// 	//console.log("Array Holder : ", this.arrayholder);
+		// } else {
+		// 	this.arrayholder = dataSource;
+		//}
 	};
 
 	_onPressPay = () => {
@@ -76,20 +108,34 @@ export default class Menu extends React.Component {
 	};
 
 	SearchFilterFunction(text) {
+		const { saveOldArray } = this.state;
+		//this.setState({ dataSource: this.arrayholder });
 		//passing the inserted text in textinput
 		const newData = this.arrayholder.filter(function(item) {
 			//applying filter for the inserted text in search bar
-			const itemData = item.title ? item.title.toUpperCase() : "".toUpperCase();
+			const itemData = item.Description ? item.Description.toUpperCase() : "".toUpperCase();
 			const textData = text.toUpperCase();
 			return itemData.indexOf(textData) > -1;
 		});
 
+		if (saveOldArray) {
+			this.setState({
+				//setting the filtered newData on datasource
+				//After setting the data it will automatically re-render the view
+				dataSource: this.arrayholder,
+				saveOldArray: false
+			});
+		}
+
 		this.setState({
-			//setting the filtered newData on datasource
-			//After setting the data it will automatically re-render the view
-			dataSource: newData,
 			search: text
 		});
+		console.log("this.state.text : ", text);
+		if (newData.length > 0) {
+			this.arrayholder = newData;
+		} else {
+			this.arrayholder = this.state.dataSource;
+		}
 	}
 
 	ListViewItemSeparator = () => {
@@ -105,61 +151,139 @@ export default class Menu extends React.Component {
 		);
 	};
 
+	componentDidUpdate() {
+		const { listProduct } = this.props;
+		const { setIt } = this.state;
+		//console.log("Data Before : ", dataSource);
+		//console.log("setIt Before: ", setIt);
+		// if (setIt === true) {
+		// 	console.log("setIt Before: ", setIt);
+		// 	console.log("listProduct ID : ", listProduct.ID);
+		if (typeof this.arrayholder === "undefined" && listProduct.ID != "undefined" && setIt === true) {
+			// 		//console.log('Variable "listProduct" is undefined.');
+			this.handleButtonChange(this.props.listProduct);
+			// 		console.log("Data Now : ", dataSource);
+			// 		//console.log("this.props.listProduct : ", this.props.listProduct);
+		}
+		// }
+		// console.log("setIt After-------: ", setIt);
+		//this.props.dispatch(getAllProduct());
+		//const listClient = this.props.listProduct;
+		//this.arrayholder = this.props.listProduct;
+		//console.log("this.arrayholder.token : ", this.arrayholder);
+	}
+
 	render() {
-		return (
-			//ListView to show with textinput used as search bar
-			// <ScrollView keyboardShouldPersistTaps="handled">
-			<View style={styles.viewStyle}>
-				<SearchBar
-					round
-					searchIcon={{ size: 24 }}
-					onChangeText={text => this.SearchFilterFunction(text)}
-					onClear={text => this.SearchFilterFunction("")}
-					placeholder="Type Here..."
-					value={this.state.search}
-				/>
-				{/* <ViewCard /> */}
-				<FlatList
-					data={this.state.dataSource}
-					ItemSeparatorComponent={this.ListViewItemSeparator}
-					//Item Separator View
-					renderItem={({ item }) => (
-						// Single Comes here which will be repeatative for the FlatListItems
-						<TouchableHighlight onPress={() => this._onPress(item)}>
-							<ViewCard Item={item} />
-						</TouchableHighlight>
-					)}
-					enableEmptySections={true}
-					style={{ marginTop: 10 }}
-					keyExtractor={(item, index) => index.toString()}
-				/>
-				<PlusBottom />
-				{/* <FooterCard /> */}
-				<View style={[styles.container]}>
-					<TouchableOpacity onPress={() => this.onChangeListItem("0")} style={styles.btnWrapper1}>
-						<MaterialCommunityIconsIcon name="view-list" style={styles.icon1}></MaterialCommunityIconsIcon>
-						<Text style={styles.btn1Text}>View Ordes</Text>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => this.onChangeListItem("1")} style={styles.activebtnWrapper}>
-						<MaterialCommunityIconsIcon name="check-all" style={styles.activeIcon}></MaterialCommunityIconsIcon>
-						<Text style={styles.activeText}>Checking</Text>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => this.onChangeListItem("2")} style={styles.btnWrapper2}>
-						<MaterialCommunityIconsIcon name="package-variant-closed" style={styles.icon2}></MaterialCommunityIconsIcon>
-						<Text style={styles.btn2Text}>On wait</Text>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => this.onChangeListItem("3")} style={styles.btnWrapper3}>
-						<MaterialCommunityIconsIcon name="square-inc-cash" style={styles.icon3}></MaterialCommunityIconsIcon>
-						<Text style={styles.btn3Text}>Pay</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.button}>
-						<MaterialCommunityIconsIcon name="xamarin-outline" style={styles.icon4}></MaterialCommunityIconsIcon>
-						<Text style={styles.pay}>close</Text>
-					</TouchableOpacity>
+		if (this.state.viewFlat) {
+			return (
+				//ListView to show with textinput used as search bar
+				// <ScrollView keyboardShouldPersistTaps="handled">
+				<View style={styles.viewStyle}>
+					<SearchBar
+						round
+						searchIcon={{ size: 24 }}
+						onChangeText={text => this.SearchFilterFunction(text)}
+						onClear={text => this.SearchFilterFunction("")}
+						placeholder="Type Here..."
+						value={this.state.search}
+					/>
+					{/* <ViewCard /> */}
+
+					<FlatList
+						data={this.arrayholder}
+						ItemSeparatorComponent={this.ListViewItemSeparator}
+						//Item Separator View
+						renderItem={({ item }) => (
+							// Single Comes here which will be repeatative for the FlatListItems
+							<TouchableHighlight onPress={() => this._onPress(item)}>
+								<ViewCard Item={item} />
+							</TouchableHighlight>
+						)}
+						enableEmptySections={true}
+						style={{ marginTop: 10 }}
+						keyExtractor={(item, index) => index.toString()}
+					/>
+					<View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: "40px" }}>
+						{/* <PlusBottom onPress={this.addNewOrden} /> */}
+						<TouchableOpacity onPress={this.addNewOrden} style={[stylesBtnPlus.container]}>
+							<Icon name="plus" style={stylesBtnPlus.icon}></Icon>
+						</TouchableOpacity>
+					</View>
+					{/* <FooterCard /> */}
+					<View style={[styles.container]}>
+						<TouchableOpacity onPress={() => this.onChangeListItem("0")} style={styles.btnWrapper1}>
+							<MaterialCommunityIconsIcon name="view-list" style={styles.icon1}></MaterialCommunityIconsIcon>
+							<Text style={styles.btn1Text}>View Ordes</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.onChangeListItem("1")} style={styles.activebtnWrapper}>
+							<MaterialCommunityIconsIcon name="check-all" style={styles.activeIcon}></MaterialCommunityIconsIcon>
+							<Text style={styles.activeText}>Checking</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.onChangeListItem("2")} style={styles.btnWrapper2}>
+							<MaterialCommunityIconsIcon
+								name="package-variant-closed"
+								style={styles.icon2}
+							></MaterialCommunityIconsIcon>
+							<Text style={styles.btn2Text}>On wait</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.onChangeListItem("3")} style={styles.btnWrapper3}>
+							<MaterialCommunityIconsIcon name="square-inc-cash" style={styles.icon3}></MaterialCommunityIconsIcon>
+							<Text style={styles.btn3Text}>Pay</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={this.onPressSignIN} style={styles.button}>
+							<MaterialCommunityIconsIcon name="xamarin-outline" style={styles.icon4}></MaterialCommunityIconsIcon>
+							<Text style={styles.pay}>close</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
-			// </ScrollView>
-		);
+				// </ScrollView>
+			);
+		} else {
+			return (
+				<View style={styles.viewStyle}>
+					<SearchBar
+						round
+						searchIcon={{ size: 24 }}
+						onChangeText={text => this.SearchFilterFunction(text)}
+						onClear={text => this.SearchFilterFunction("")}
+						placeholder="Type Here..."
+						value={this.state.search}
+					/>
+					<View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: "40px" }}>
+						{/* <PlusBottom onPress={this.addNewOrden} /> */}
+						<TouchableOpacity onPress={this.addNewOrden} style={[stylesBtnPlus.container]}>
+							<Icon name="plus" style={stylesBtnPlus.icon}></Icon>
+						</TouchableOpacity>
+					</View>
+					{/* <FooterCard /> */}
+					<View style={[styles.container]}>
+						<TouchableOpacity onPress={() => this.onChangeListItem("0")} style={styles.btnWrapper1}>
+							<MaterialCommunityIconsIcon name="view-list" style={styles.icon1}></MaterialCommunityIconsIcon>
+							<Text style={styles.btn1Text}>View Ordes</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.onChangeListItem("1")} style={styles.activebtnWrapper}>
+							<MaterialCommunityIconsIcon name="check-all" style={styles.activeIcon}></MaterialCommunityIconsIcon>
+							<Text style={styles.activeText}>Checking</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.onChangeListItem("2")} style={styles.btnWrapper2}>
+							<MaterialCommunityIconsIcon
+								name="package-variant-closed"
+								style={styles.icon2}
+							></MaterialCommunityIconsIcon>
+							<Text style={styles.btn2Text}>On wait</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.onChangeListItem("3")} style={styles.btnWrapper3}>
+							<MaterialCommunityIconsIcon name="square-inc-cash" style={styles.icon3}></MaterialCommunityIconsIcon>
+							<Text style={styles.btn3Text}>Pay</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={this.onPressSignIN} style={styles.button}>
+							<MaterialCommunityIconsIcon name="xamarin-outline" style={styles.icon4}></MaterialCommunityIconsIcon>
+							<Text style={styles.pay}>close</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			);
+		}
 	}
 }
 
@@ -289,3 +413,40 @@ const styles = StyleSheet.create({
 		fontFamily: "roboto-regular"
 	}
 });
+
+const stylesBtnPlus = StyleSheet.create({
+	container: {
+		//flex: 1,
+		backgroundColor: "rgba(0,0,0,1)",
+		alignItems: "center",
+		//	position: "absolute",
+		justifyContent: "center",
+		elevation: 2,
+		minWidth: 40,
+		minHeight: 40,
+		width: 85,
+		borderRadius: 28,
+		shadowOffset: {
+			height: 2,
+			width: 0
+		},
+		shadowColor: "#111",
+		shadowOpacity: 0.2,
+		shadowRadius: 1.2
+	},
+	icon: {
+		color: "#fff",
+		fontFamily: "Roboto",
+		fontSize: 24,
+		alignSelf: "center"
+	}
+});
+
+const mapStateToProps = state => {
+	//console.log("State In Menu Page :", state);
+	return {
+		listProduct: state.listProduct
+	};
+};
+
+export default connect(mapStateToProps)(Menu);

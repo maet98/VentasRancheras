@@ -3,18 +3,20 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { getOneProduct } from "../../../../redux/actions/product";
 //console.log("ListItem : ",{this.state.dataSource});
-class ViewCard extends PureComponent {
+class OneProduct extends PureComponent {
 	constructor(props) {
 		super(props);
-		//this.getOneProduct.bind(this);
 	}
 	clickView = async Item => {
-		//console.log("View!: ", Item);
-		//await this.props.dispatch(getOneProduct("Sprinkler Pipes"));
-		this.props.navigation.navigate("OneProduct");
 		// here place your signup logic
-		//console.log("View!: ", Item.item);
+		console.log("View!: ", Item.item);
+		console.log("View!: ", Item.item);
 	};
+
+	async componentDidMount() {
+		await this.props.dispatch(getOneProduct("Gardening"));
+		//await this.getOneProduct("Gardening");
+	}
 
 	clickPaying = async () => {
 		// here place your signup logic
@@ -27,10 +29,10 @@ class ViewCard extends PureComponent {
 			<View style={[styles.container]}>
 				<View style={styles.cardBody}>
 					<View style={styles.bodyContent}>
-						<Text style={styles.titleStyle}>Title: {this.props.Item.Description}</Text>
+						<Text style={styles.titleStyle}>Title: </Text>
 						{/* <Text style={styles.subtitleStyle}>Address: {this.props.Item.address}</Text> */}
-						<Text style={styles.subtitleStyle}>Name: {this.props.Item.Name}</Text>
-						<Text style={styles.subtitleStyle}>Total : {this.props.Item.UnitPrice}</Text>
+						<Text style={styles.subtitleStyle}>Name: </Text>
+						<Text style={styles.subtitleStyle}>Total : </Text>
 					</View>
 					<Image
 						style={styles.cardItemImagePlace}
@@ -43,7 +45,7 @@ class ViewCard extends PureComponent {
 					{/* <Image source={require("../assets/images/cardImage4.png")} style={styles.cardItemImagePlace}></Image> */}
 				</View>
 				<View style={styles.actionBody}>
-					<TouchableOpacity onPress={e => this.clickView(`${this.props.Item}`)} style={styles.actionButton1}>
+					<TouchableOpacity onPress={e => this.clickView(`${this._Items}`)} style={styles.actionButton1}>
 						<Text style={styles.actionText1}>View</Text>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={this.clickPaying} style={styles.actionButton2}>
@@ -58,11 +60,11 @@ class ViewCard extends PureComponent {
 const mapStateToProps = state => {
 	//console.log("State In Menu Page :", state);
 	return {
-		listProduct: state.listProduct
+		selectedProduct: state.selectedProduct
 	};
 };
 
-export default connect(mapStateToProps)(ViewCard);
+export default connect(mapStateToProps)(OneProduct);
 
 const styles = StyleSheet.create({
 	container: {

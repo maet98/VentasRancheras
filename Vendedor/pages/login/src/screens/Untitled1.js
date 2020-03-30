@@ -91,6 +91,7 @@ import {
 	StyleSheet,
 	KeyboardAvoidingView,
 	View,
+	Text,
 	ActivityIndicator,
 	TextInput,
 	Button,
@@ -98,40 +99,131 @@ import {
 	Image
 } from "react-native";
 
-export default class Untitled1 extends Component {
-	login = async () => {
-		//const { username, password } = this.state;
-		try {
-			// here place your signup logic
-			console.log("user successfully login !: ");
-			this.props.navigation.navigate("NewMenu");
-		} catch (err) {
-			console.log("error login : ", err);
-		}
+//import { selectSong, fetchClient } from "../../../../redux/actions";
+import { login } from "../../../../redux/actions/user";
+//import { loginUser } from "../../../../redux/actions/user";
+import { connect } from "react-redux";
+
+class Untitled1 extends Component {
+	// state = { email: "", password: "" };
+
+	// _login = async () => {
+	// 	const { email, password } = this.state;
+	// 	console.log("Main Login email : ", email);
+	// 	console.log("Main Login password : ", password);
+	// 	try {
+	// 		// here place your signup logic
+	// 		console.log("user successfully login !: ");
+	// 		//this.props.navigation.navigate("NewMenu");
+	// 	} catch (err) {
+	// 		console.log("error login : ", err);
+	// 	}
+	// };
+	constructor(props) {
+		super(props);
+		//this.props.fetchClient.bind(this);
+
+		this.state = {
+			email: "",
+			password: "",
+			list: [],
+			isLoged: false
+		};
+	}
+	handleEmail = text => {
+		this.setState({ email: text });
 	};
-	onChangeText = (key, val) => {
-		this.setState({ [key]: val });
+	handlePassword = text => {
+		this.setState({ password: text });
+	};
+	_login = async (email, password) => {
+		//this.props.selectSong("SONG_SELECTED");
+
+		await this.props.dispatch(login(email, password));
+		//	var value = this.props.fetchClient("FETCH_CLIENT");
+		//this.setState({ list: value });
+		//alert("email: " + email + " password: " + pass);
+		//console.log("UserLogin : ", this.props);
 	};
 
+	// handleSignIn = async () => {
+	//   const { email, password } = this.state;
+	//   await this.props.dispatch(login(email, password));
+	// };
+
+	componentDidMount() {
+		// const list = this.props.fetchClient("FETCH_CLIENT");
+		// console.log("list : ", list);
+		// const { email, password } = this.state;
+		// console.log("email : ", email);
+		// console.log("password : ", password);
+		//this.props.loginUser(email, password);
+	}
+
+	componentDidUpdate() {
+		const listClient = this.props.user;
+
+		if (listClient.token != null) {
+			//	console.log("listClient.token : ", listClient.token);
+			this.props.navigation.navigate("NewMenu");
+		} else {
+			//console.log("listClient : ", listClient.token);
+		}
+	}
+	// onChangeText = (key, val) => {
+	// 	this.setState({ [key]: val });
+	// };
+	// onChange = text => {
+	// 	this.setState({ code: text });
+	// };
 	render() {
+		// console.log("List : ", this.props.state.listClient);
+
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<TextInput
 					style={styles.input}
-					placeholder="Username"
+					// placeholder="Email"
 					autoCapitalize="none"
-					placeholderTextColor="white"
-					onChangeText={val => this.onChangeText("username", val)}
+					// 	placeholderTextColor="white"
+					// 	// onChangeText={val => this.onChangeText("username", val)}
+					// 	placeholder="Email"
+					// 	//type="text"
+					// 	value={this.state.email}
+					// 	onChange={e => {
+					// 		this.setState({ email: e.target.value });
+					// 	}}
+					// />
+					placeholder="Email"
+					//placeholderTextColor = "#9a73ef"
+					autoCapitalize="none"
+					onChangeText={this.handleEmail}
 				/>
 				<TextInput
 					style={styles.input}
-					placeholder="Password"
+					// placeholder="Password"
 					secureTextEntry={true}
 					autoCapitalize="none"
-					placeholderTextColor="white"
-					onChangeText={val => this.onChangeText("password", val)}
+					// 	// placeholderTextColor="white"
+					// 	// onChangeText={val => this.onChangeText("password", val)}
+					// 	placeholder="Password"
+					// 	//type="text"
+					// 	value={this.state.password}
+					// 	onChange={e => {
+					// 		this.setState({ password: e.target.value });
+					// 	}}
+					// />
+					placeholder="Password"
+					//placeholderTextColor="#9a73ef"
+					//autoCapitalize="none"
+					onChangeText={this.handlePassword}
 				/>
-				<Button title="Login" onPress={this.login} />
+				<Button title="Login" onPress={() => this._login(this.state.email, this.state.password)}>
+					LOGIN
+				</Button>
+				{/* <TouchableOpacity onPress={() => this._login(this.state.email, this.state.password)}>
+					<Text> Login </Text>
+				</TouchableOpacity> */}
 			</KeyboardAvoidingView>
 		);
 	}
@@ -166,3 +258,14 @@ const styles = StyleSheet.create({
 		tintColor: "rgba(0,0,0,0.2)"
 	}
 });
+
+const mapStateToProps = state => {
+	//console.log("State In Login Page :", state);
+	const listProduct = state.listProduct;
+	return {
+		user: state.userLogin,
+		listProduct: listProduct
+	};
+};
+
+export default connect(mapStateToProps)(Untitled1);

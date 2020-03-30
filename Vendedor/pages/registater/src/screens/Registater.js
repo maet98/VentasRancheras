@@ -124,13 +124,35 @@ export default class Registater extends PureComponent {
 		username: "",
 		password: "",
 		email: "",
-		phone_number: ""
+		type: "",
+		firstName: "",
+		lastName: ""
 	};
 	onChangeText = (key, val) => {
 		this.setState({ [key]: val });
 	};
-	signUp = async () => {
-		const { username, password, email, phone_number } = this.state;
+
+	handleEmail = text => {
+		this.setState({ email: text });
+	};
+	handlePassword = text => {
+		this.setState({ password: text });
+	};
+
+	handleFirstName = text => {
+		this.setState({ firstName: text });
+	};
+	handleLastName = text => {
+		this.setState({ lastName: text });
+	};
+	handleType = text => {
+		this.setState({ type: text });
+	};
+	handleUserName = text => {
+		this.setState({ username: text });
+	};
+	signUp = async (email, password, type, firstName, lastName, username) => {
+		//const { username, password, email, firstName, type, lastName } = this.state;
 		try {
 			// here place your signup logic
 			console.log("user successfully signed up!: ");
@@ -145,10 +167,25 @@ export default class Registater extends PureComponent {
 			<View style={styles.container}>
 				<TextInput
 					style={styles.input}
+					placeholder="Last Name"
+					autoCapitalize="none"
+					placeholderTextColor="white"
+					onChangeText={this.handleLastName}
+				/>
+
+				<TextInput
+					style={styles.input}
+					placeholder="First Name"
+					autoCapitalize="none"
+					placeholderTextColor="white"
+					oonChangeText={this.handleFirstName}
+				/>
+				<TextInput
+					style={styles.input}
 					placeholder="Username"
 					autoCapitalize="none"
 					placeholderTextColor="white"
-					onChangeText={val => this.onChangeText("username", val)}
+					onChangeText={this.handleUserName}
 				/>
 				<TextInput
 					style={styles.input}
@@ -156,23 +193,38 @@ export default class Registater extends PureComponent {
 					secureTextEntry={true}
 					autoCapitalize="none"
 					placeholderTextColor="white"
-					onChangeText={val => this.onChangeText("password", val)}
+					onChangeText={this.handlePassword}
 				/>
 				<TextInput
 					style={styles.input}
 					placeholder="Email"
 					autoCapitalize="none"
 					placeholderTextColor="white"
-					onChangeText={val => this.onChangeText("email", val)}
+					onChangeText={this.handleEmail}
 				/>
 				<TextInput
 					style={styles.input}
-					placeholder="Phone Number"
+					placeholder="Type"
 					autoCapitalize="none"
 					placeholderTextColor="white"
-					onChangeText={val => this.onChangeText("phone_number", val)}
+					onChangeText={this.handleType}
 				/>
-				<Button title="Sign Up" onPress={this.signUp} />
+
+				<Button
+					title="Sign UP"
+					onPress={() =>
+						this.signUp(
+							this.state.email,
+							this.state.password,
+							this.state.type,
+							this.state.firstName,
+							this.state.lastName,
+							this.state.username
+						)
+					}
+				>
+					LOGIN
+				</Button>
 			</View>
 		);
 	}

@@ -1,1 +1,0 @@
-export { default as Untitled1 } from "./src/screens/Untitled1.js";
