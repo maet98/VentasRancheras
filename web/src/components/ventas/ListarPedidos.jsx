@@ -42,7 +42,7 @@ export class ListarPedidos extends React.Component {
         <div className="header">Ordenes Realizadas por {this.props.match.params.id}</div>
                 <div className="content">
                     <div className="image">
-                        <img className="centrado" src={pedidosImg} />
+                        <img className="centrado" src={pedidosImg} alt="desc" />
                     </div>
                 </div>
                 <Table responsive= "sm" bordered hover>

@@ -34,10 +34,10 @@ handleClick(e) {
       axios.get("http://152.0.255.93:3000/employee/" + res.data.Employee[0].Id)
   .then(
     res => {
-      if(res.data.type == "Repartidor"){
+      if(res.data.type === "Repartidor"){
          window.location = '/verOrdenes/' + name
        }
-       else if(res.data.type == "Vendedor") {
+       else if(res.data.type === "Vendedor") {
          window.location = '/verClientes/' + name
        }
     }
@@ -58,7 +58,7 @@ handleClick(e) {
         <div className="header">Programar Rutas</div>
         <div className="content">
           <div className="image">
-            <img className="centrado" src={rutasImg} />
+            <img className="centrado" src={rutasImg} alt="desc" />
           </div>
           <div className="form">
             <div className="form-group">

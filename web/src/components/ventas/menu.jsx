@@ -5,9 +5,7 @@ import { Carousel } from 'react-bootstrap';
 import "../login/style.scss"
 
 export class Menu extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
 
@@ -19,21 +17,21 @@ export class Menu extends React.Component {
                 <div className="imageCar">
                     <Carousel className="Letra">
                         <Carousel.Item>
-                            <img src={logoImg} />
+                            <img src={logoImg} alt="desc" />
                             <Carousel.Caption>
                                 <h3>Ventas Rancheras</h3>
                                 <p className="Space">Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <img src={logoImg} />
+                            <img src={logoImg} alt="desc" />
                             <Carousel.Caption>
                                 <h3>Ventas Rancheras</h3>
                                 <p className="Space">Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <img src={logoImg} />
+                            <img src={logoImg} alt="desc" />
                             <Carousel.Caption>
                                 <h3>Ventas Rancheras</h3>
                                 <p className="Space">Todo a tu alcance. Lo que quieras comprar, te lo llevamos.</p>

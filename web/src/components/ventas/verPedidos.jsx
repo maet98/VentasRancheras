@@ -2,31 +2,47 @@ import React from "react";
 import pedidoImg from "../../images/pedido.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
+import axios from "axios"
 
 export class VerPedido extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onChangeName = this.onChangeName.bind(this)
+    this.getSelectValue = this.getSelectValue.bind(this)
+    this.onChangeSelectedName = this.onChangeSelectedName.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     
     this.state = {
-      name: ''
+      names: [],
+      selectedName: ''
     }
   }
 
-onChangeName(e) {
+componentDidMount() {
+axios.get('http://152.0.255.93:3000/client/').then(res => {
   this.setState({
-    name: e.target.value
+    names: res.data
   })
+}
+)
+}
+
+onChangeSelectedName(e) {
+  this.setState({
+    selectedName: e.target.value
+  })
+}
+getSelectValue(name) {
+  return toString(name);
 }
 
 onSubmit(e) {
   e.preventDefault()
-  window.location = '/pedidos/' + this.state.name
+  window.location = '/pedidos/' + this.state.selectedName
 }
 
   render() {
+    let names = this.state.names
     return (
 
       <div className="base-container" ref={this.props.containerRef}>
@@ -36,17 +52,28 @@ onSubmit(e) {
         <div className="header">Ver Pedidos</div>
         <div className="content">
           <div className="image">
-            <img className="centrado" src={pedidoImg} />
+            <img className="centrado" src={pedidoImg} alt="desc" />
           </div>
           <div className="form">
             <div className="form-group">
-              <label htmlFor="cliente">Cliente</label>
-              <input type="text" 
-              name="cliente" 
-              placeholder="cliente"
-              value={this.state.name}
-              onChange={this.onChangeName} 
-              />
+            <label htmlFor="inputName">Cliente</label>
+                <select type="text" 
+                id="inputName" 
+                className="form-control"
+                value = {this.state.selectedName}
+                onChange = {this.onChangeSelectedName}
+                  >
+                    <option value="" hidden>Elegir Cliente</option>
+                    {
+                    names.map((name, index) => 
+                        {
+                        return(
+                        <option key={index} value={name.DisplayName}>{name.DisplayName}</option>
+                         ) 
+                        })
+                      }
+  
+                  </select>
             </div>
             <div className="form-group">
               <button type="submit" className="btn" onClick={this.onSubmit}>

@@ -4,22 +4,18 @@ import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 
 export class EditarInventario extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-
+ 
   render() {
     return (
 
       <div className="base-container" ref={this.props.containerRef}>
         <div>
           <NavBar />
-        </div>
+        </div> 
         <div className="header">Editar Inventario</div>
         <div className="content">
           <div className="image">
-            <img className="centrado" src={inventarioImg} />
+            <img className="centrado" src={inventarioImg} alt="desc" />
           </div>
           <div className="form">
             <div className="form-group">

@@ -32,7 +32,7 @@ export class verInventario extends React.Component {
                 <div className="header">Inventario</div>
                 <div className="content">
                     <div className="image">
-                        <img className="centrado" src={inventarioImg} />
+                        <img className="centrado" src={inventarioImg}  alt="desc"/>
                     </div>
                 </div>
 

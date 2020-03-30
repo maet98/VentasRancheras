@@ -20,7 +20,7 @@ export class ConfirmarPagos extends React.Component {
         <div className="header">Confirmar Pagos</div>
         <div className="content">
           <div className="image">
-            <img className="centrado" src={pagosImg} />
+            <img className="centrado" src={pagosImg} alt="desc" />
           </div>
           <div className="form">
             <div className="form-group">

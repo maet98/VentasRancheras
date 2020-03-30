@@ -3,7 +3,7 @@ import rutasImg from "../../images/ruta.svg";
 import paqueteImg from "../../images/paquete.svg";
 import NavBar from "./NavBar";
 import "../login/style.scss"
-import { Card,ListGroup,ListGroupItem, Col, Row, Button, Nav } from 'react-bootstrap';
+import { Card,ListGroup, Col, Row, Button} from 'react-bootstrap';
 
 export class verRutas extends React.Component {
     constructor(props) {
@@ -39,7 +39,7 @@ this.state = {
         <div className="header">Asignar Ordenes al cliente: {this.props.match.params.id}</div>
                 <div className="content">
                     <div className="image">
-                        <img className="centrado" src={rutasImg} />
+                        <img className="centrado" src={rutasImg} alt="desc" />
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@ this.state = {
                     <Row xs="6">
                         <Col>
                             <Card style={{ width: '20rem' }}>
-                                <Card.Img variant="top" src={paqueteImg} />
+                                <Card.Img variant="top" src={paqueteImg} alt="desc" />
                                 <Card.Body className="form">
                                     <Card.Title>Ordenes Por Asignar </Card.Title>
                                     <ListGroup >
@@ -86,7 +86,7 @@ this.state = {
                         <Col>
                             <br />
                             <Card style={{ width: '20rem' }}>
-                                <Card.Img variant="top" src={paqueteImg} />
+                                <Card.Img variant="top" src={paqueteImg} alt="desc" />
                                 <Card.Body className="form">
                                     <Card.Title>Ordenes Asignadas al Repartidor</Card.Title>
                                     <ListGroup >

@@ -23,7 +23,7 @@ handleClick() {
         <div className="header">Programar Orden</div>
         <div className="content">
           <div className="image">
-            <img className="centrado" src={ordenImg} />
+            <img className="centrado" src={ordenImg} alt="desc" />
           </div>
           <div className="form">
             <div className="form-group">
