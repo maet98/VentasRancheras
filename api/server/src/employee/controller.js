@@ -1,7 +1,7 @@
 const QBO = require("../../ERP/index");
 import {employee} from "../models/employee";
 import config from "config";
-import bcrypt from "bcrypt";
+import bcrypt, { hashSync, compareSync } from "bcrypt";
 import { employeeCustomer } from "../models/employee-customer";
 import jwt from "jsonwebtoken";
 
@@ -63,12 +63,11 @@ export async function createEmployee(req, res) {
         if(err){
             return res.status(400).json(err);
         }
-        const hash = bcrypt.hashSync(req.body.password, config.get("saltRounds"));
         const dbEmployee = {
             employeeId: ans.Id,
             username: req.body.username,
             email: req.body.email,
-            password: hash,
+            password: req.body.password,
             type: req.body.type
         };
         employee.create(dbEmployee)
@@ -76,36 +75,32 @@ export async function createEmployee(req, res) {
             res.json(resp);
         })
         .catch(err =>{
-            res.status(400).json(err);
+            qbo.deleteEmployee(ans.Id,(err,ans) =>{
+                if(err){
+
+                }
+                else{
+                    res.status(400).json(err);
+                }
+            })
         })
     })
 }
 
 export function login(req, res) {
     const {email, password} = req.body;
-    employee.findOne({email: email})
+    employee.findAll({where:{email: email}})
     .then(ans => {
-        if(bcrypt.compareSync(password,ans.password)){
-            jwt.sign({
-                id: ans.email
-            },
-            config.get('jwtSecret'), {
-                expiresIn: 3600
-            },
-            (err, token) => {
-                if (err) throw err;
-                var response = {token, ans};
-                res.json(response);
-            });
+        if(compareSync(password,ans[0].password)){
+            res.json({ok: true})
         }
         else{
-            res.status(400).json({msg:"Incorrect Password"});
+            res.json({ok:false})
         }
     })
     .catch(err =>{
         res.status(400).json({msg:`User not found with that email: ${email}`});
-    })
-    bcrypt.compareSync
+    });
 }
 
 

@@ -1,11 +1,11 @@
 {
-    "saltRounds": 10,
+    "salt": "$2a$10$5EmjEqcTXftT3ujBK770Nu",
     "jwtSecret":"12345678s",
     "development": {
         "username": "admindb",
         "password": "Password",
         "database": "RancherasDB",
-        "host": "152.0.255.93",
+        "host": "152.0.49.179",
         "dialect": "mysql",
         "operatorsAliases": false
     },

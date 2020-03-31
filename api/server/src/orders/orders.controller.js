@@ -16,27 +16,50 @@ export async function createOrder(req, res){
             Amount: Items[i].Amount
         }
         line.push(item);
-    } 
-    const Order = {
-        CustomerRef: {
-            value: clientId
-        }, 
-        Line: line,
-        ShipAddr: req.body.ShipAddr
     }
-
-    qbo.createEstimate(Order, (err, estimate) =>{
+    qbo.getCustomer(clientId, (err,ans) =>{
         if(err){
-            res.json({error: err});
+            return res.status(400).json(err);
         }
-        res.json(estimate);
+        const Order = {
+            CustomerRef: {
+                value: clientId
+            }, 
+            Line: line,
+            ShipAddr: req.body.ShipAddr,
+            PrivateNote: req.body.employeeId,
+            BillEmail:{
+                Address: ans.PrimaryEmailAddr.Address
+            } 
+        }
+    
+        qbo.createInvoice(Order, (err, Invoice) =>{
+            if(err){
+                res.json({error: err});
+            }
+            res.json(Invoice);
+        })
+
+    }) 
+}
+
+export async function confirmOrder(req,res){
+    const id = req.params.id;
+    const qbo = await QBO.getQbo();
+    qbo.sendInvoicePdf(id,(err,ans) =>{
+        if(err){
+            console.log(err);
+            return res.json(err);
+        }
+        console.log(ans);
+        res.json(ans);
     })
 }
 
 export async function getOrdersByClientId(req,res){
     const id = req.params.CustomerId;
     const qbo = await QBO.getQbo();
-    qbo.findEstimates({CustomerRef: id},
+    qbo.findInvoices({CustomerRef: id},
         (err,customers)=>{
             if(err){
                 return res.status(400).json(err);
@@ -47,12 +70,13 @@ export async function getOrdersByClientId(req,res){
 
 export async function getAvailableOrders(req,res){
     const qbo = await QBO.getQbo();
-    qbo.findEstimates({fetchAll: true},(err,estimate) =>{
+    qbo.findInvoices({fetchAll: true},(err,Invoice) =>{
         if(err){
             console.log(err);
             return res.json({error: err});
         }
-        var orders = estimate.QueryResponse.Estimate;
+        var orders = Invoice.QueryResponse.Invoice;
+        console.log(orders.length)
         var ans = [];
         stop.findAll({
             where:{
@@ -65,8 +89,13 @@ export async function getAvailableOrders(req,res){
                 for(let j = 0;j < stops.length;j++){
                     if(orders[i].Id == stops[j].orderId){
                         can = true;
+                        break;
+                    }
+                    if("PrivateNote" in orders[i]){
+                        orders[i].employeeId = orders[i].PrivateNote;
                     }
                 }
+                console.log(orders[i]);
                 if(!can){
                     ans.push(orders[i]);
                 }
@@ -78,10 +107,10 @@ export async function getAvailableOrders(req,res){
 
 export async function getAll(req, res){
     const qbo = await QBO.getQbo();
-    qbo.findEstimates({fetchAll: true},(err,estimate) =>{
+    qbo.findInvoices({fetchAll: true},(err,estimate) =>{
         if(err){
             res.json({error: err});
         }
-        res.json(estimate.QueryResponse.Estimate);
+        res.json(estimate.QueryResponse.Invoice);
     });
 }
