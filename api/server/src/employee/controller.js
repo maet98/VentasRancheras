@@ -92,10 +92,10 @@ export function login(req, res) {
     employee.findAll({where:{email: email}})
     .then(ans => {
         if(compareSync(password,ans[0].password)){
-            res.json({ok: true})
+            res.json({ok: true,type: ans[0].type})
         }
         else{
-            res.json({ok:false})
+            res.status(400).json({ok:false})
         }
     })
     .catch(err =>{

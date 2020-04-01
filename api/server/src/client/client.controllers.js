@@ -24,13 +24,24 @@ export async function getOne(req,res){
 
 export async function createOne(req,res) {
     const qbo = await QBO.getQbo();
-    const {DisplayName, PrimaryEmailAddr, PrimaryPhone, CompanyName, Latitude, Longitude} = req.body;
+    const {Lat, Long,DisplayName, PrimaryEmailAddr, PrimaryPhone, CompanyName} = req.body;
     qbo.createCustomer({
         DisplayName: DisplayName,
         PrimaryEmailAddr: PrimaryEmailAddr,
         PrimaryPhone: PrimaryPhone,
         CompanyName: CompanyName,
-        ShipAddr: req.body.ShipAddr
+        ShipAddr:{
+            Line1: Lat,
+            Line2: Long,
+            Line3:"Calle 4",
+            Line4:"Embrujo 1ero",
+            CountryCode:"DR",
+            PostalCodeSuffix:5100,
+            CountrySubDivisionCode:"+1",
+            PostalCode:51000,
+            Country:"Dominican Republic",
+            City:"Santiago"
+        }
     }, (err,customer)=>{
         if(err){
             return res.json({message: err});
