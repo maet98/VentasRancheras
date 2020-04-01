@@ -25,7 +25,7 @@ function createOrder(_x, _x2) {
 
 function _createOrder() {
   _createOrder = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var qbo, _req$body, Items, clientId, line, i, item;
+    var qbo, _req$body, Items, clientId;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -37,49 +37,63 @@ function _createOrder() {
           case 2:
             qbo = _context.sent;
             _req$body = req.body, Items = _req$body.Items, clientId = _req$body.clientId;
-            line = [];
-
-            for (i = 0; i < Items.length; i++) {
-              item = {
-                DetailType: "SalesItemLineDetail",
-                SalesItemLineDetail: {
-                  ItemRef: {
-                    value: Items[i].itemId
-                  }
-                },
-                Amount: Items[i].Amount
-              };
-              line.push(item);
-            }
-
-            qbo.getCustomer(clientId, function (err, ans) {
+            qbo.findItems({}, function (err, ans) {
               if (err) {
                 return res.status(400).json(err);
               }
 
-              var Order = {
-                CustomerRef: {
-                  value: clientId
-                },
-                Line: line,
-                ShipAddr: req.body.ShipAddr,
-                PrivateNote: req.body.employeeId,
-                BillEmail: {
-                  Address: ans.PrimaryEmailAddr.Address
-                }
-              };
-              qbo.createInvoice(Order, function (err, Invoice) {
+              var UnitPrice = new Map();
+              var arr = ans.QueryResponse.Item;
+
+              for (var i = 0; i < arr.length; i++) {
+                UnitPrice.set(arr[i].Id, arr[i].UnitPrice);
+              }
+
+              var line = [];
+
+              for (var _i = 0; _i < Items.length; _i++) {
+                var item = {
+                  DetailType: "SalesItemLineDetail",
+                  SalesItemLineDetail: {
+                    ItemRef: {
+                      value: Items[_i].itemId
+                    },
+                    Qty: Items[_i].Amount
+                  },
+                  Amount: UnitPrice.get(Items[_i].itemId.toString()) * Items[_i].Amount
+                };
+                line.push(item);
+              }
+
+              qbo.getCustomer(clientId, function (err, ans) {
                 if (err) {
-                  res.json({
-                    error: err
-                  });
+                  return res.status(400).json(err);
                 }
 
-                res.json(Invoice);
+                var Order = {
+                  CustomerRef: {
+                    value: clientId
+                  },
+                  Line: line,
+                  ShipAddr: req.body.ShipAddr,
+                  PrivateNote: req.body.employeeId,
+                  BillEmail: {
+                    Address: ans.PrimaryEmailAddr.Address
+                  }
+                };
+                qbo.createInvoice(Order, function (err, Invoice) {
+                  if (err) {
+                    res.json({
+                      error: err
+                    });
+                  }
+
+                  res.json(Invoice);
+                });
               });
             });
 
-          case 7:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -212,8 +226,6 @@ function _getAvailableOrders() {
                     }
                   }
 
-                  console.log(orders[i]);
-
                   if (!can) {
                     ans.push(orders[i]);
                   }
@@ -253,14 +265,22 @@ function _getAll() {
             qbo = _context5.sent;
             qbo.findInvoices({
               fetchAll: true
-            }, function (err, estimate) {
+            }, function (err, invoice) {
               if (err) {
                 res.json({
                   error: err
                 });
               }
 
-              res.json(estimate.QueryResponse.Invoice);
+              var arr = invoice.QueryResponse.Invoice;
+
+              for (var i = 0; i < arr.length; i++) {
+                if ("PrivateNote" in arr[i]) {
+                  arr[i].employeeId = arr[i].PrivateNote;
+                }
+              }
+
+              res.json(arr);
             });
 
           case 4:

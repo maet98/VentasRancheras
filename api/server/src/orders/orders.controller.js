@@ -4,43 +4,54 @@ import {stop} from "../models/stop";
 export async function createOrder(req, res){
     const qbo = await QBO.getQbo();
     const { Items , clientId} = req.body;
-    var line = [];
-    for(let i = 0;i < Items.length;i++){
-        const item = {
-            DetailType: "SalesItemLineDetail",
-            SalesItemLineDetail: {
-                ItemRef :{
-                    value: Items[i].itemId
-                }
-            },
-            Amount: Items[i].Amount
-        }
-        line.push(item);
-    }
-    qbo.getCustomer(clientId, (err,ans) =>{
+    qbo.findItems({},(err,ans) =>{
         if(err){
             return res.status(400).json(err);
         }
-        const Order = {
-            CustomerRef: {
-                value: clientId
-            }, 
-            Line: line,
-            ShipAddr: req.body.ShipAddr,
-            PrivateNote: req.body.employeeId,
-            BillEmail:{
-                Address: ans.PrimaryEmailAddr.Address
-            } 
+        var UnitPrice = new Map();
+        var arr = ans.QueryResponse.Item;
+        for(let i =0;i < arr.length;i++){
+            UnitPrice.set(arr[i].Id,arr[i].UnitPrice);
         }
-    
-        qbo.createInvoice(Order, (err, Invoice) =>{
-            if(err){
-                res.json({error: err});
+        var line = [];
+        for(let i = 0;i < Items.length;i++){
+            const item = {
+                DetailType: "SalesItemLineDetail",
+                SalesItemLineDetail: {
+                    ItemRef :{
+                        value: Items[i].itemId
+                    },
+                    Qty: Items[i].Amount
+                },
+                Amount: UnitPrice.get(Items[i].itemId.toString())*Items[i].Amount
             }
-            res.json(Invoice);
+            line.push(item);
+        }
+        qbo.getCustomer(clientId, (err,ans) =>{
+            if(err){
+                return res.status(400).json(err);
+            }
+            const Order = {
+                CustomerRef: {
+                    value: clientId
+                }, 
+                Line: line,
+                ShipAddr: req.body.ShipAddr,
+                PrivateNote: req.body.employeeId,
+                BillEmail:{
+                    Address: ans.PrimaryEmailAddr.Address
+                } 
+            }
+        
+            qbo.createInvoice(Order, (err, Invoice) =>{
+                if(err){
+                    res.json({error: err});
+                }
+                res.json(Invoice);
+            })
+    
         })
-
-    }) 
+    })
 }
 
 export async function confirmOrder(req,res){
@@ -95,7 +106,6 @@ export async function getAvailableOrders(req,res){
                         orders[i].employeeId = orders[i].PrivateNote;
                     }
                 }
-                console.log(orders[i]);
                 if(!can){
                     ans.push(orders[i]);
                 }
@@ -107,10 +117,16 @@ export async function getAvailableOrders(req,res){
 
 export async function getAll(req, res){
     const qbo = await QBO.getQbo();
-    qbo.findInvoices({fetchAll: true},(err,estimate) =>{
+    qbo.findInvoices({fetchAll: true},(err,invoice) =>{
         if(err){
             res.json({error: err});
         }
-        res.json(estimate.QueryResponse.Invoice);
+        var arr = invoice.QueryResponse.Invoice;
+        for(let i = 0;i < arr.length;i++){
+            if("PrivateNote" in arr[i]){
+                arr[i].employeeId = arr[i].PrivateNote;
+            }
+        }
+        res.json(arr);
     });
 }
