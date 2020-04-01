@@ -36,7 +36,7 @@ export class Login extends React.Component {
     }
 
     console.log('Executing Request....')
-    axios.post('http://152.0.255.93:3000/auth/login', newUser)
+    axios.post('http://152.0.49.179:3000/auth/login', newUser)
     .then(res => {
         console.log(res.data)
         window.location ='/menu'

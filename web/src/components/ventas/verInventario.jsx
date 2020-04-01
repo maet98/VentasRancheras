@@ -4,7 +4,7 @@ import productoImg from "../../images/producto.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import axios from "axios"
-import { Card, ButtonGroup, ToggleButton, Col, Row } from 'react-bootstrap';
+import { Card,Col, Row } from 'react-bootstrap';
 
 export class verInventario extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export class verInventario extends React.Component {
 
     componentDidMount(){
         console.log("Executing Request...")
-        axios.get('http://152.0.255.93:3000/product/').then(res => {
+        axios.get('http://152.0.49.179:3000/product/').then(res => {
             this.setState({vals: res.data.Item})
         })
     }
@@ -47,14 +47,10 @@ export class verInventario extends React.Component {
                             <Card.Img variant="top" src={productoImg} />
                             <Card.Body className="form">
                                 <Card.Title>{val.Name}</Card.Title>
+                                <Card.Subtitle>Unit Price: {val.UnitPrice}</Card.Subtitle>
                                 <Card.Text>
                                    {val.Description}
                                 </Card.Text>
-                                <ButtonGroup toggle className="mb-2">
-                                    <ToggleButton type="checkbox" defaultChecked value="1">
-                                    Ver producto
-                                    </ToggleButton>
-                                </ButtonGroup>
                             </Card.Body>
                         </Card>
                     </Col>

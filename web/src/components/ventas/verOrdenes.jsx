@@ -53,9 +53,9 @@ this.state = {
                                 <Card.Body className="form">
                                     <Card.Title>Ordenes Por Asignar </Card.Title>
                                     <ListGroup >
-                {vals.map(val => 
+                {vals.map((val,index) => 
                     {
-                        return <ListGroup.Item action >{val}</ListGroup.Item>
+                        return <ListGroup.Item action key={index}>{val}</ListGroup.Item>
                         })
                 }
                             </ListGroup>
@@ -90,9 +90,9 @@ this.state = {
                                 <Card.Body className="form">
                                     <Card.Title>Ordenes Asignadas al Repartidor</Card.Title>
                                     <ListGroup >
-                {vals2.map(val => 
+                {vals2.map((val,index) => 
                     {
-                        return <ListGroup.Item action >{val}</ListGroup.Item>
+                        return <ListGroup.Item action key={index}>{val}</ListGroup.Item>
                         })
                 }
                             </ListGroup>

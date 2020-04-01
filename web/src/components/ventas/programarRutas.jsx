@@ -7,18 +7,27 @@ import axios from "axios"
 export class ProgramarRutas extends React.Component {
   constructor(props) {
     super(props);
-    this.onChangeName = this.onChangeName.bind(this)
+    this.onChangeSelectedName = this.onChangeSelectedName.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.state = {
-      name: '',
-      id: '',
-      type: ''
+      selectedName: '',
+      names: []
+
     }
   }
+  componentDidMount() {
+    axios.get('http://152.0.49.179:3000/employee').then(res => {
+      this.setState({
+        names: res.data.Employee
+      })
+    }
+    )
+    }
 
-  onChangeName(e) {
+
+  onChangeSelectedName(e) {
   this.setState({
-    name: e.target.value
+    selectedName: e.target.value
   })
   
   }
@@ -26,14 +35,17 @@ export class ProgramarRutas extends React.Component {
 handleClick(e) {
   e.preventDefault()
 
-  const name = this.state.name
-  console.log("Executing Request....")
-  axios.get("http://152.0.255.93:3000/employee/name/" + name)
-  .then(
-    res => {
-      axios.get("http://152.0.255.93:3000/employee/" + res.data.Employee[0].Id)
-  .then(
-    res => {
+  const name = this.state.selectedName
+  const arr = this.state.names
+  
+
+var found = arr.find(function(element) {
+  return element.GivenName === name
+});
+console.log(found)
+      axios.get("http://152.0.49.179:3000/employee/"+ found.Id)
+      .then(
+        res => {
       if(res.data.type === "Repartidor"){
          window.location = '/verOrdenes/' + name
        }
@@ -43,12 +55,10 @@ handleClick(e) {
     }
   )
     }
-  )
-
-}
 
 
   render() {
+    let names = this.state.names
     return (
 
       <div className="base-container" ref={this.props.containerRef}>
@@ -63,11 +73,23 @@ handleClick(e) {
           <div className="form">
             <div className="form-group">
               <label htmlFor="delivery">Nombre del Empleado</label>
-              <input type="text" 
-              name="Empleado" 
-              placeholder="Nombre del Empleado"
-               value = {this.state.name}
-               onChange = {this.onChangeName} />
+              <select type="text" 
+                id="inputName" 
+                className="form-control"
+                value = {this.state.selectedName}
+                onChange = {this.onChangeSelectedName}
+                  >
+                    <option value="" hidden>Elegir Empleado</option>
+                    {
+                    names.map((name, index) => 
+                        {
+                        return(
+                        <option key={index} value={name.GivenName}>{name.GivenName}</option>
+                         ) 
+                        })
+                      }
+  
+                  </select>
             </div>
             <div className = "form-group">
             <button type="button" className="btn" onClick ={this.handleClick}>

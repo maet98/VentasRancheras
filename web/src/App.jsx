@@ -13,6 +13,7 @@ import verInventario from "./components/ventas/verInventario"
 import verOrdenes from "./components/ventas/verOrdenes"
 import verClientes from "./components/ventas/verClientes"
 import ListarPedidos from "./components/ventas/ListarPedidos"
+import ListarOrdenesPorEmpleado from "./components/ventas/listarOrdenesPorEmpleado.jsx"
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
     <Router>
       <Route path="/" exact component ={PantallaInicial} />
       <Route path ="/menu" component =  {Menu} />
-      <Route path ="/confirmarPagos" component =  {confirmarPagos} />
+      <Route path ="/verDesempeño" component =  {confirmarPagos} />
       <Route path ="/programarRutas" component =  {programarRutas} />
       <Route path ="/registrar" component =  {Registrar} />
       <Route path ="/verPedidos" component =  {verPedidos} />
@@ -29,6 +30,7 @@ function App() {
       <Route path ="/verOrdenes/:id" component =  {verOrdenes} />
       <Route path ="/verClientes/:id" component =  {verClientes} />
       <Route path ="/pedidos/:id" component = {ListarPedidos} />
+      <Route path ="/Desempeño/:id" component = {ListarOrdenesPorEmpleado} />
       
     </Router>
   );

@@ -19,7 +19,7 @@ export class VerPedido extends React.Component {
   }
 
 componentDidMount() {
-axios.get('http://152.0.255.93:3000/client/').then(res => {
+axios.get('http://152.0.49.179:3000/client/').then(res => {
   this.setState({
     names: res.data
   })

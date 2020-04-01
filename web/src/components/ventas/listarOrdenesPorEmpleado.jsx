@@ -1,44 +1,35 @@
-import React from "react";
-import pedidosImg from "../../images/pedido.svg";
-import NavBar from "../ventas/NavBar";
-import "../login/style.scss"
-import { Table} from 'react-bootstrap';
+import React from "react"
 import axios from "axios"
+import {Table} from "react-bootstrap"
+import NavBar from "./NavBar"
+import pedidosImg from "../../images/pedido.svg"
 
-export class ListarPedidos extends React.Component {
+
+export class listarOrdenesPorEmpleado extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            orders: [],
-            Balance: 0
+            orders: []
         }
     }
 
     componentDidMount() {
-        console.log("Executing Request...")
-        axios.get("http://152.0.49.179:3000/client/name/" + this.props.match.params.id)
-        .then(
-          res => {
-            this.setState({
-              Balance: res.data.Customer[0].Balance
-            })
-            let id = this.props.match.params.id
-     
-            axios.get('http://152.0.49.179:3000/order').then(
-                res =>{
-                 let arr1 = res.data
-                 let arr2 = arr1.filter(function(element) {
-                     return element.CustomerRef.name === id
-                   })
-                this.setState({
-                    orders: arr2
-                })
-                 }
-            )
-             
-          }
-        )
+       let id = this.props.match.params.id
+       console.log(id)
 
+       axios.get('http://152.0.49.179:3000/order').then(
+           res =>{
+            let arr1 = res.data
+            let arr2 = arr1.filter(function(element) {
+                return element.PrivateNote === id
+              })
+           this.setState({
+               orders: arr2
+           })
+            }
+       )
+        
     }
 
     render() {
@@ -50,11 +41,10 @@ export class ListarPedidos extends React.Component {
                 <div>
                     <NavBar />
                 </div>
-        <div className="header">Ordenes Realizadas por {this.props.match.params.id}</div>
+        <div className="header">Ordenes Encargadas por el empleado de id: {this.props.match.params.id}</div>
                 <div className="content">
                     <div className="image">
                         <img className="centrado" src={pedidosImg} alt="desc" />
-                        <div className="subheader">Balance Pendiente: {this.state.Balance}</div>
                     </div>
                 </div>
                 <Table responsive= "sm" bordered hover>
@@ -92,4 +82,4 @@ export class ListarPedidos extends React.Component {
     }
 }
 
-export default ListarPedidos
+export default listarOrdenesPorEmpleado

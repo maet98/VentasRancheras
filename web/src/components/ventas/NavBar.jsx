@@ -23,7 +23,7 @@ export class NavBar extends React.Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="/confirmarPagos">Confirmar Pagos</Nav.Link>
+                            <Nav.Link href="/verDesempeño">Ver Desempeño Vendedores</Nav.Link>
                             <Nav.Link href="/programarRutas">Programar Rutas</Nav.Link>
                             <Nav.Link href="/registrar">Registrar Empleado</Nav.Link>
                             <Nav.Link href="/verPedidos">Ver Pedidos</Nav.Link>
