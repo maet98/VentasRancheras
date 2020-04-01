@@ -54,6 +54,17 @@ export async function filterName(req, res){
     })
 }
 
+export async function getById(req,res){
+	const qbo = await QBO.getQbo();
+	const id = req.params.id;
+	qbo.getCustomer(id,(err,ans) =>{
+		if(err){
+			return res.status(400).json(err);
+		}
+		res.json(ans);
+	});
+}
+
 export async function getAvailable(req,res){
     const qbo = await QBO.getQbo();
     qbo.findCustomers({fetchAll: true},(err,customers) =>{

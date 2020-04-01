@@ -5,12 +5,14 @@ import {
     createOne,
     getOne,
     filterName,
-    getAvailable
+    getAvailable,
+	getById
 } from "./client.controllers";
 
 router.get('/',getAll);
 router.post('/',createOne);
 router.get("/available",getAvailable);
-router.get('/:name',filterName);
+router.get('/:id',getById);
+router.get('/name/:name',filterName);
 
 export default router;
