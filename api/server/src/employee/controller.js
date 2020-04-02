@@ -90,9 +90,18 @@ export async function createEmployee(req, res) {
 export function login(req, res) {
     const {email, password} = req.body;
     employee.findAll({where:{email: email}})
-    .then(ans => {
+    .then(async (ans) => {
         if(compareSync(password,ans[0].password)){
-            res.json({ok: true,type: ans[0].type})
+            console.log(ans[0].employeeId)
+            const qbo = await QBO.getQbo();
+            qbo.getEmployee(ans[0].employeeId.toString(),(err,customer)=>{
+                if(err){
+                    return res.status(400).json(err);
+                }
+                customer.type = ans[0].type;
+                customer.email = ans[0].email;
+                res.json(customer);
+            })
         }
         else{
             res.status(400).json({ok:false})

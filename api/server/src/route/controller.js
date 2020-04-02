@@ -79,5 +79,4 @@ export async function createRoute(req,res,next) {
         console.log(ans);
         return res.json(ans);
     })
-    
 }
