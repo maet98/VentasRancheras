@@ -59,7 +59,7 @@ export class listarOrdenesPorEmpleado extends React.Component {
     </tr>
   </thead>
   <tbody>
-    {orders.map((order,index) => 
+    {orders.length > 0 ?orders.map((order,index) => 
         {
             count++
             return( 
@@ -72,7 +72,8 @@ export class listarOrdenesPorEmpleado extends React.Component {
             <td>{order.TxnDate}</td>
               </tr>       
                 )
-        })
+        }):
+		<p>No hay ordernes.</p>
     }
  
   </tbody>

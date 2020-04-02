@@ -3,6 +3,8 @@ import loginImg from "../../images/login.svg";
 import Navbar from "../ventas/NavBar"
 import "../login/style.scss"
 import axios from "axios"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export class Register extends React.Component {
@@ -26,6 +28,7 @@ export class Register extends React.Component {
     }
   }
 
+	notify = () => toast("Succesfull register");
   onChangeFirstName(e) {
     this.setState({
       firstName: e.target.value
@@ -66,6 +69,7 @@ export class Register extends React.Component {
     .then(
       res => {
         console.log(res.data)
+		  this.notify();
       }
     )
 

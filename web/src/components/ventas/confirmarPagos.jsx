@@ -62,7 +62,8 @@ render() {
 </thead>
 <tbody>
 
-{Employee.map((Employee,index) => 
+{
+	Employee.length > 0 ? Employee.map((Employee,index) => 
     {
         count++
         return( 
@@ -75,7 +76,8 @@ render() {
         </td>
           </tr>       
             )
-    })
+    }) :
+	<p>No hay empleados </p>
 }
 
 </tbody>

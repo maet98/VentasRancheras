@@ -69,7 +69,7 @@ export class ListarPedidos extends React.Component {
     </tr>
   </thead>
   <tbody>
-    {orders.map((order,index) => 
+    {orders.length > 0 ? orders.map((order,index) => 
         {
             count++
             return( 
@@ -82,7 +82,8 @@ export class ListarPedidos extends React.Component {
             <td>{order.TxnDate}</td>
               </tr>       
                 )
-        })
+        }):
+		<p>No tiene pedidos</p>
     }
  
   </tbody>
