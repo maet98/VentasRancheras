@@ -4,6 +4,7 @@ import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import { Table} from 'react-bootstrap';
 import axios from "axios"
+import url from "../../requestURL"
 
 export class ListarPedidos extends React.Component {
     constructor(props) {
@@ -16,15 +17,13 @@ export class ListarPedidos extends React.Component {
 
     componentDidMount() {
         console.log("Executing Request...")
-        axios.get("http://152.0.49.179:3000/client/name/" + this.props.match.params.id)
+        axios.get(url + "/client/name/" + this.props.match.params.id)
         .then(
           res => {
-            this.setState({
-              Balance: res.data.Customer[0].Balance
-            })
+           
             let id = this.props.match.params.id
      
-            axios.get('http://152.0.49.179:3000/order').then(
+            axios.get(url + '/order').then(
                 res =>{
                  let arr1 = res.data
                  let arr2 = arr1.filter(function(element) {

@@ -14,10 +14,13 @@ import verOrdenes from "./components/ventas/verOrdenes"
 import verClientes from "./components/ventas/verClientes"
 import ListarPedidos from "./components/ventas/ListarPedidos"
 import ListarOrdenesPorEmpleado from "./components/ventas/listarOrdenesPorEmpleado.jsx"
+import { ToastProvider  } from 'react-toast-notifications'
 
 
 function App() {
   return ( 
+    <ToastProvider>
+
     <Router>
       <Route path="/" exact component ={PantallaInicial} />
       <Route path ="/menu" component =  {Menu} />
@@ -33,6 +36,7 @@ function App() {
       <Route path ="/Desempeño/:id" component = {ListarOrdenesPorEmpleado} />
       
     </Router>
+    </ToastProvider>
   );
 }
 

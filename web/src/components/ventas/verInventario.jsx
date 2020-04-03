@@ -4,6 +4,7 @@ import productoImg from "../../images/producto.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import axios from "axios"
+import url from "../../requestURL"
 import { Card,Col, Row } from 'react-bootstrap';
 
 export class verInventario extends React.Component {
@@ -16,7 +17,7 @@ export class verInventario extends React.Component {
 
     componentDidMount(){
         console.log("Executing Request...")
-        axios.get('http://152.0.49.179:3000/product/').then(res => {
+        axios.get(url + '/product/').then(res => {
             this.setState({vals: res.data.Item})
         })
     }

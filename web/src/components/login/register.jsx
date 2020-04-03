@@ -3,7 +3,8 @@ import loginImg from "../../images/login.svg";
 import Navbar from "../ventas/NavBar"
 import "../login/style.scss"
 import axios from "axios"
-import { ToastContainer, toast } from 'react-toastify';
+import url from "../../requestURL"
+import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -65,7 +66,7 @@ export class Register extends React.Component {
 
     }
      console.log("Executing Request....")
-    axios.post("http://152.0.49.179:3000/employee", newUser)
+    axios.post(url + "/employee", newUser)
     .then(
       res => {
         console.log(res.data)

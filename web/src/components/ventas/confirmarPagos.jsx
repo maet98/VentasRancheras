@@ -3,6 +3,7 @@ import pagosImg from "../../images/pagos.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import axios from "axios"
+import url from "../../requestURL"
 import {Table, Button} from "react-bootstrap"
 
 export class ConfirmarPagos extends React.Component {
@@ -17,7 +18,7 @@ export class ConfirmarPagos extends React.Component {
 
 componentDidMount() {
     console.log("Executing Request...")
-    axios.get("http://152.0.49.179:3000/employee")
+    axios.get(url + "/employee")
     .then(
       res => {
         this.setState({

@@ -3,6 +3,7 @@ import rutasImg from "../../images/ruta.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import axios from "axios"
+import url from "../../requestURL"
 
 export class ProgramarRutas extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export class ProgramarRutas extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get('http://152.0.49.179:3000/employee').then(res => {
+    axios.get(url + '/employee').then(res => {
       this.setState({
         names: res.data.Employee
       })
@@ -43,7 +44,7 @@ var found = arr.find(function(element) {
   return element.GivenName === name
 });
 console.log(found)
-      axios.get("http://152.0.49.179:3000/employee/"+ found.Id)
+      axios.get(url + "/employee/"+ found.Id)
       .then(
         res => {
       if(res.data.type === "Repartidor"){

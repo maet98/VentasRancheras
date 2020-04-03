@@ -1,6 +1,9 @@
 import React from "react";
 import loginImg from "../../images/login.svg";
 import axios from "axios"
+import url from "../../requestURL"
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export class Login extends React.Component {
   constructor(props) {
@@ -14,7 +17,8 @@ export class Login extends React.Component {
 
       email: '',
       password: '',
-      type: 'Supervisor'
+      type: 'Supervisor',
+      errorFlag: 0
     }
   }
   onChangeEmail(e) {
@@ -27,8 +31,10 @@ export class Login extends React.Component {
       password: e.target.value
     })
   }
+
   onSubmit(e) {
     e.preventDefault()
+    toast.configure()
     const newUser = {
         email: this.state.email,
         password: this.state.password,
@@ -36,10 +42,12 @@ export class Login extends React.Component {
     }
 
     console.log('Executing Request....')
-    axios.post('http://152.0.49.179:3000/auth/login', newUser)
+    axios.post(url+'/auth/login', newUser)
     .then(res => {
         console.log(res.data)
         window.location ='/menu'
+    }).catch(e => {
+     toast('error logging in, try again')
     });
     this.setState({
       email: '',

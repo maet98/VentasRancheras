@@ -3,6 +3,7 @@ import pedidoImg from "../../images/pedido.svg";
 import NavBar from "../ventas/NavBar";
 import "../login/style.scss"
 import axios from "axios"
+import url from "../../requestURL"
 
 export class VerPedido extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export class VerPedido extends React.Component {
   }
 
 componentDidMount() {
-axios.get('http://152.0.49.179:3000/client/').then(res => {
+axios.get(url + '/client/').then(res => {
   this.setState({
     names: res.data
   })

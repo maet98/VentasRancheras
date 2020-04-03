@@ -3,6 +3,7 @@ import axios from "axios"
 import {Table} from "react-bootstrap"
 import NavBar from "./NavBar"
 import pedidosImg from "../../images/pedido.svg"
+import url from "../../requestURL"
 
 
 export class listarOrdenesPorEmpleado extends React.Component {
@@ -18,7 +19,7 @@ export class listarOrdenesPorEmpleado extends React.Component {
        let id = this.props.match.params.id
        console.log(id)
 
-       axios.get('http://152.0.49.179:3000/order').then(
+       axios.get(url +'/order').then(
            res =>{
             let arr1 = res.data
             let arr2 = arr1.filter(function(element) {
