@@ -137,13 +137,8 @@ class Untitled1 extends Component {
 		this.setState({ password: text });
 	};
 	_login = async (email, password) => {
-		//this.props.selectSong("SONG_SELECTED");
-
+		console.log("aquiiii");
 		await this.props.dispatch(login(email, password));
-		//	var value = this.props.fetchClient("FETCH_CLIENT");
-		//this.setState({ list: value });
-		//alert("email: " + email + " password: " + pass);
-		//console.log("UserLogin : ", this.props);
 	};
 
 	// handleSignIn = async () => {
@@ -151,20 +146,16 @@ class Untitled1 extends Component {
 	//   await this.props.dispatch(login(email, password));
 	// };
 
-	componentDidMount() {
-		// const list = this.props.fetchClient("FETCH_CLIENT");
-		// console.log("list : ", list);
-		// const { email, password } = this.state;
-		// console.log("email : ", email);
-		// console.log("password : ", password);
-		//this.props.loginUser(email, password);
-	}
+	componentDidMount() {}
 
 	componentDidUpdate() {
 		const listClient = this.props.user;
 
-		if (listClient.token != null) {
+		//console.log("this.props : ", this.props);
+
+		if (listClient.Id != null) {
 			//	console.log("listClient.token : ", listClient.token);
+
 			this.props.navigation.navigate("NewMenu");
 		} else {
 			//console.log("listClient : ", listClient.token);
@@ -185,15 +176,6 @@ class Untitled1 extends Component {
 					style={styles.input}
 					// placeholder="Email"
 					autoCapitalize="none"
-					// 	placeholderTextColor="white"
-					// 	// onChangeText={val => this.onChangeText("username", val)}
-					// 	placeholder="Email"
-					// 	//type="text"
-					// 	value={this.state.email}
-					// 	onChange={e => {
-					// 		this.setState({ email: e.target.value });
-					// 	}}
-					// />
 					placeholder="Email"
 					//placeholderTextColor = "#9a73ef"
 					autoCapitalize="none"
@@ -204,18 +186,7 @@ class Untitled1 extends Component {
 					// placeholder="Password"
 					secureTextEntry={true}
 					autoCapitalize="none"
-					// 	// placeholderTextColor="white"
-					// 	// onChangeText={val => this.onChangeText("password", val)}
-					// 	placeholder="Password"
-					// 	//type="text"
-					// 	value={this.state.password}
-					// 	onChange={e => {
-					// 		this.setState({ password: e.target.value });
-					// 	}}
-					// />
 					placeholder="Password"
-					//placeholderTextColor="#9a73ef"
-					//autoCapitalize="none"
 					onChangeText={this.handlePassword}
 				/>
 				<Button title="Login" onPress={() => this._login(this.state.email, this.state.password)}>
@@ -260,7 +231,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-	//console.log("State In Login Page :", state);
+	//console.log("State In Login Page :", state.userLogin);
 	const listProduct = state.listProduct;
 	return {
 		user: state.userLogin,
@@ -269,3 +240,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Untitled1);
+
+//Fulanodetal@gmail.com

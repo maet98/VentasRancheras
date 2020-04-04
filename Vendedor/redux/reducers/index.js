@@ -4,6 +4,7 @@
 
 import login from "./user";
 import getAllProduct from "./product";
+import getAllOrder from "./order";
 
 // export default combineReducers({
 // 	user
@@ -12,6 +13,7 @@ import getAllProduct from "./product";
 import { combineReducers } from "redux";
 import apiAxios from "../../apis/api";
 import { getOneProduct } from "../actions/product";
+//import { getOneOrder } from "../actions/order";
 
 //import user from "./user";
 
@@ -58,6 +60,6 @@ export default combineReducers({
 	//listClient: getAllClient,
 	userLogin: login,
 	listProduct: getAllProduct,
-	selectedProduct: getOneProduct
-	//listOrder: getAllOrder
+	selectedProduct: getOneProduct,
+	listOrder: getAllOrder
 });

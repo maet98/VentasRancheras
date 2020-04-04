@@ -20,7 +20,8 @@ import PlusBottom from "../components/PlusBottom";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import { getAllProduct } from "../../../../redux/actions/product";
-
+import { getAllOder } from "../../../../redux/actions/order";
+import Axios from "../../../../apis/api";
 class Menu extends React.Component {
 	constructor(props) {
 		super(props);
@@ -31,13 +32,26 @@ class Menu extends React.Component {
 			viewFlat: true,
 			saveOldArray: true,
 			setIt: true,
-			dataSource: this.props.listProduct
+			dataSource: this.props.listProduct,
+			userType: true
 		};
 		this.arrayholder = [];
+
+		this.arrayOrder = [];
 		//this.handleButtonChange = this.handleButtonChange.bind(this);
 
 		//this.getAllProduct.bind(this);
+		//this.getAllOder.bind(this);
 	}
+
+	allOrder = async () => {
+		Axios.get("/order").then(response => {
+			if (response.data) {
+				this.arrayOrder = response.data;
+				console.log("response this.arrayOrder : ", this.arrayOrder);
+			}
+		});
+	};
 
 	handleButtonChange(value) {
 		this.setState({
@@ -45,10 +59,19 @@ class Menu extends React.Component {
 			setIt: false
 		});
 		this.arrayholder = value;
-		//console.log("SetIT : ", this.state.s);
+		//this.arrayOrder = value;
+		//console.log("SetIT : ", this.arrayOrder);
 	}
 	async componentDidMount() {
+		if (this.props.user.type === "Repartidor") {
+			this.setState({ userType: false });
+		}
 		this.arrayholder = await this.props.dispatch(getAllProduct());
+		await this.allOrder();
+		console.log("BOOOOOOOOO BOOOOOOOO");
+
+		this.arrayOrder = await this.props.dispatch(getAllOder());
+		console.log("AAAAAAAAAAAAAA BOOOOOOOO");
 	}
 
 	onPressSignIN = () => {
@@ -67,6 +90,8 @@ class Menu extends React.Component {
 		this.setState({
 			viewFlat: false
 		});
+
+		//console.log("This : ", this.props.user);
 		// const { dataSource } = this.state;
 		// console.log("DataSourece : ", status);
 		// if (saveOldArray) {
@@ -189,7 +214,7 @@ class Menu extends React.Component {
 					/>
 					{/* <ViewCard /> */}
 
-					<FlatList
+					{/* <FlatList
 						data={this.arrayholder}
 						ItemSeparatorComponent={this.ListViewItemSeparator}
 						//Item Separator View
@@ -202,12 +227,14 @@ class Menu extends React.Component {
 						enableEmptySections={true}
 						style={{ marginTop: 10 }}
 						keyExtractor={(item, index) => index.toString()}
-					/>
+					/> */}
 					<View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: "40px" }}>
-						{/* <PlusBottom onPress={this.addNewOrden} /> */}
-						<TouchableOpacity onPress={this.addNewOrden} style={[stylesBtnPlus.container]}>
-							<Icon name="plus" style={stylesBtnPlus.icon}></Icon>
-						</TouchableOpacity>
+						{this.state.userType ? (
+							/* <PlusBottom onPress={this.addNewOrden} /> */
+							<TouchableOpacity onPress={this.addNewOrden} style={[stylesBtnPlus.container]}>
+								<Icon name="plus" style={stylesBtnPlus.icon}></Icon>
+							</TouchableOpacity>
+						) : null}
 					</View>
 					{/* <FooterCard /> */}
 					<View style={[styles.container]}>
@@ -249,6 +276,7 @@ class Menu extends React.Component {
 						placeholder="Type Here..."
 						value={this.state.search}
 					/>
+
 					<View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: "40px" }}>
 						{/* <PlusBottom onPress={this.addNewOrden} /> */}
 						<TouchableOpacity onPress={this.addNewOrden} style={[stylesBtnPlus.container]}>
@@ -443,8 +471,9 @@ const stylesBtnPlus = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-	//console.log("State In Menu Page :", state);
+	//console.log("State In Menu Page :", state.userLogin);
 	return {
+		user: state.userLogin,
 		listProduct: state.listProduct
 	};
 };

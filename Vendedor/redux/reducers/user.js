@@ -9,40 +9,41 @@
 
 import { LOGIN, LOGGED_USER, REGISTER_CLIENT, LOGOUT } from "../actions/type";
 
-export default function login(state = { employeeId: null, username: "", type: "", email: "", token: null }, action) {
+export default function login(state = { GivenName: null, DisplayName: "", type: "", email: "", Id: null }, action) {
 	const { type, payload } = action;
+	//console.log("payload : ", payload);
 	switch (type) {
 		case LOGIN:
 			return {
 				...state,
-				employeeId: payload.user.employeeId,
+				DisplayName: payload.user.DisplayName,
 
-				username: payload.user.username,
+				GivenName: payload.user.GivenName,
 				type: payload.user.type,
 				email: payload.user.email,
-				token: payload.token
+				Id: payload.Id
 			};
 
 		case LOGGED_USER:
 			return {
 				...state,
-				employeeId: payload.user.employeeId,
+				DisplayName: payload.user.DisplayName,
 
-				username: payload.user.username,
+				GivenName: payload.user.GivenName,
 				type: payload.user.type,
 				email: payload.user.email,
-				token: payload.token
+				Id: payload.Id
 			};
 
 		case REGISTER_CLIENT:
 			return {
 				...state,
-				employeeId: payload.user.employeeId,
+				DisplayName: payload.user.DisplayName,
 
-				username: payload.user.username,
+				GivenName: payload.user.GivenName,
 				type: payload.user.type,
 				email: payload.user.email,
-				token: payload.token
+				Id: payload.Id
 			};
 
 		case LOGOUT:
@@ -54,7 +55,7 @@ export default function login(state = { employeeId: null, username: "", type: ""
 
 				type: "",
 				email: "",
-				token: null
+				Id: null
 			};
 		default:
 			return state;

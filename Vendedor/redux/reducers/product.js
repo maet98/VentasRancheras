@@ -16,7 +16,7 @@ export default function getAllProduct(
 	//console.log("the Action : ", action);
 	const { type, payload } = action;
 	if (type === "GET_ONE_PRODUCT") {
-		console.log("One Product Payload : ", payload);
+		//console.log("One Product Payload : ", payload);
 	}
 	switch (type) {
 		case GET_ALL_PRODUCT:

@@ -1,12 +1,12 @@
 import Api from "../../apis/api";
 import { apiStart, apiEnd, apiError } from "./api";
-import { GET_ALL_PRODUCT, GET_ONE_PRODUCT } from "./type";
+import { GET_ALL_ORDER, GET_ONE_ORDER } from "./type";
 import { AsyncStorage } from "react-native";
 //import NavigationService from "../../pages/navigator";
 //import { getCurrentLanguage } from "../../constants/Utils";
 //import { NavigationActions } from "react-navigation";
 
-function requestGetProductSuccess(type, list) {
+function requestGetOrderSuccess(type, list) {
 	//console.log("dale Type : ", type);
 	//console.log("the list : ", list);
 	return { type, payload: { list } };
@@ -20,18 +20,22 @@ function requestFail(errorCode, language) {
 	return { type: API_FAILURE, payload: { data: errorCode, language } };
 }
 
-export function getAllProduct() {
+export async function getAllOrder() {
+	//console.log("ORDER HERE");
+	//console.log("ORDER Aquiiiii");
 	return dispatch => {
 		dispatch(apiStart());
-		Api.get("/product")
+		Api.get("/order")
 			.then(response => {
 				//console.log("response: ", response);
 				if (response.data) {
-					const Item = response.data.Item;
+					//console.log("Console : ", response.date);
+
+					const Item = response.data;
 					//const { _id, name, role, tel, email } = Item;
 					//console.log("ITEMs : ", Item);
 
-					dispatch(requestGetProductSuccess(GET_ALL_PRODUCT, Item));
+					dispatch(requestGetOrderSuccess(GET_ALL_ORDER, Item));
 
 					//console.log("Llego aqui----------------------------------");
 					//NavigationActions.navigate("NewMenu");
@@ -50,12 +54,12 @@ export function getAllProduct() {
 	};
 }
 
-export function getOneProduct(name) {
+export function getOneOrder(name) {
 	//console.log("Hi");
 	return dispatch => {
 		dispatch(apiStart());
 
-		Api.get(`/product/${name}`)
+		Api.get(`/order/${name}`)
 			.then(response => {
 				//console.log("response: ", response);
 				if (response.data) {
@@ -64,7 +68,7 @@ export function getOneProduct(name) {
 					//const { _id, name, role, tel, email } = Item;
 					//console.log("ITEMs : ", Item);
 
-					dispatch(requestGetProductSuccess(GET_ONE_PRODUCT, Item));
+					dispatch(requestGetOrderSuccess(GET_ONE_ORDER, Item));
 
 					//console.log("Llego aqui----------------------------------");
 					//NavigationActions.navigate("NewMenu");

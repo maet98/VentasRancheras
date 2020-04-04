@@ -21,7 +21,7 @@ class ViewCard extends PureComponent {
 		console.log("Paying!: ");
 	};
 	render() {
-		console.log("Items : ", this.props.Item);
+		//console.log("Items : ", this.props.Item);
 		//const _Items = this.props.Item.item;
 		return (
 			<View style={[styles.container]}>

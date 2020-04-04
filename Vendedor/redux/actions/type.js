@@ -20,3 +20,7 @@ export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const REGISTER_PRODUCT = "REGISTER_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+
+//Order
+export const GET_ALL_ORDER = "GET_ALL_ORDER";
+export const GET_ONE_ORDER = "GET_ONE_ORDER";

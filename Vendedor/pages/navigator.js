@@ -3,6 +3,7 @@ import Welcome from "../pages/welcome/src/screens/Welcom";
 import { createStackNavigator } from "react-navigation-stack";
 import Login from "../pages/login/src/screens/Untitled1";
 import Orden from "../pages/orden/src/screens/Untitled4.js";
+import CreateOrder from "../pages/orden/src/screens/CreateOrder.js";
 import AddProduct from "../pages/addProduct/src/screens/AddProduct.js";
 
 import OneProduct from "../pages/addProduct/src/screens/ViewOneProduct.js";
@@ -28,6 +29,7 @@ export const Tabs = createAppContainer(
 			Welcome,
 			Menu,
 			NewOrden,
+			CreateOrder,
 
 			Login
 		},
