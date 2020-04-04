@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://152.0.34.162:3000";
+const baseUrl = "rancheras.ddns.net";
 
 export default {
 	auth(url = baseUrl + "/auth/login") {
