@@ -67,6 +67,16 @@ export default function VerOrdenes() {
 		setSelected(selected.set(e.target.name, e.target.checked));
 	};
 
+	const StyledTableCell = withStyles((theme) => ({
+		head: {
+		  backgroundColor: theme.palette.common.blue,
+		  color: theme.palette.common.white,
+		},
+		body: {
+		  fontSize: 14,
+		},
+	  }))(TableCell);
+
 	return (
 		<div>
 			<div className="base-container">
@@ -83,6 +93,7 @@ export default function VerOrdenes() {
 				return (
 					<ExpansionPanel key={id}>
 						<ExpansionPanelSummary
+						className="centrado"
 							expandIcon={<ExpandMoreIcon />}
 							aria-controls="panel1a-content"
 							id="panel1a-header"
@@ -101,13 +112,13 @@ export default function VerOrdenes() {
 							<div>
 								<h3>Items:</h3>
 								<br />
-								<Table>
+								<Table className={classes.table} aria-label="customized table">
 									<TableHead>
 										<TableRow>
-											<TableCell>Id</TableCell>
-											<TableCell>Name</TableCell>
-											<TableCell>Qty</TableCell>
-											<TableCell>Ammount</TableCell>
+											<StyledTableCell align="right">Id</StyledTableCell>
+											<StyledTableCell align="right">Name</StyledTableCell>
+											<StyledTableCell align="right">Qty</StyledTableCell>
+											<StyledTableCell align="right">Ammount</StyledTableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>

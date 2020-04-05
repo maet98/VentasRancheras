@@ -1,6 +1,7 @@
 import React from "react";
 import rutasImg from "../../images/ruta.svg";
 import "../login/style.scss";
+import { NavBar } from "react";
 import api from "../../api/api";
 import Axios from "axios";
 
@@ -20,7 +21,7 @@ export class ProgramarRutas extends React.Component {
 
       <div className="base-container" ref={this.props.containerRef}>
            <div>
-          <NavBar />
+          <NavBar/>
         </div>
         <div className="header">Programar Rutas</div>
         <div className="content">
