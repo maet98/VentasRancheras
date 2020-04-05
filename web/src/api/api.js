@@ -33,4 +33,9 @@ export default {
 			getAll: () => axios.get(url),
 		};
 	},
+	route(url = baseUrl + "/route") {
+		return {
+			create: (data) => axios.post(url, data)
+		}
+	}
 };

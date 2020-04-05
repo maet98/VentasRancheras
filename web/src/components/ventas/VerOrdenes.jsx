@@ -16,7 +16,9 @@ import {
 	TableHead,
 	TableBody,
 	TableCell,
+	withStyles,
 	Button,
+	TextField,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function VerOrdenes() {
 	const [available, setAvailable] = React.useState([]);
+	const [priority, setPriority] = React.useState(new Map());
 	const [selected, setSelected] = React.useState(new Map());
 	const [employee, setEmployee] = React.useState();
 	let { id } = useParams();
@@ -42,10 +45,13 @@ export default function VerOrdenes() {
 			.getAvailable()
 			.then((res) => {
 				var obj = new Map();
+				var prio = new Map();
 				for (let i = 0; i < res.data.orders.length; i++) {
-					obj[res.data.orders[i].Id] = false;
+					obj.set(res.data.orders[i].Id, false);
+					prio.set(res.data.orders[i].Id, 0);
 				}
 				setSelected(obj);
+				setPriority(prio);
 				setAvailable(res.data.orders);
 			});
 		api
@@ -58,24 +64,51 @@ export default function VerOrdenes() {
 	}, []);
 
 	const handleSubmit = () => {
-		for (var i in selected) {
-			console.log(i);
+		console.log(priority);
+		var orders = new Map();
+		for (let i = 0; i < available.length; i++) {
+			const x = available[i];
+			x.index = i;
+			orders.set(available[i].Id, x);
 		}
+		var stops = [];
+		var iterator = selected.entries();
+		for (let i = 0; i < selected.size; i++) {
+			const actual = iterator.next().value;
+			if (actual[1]) {
+				const entry = {
+					latitude: orders.get(actual[0]).ShipAddr.Line1,
+					longitude: orders.get(actual[0]).ShidAddr.Line2,
+					orderId: orders.get(actual[0]).Id,
+				};
+				stops.push(entry);
+			}
+		}
+		var data = {
+			user: id,
+			stops: stops,
+		};
 	};
 
 	const handleChange = (e) => {
 		setSelected(selected.set(e.target.name, e.target.checked));
 	};
 
+	const handlePriorityChange = (e) => {
+		const temp = priority;
+		temp[e.target.name] = e.target.value;
+		setPriority(temp);
+	};
+
 	const StyledTableCell = withStyles((theme) => ({
 		head: {
-		  backgroundColor: theme.palette.common.blue,
-		  color: theme.palette.common.white,
+			backgroundColor: theme.palette.common.blue,
+			color: theme.palette.common.white,
 		},
 		body: {
-		  fontSize: 14,
+			fontSize: 14,
 		},
-	  }))(TableCell);
+	}))(TableCell);
 
 	return (
 		<div>
@@ -93,17 +126,11 @@ export default function VerOrdenes() {
 				return (
 					<ExpansionPanel key={id}>
 						<ExpansionPanelSummary
-						className="centrado"
+							className="centrado"
 							expandIcon={<ExpandMoreIcon />}
 							aria-controls="panel1a-content"
 							id="panel1a-header"
 						>
-							<Checkbox
-								checked={selected.get(record.id)}
-								onChange={handleChange}
-								name={record.Id}
-								inputProps={{ "arial-label": "primary checkbox" }}
-							/>
 							<Typography classname={classes.heading}>
 								{id + ":  " + record.CustomerRef.name + "				" + record.TxnDate}
 							</Typography>
@@ -123,7 +150,6 @@ export default function VerOrdenes() {
 									</TableHead>
 									<TableBody>
 										{record.Line.map((other, index) => {
-											console.log(other);
 											return "SalesItemLineDetail" in other ? (
 												<TableRow key={index}>
 													<TableCell>{other.Id}</TableCell>
@@ -135,6 +161,22 @@ export default function VerOrdenes() {
 										})}
 									</TableBody>
 								</Table>
+								<Checkbox
+									checked={selected.get(record.id)}
+									onChange={handleChange}
+									name={record.Id}
+									inputProps={{ "arial-label": "primary checkbox" }}
+								>
+									Seleccionar?
+								</Checkbox>
+								<TextField
+									variant="outlined"
+									name={id}
+									value={priority[id]}
+									onChange={handlePriorityChange}
+									label="Priority"
+									type="number"
+								/>
 							</div>
 						</ExpansionPanelDetails>
 					</ExpansionPanel>
