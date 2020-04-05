@@ -1,13 +1,16 @@
 import React from "react";
 import ordenImg from "../../images/orden.svg";
-import NavBar from "../ventas/NavBar";
-import "../login/style.scss"
+import "../login/style.scss";
 
 export class ProgramarOrden extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+	constructor(props) {
+		super(props);
+		this.handleClick = this.handleClick.bind(this);
+	}
 
+	handleClick() {
+		window.location = "/verRutas";
+	}
 
   render() {
     return (
@@ -37,4 +40,4 @@ export class ProgramarOrden extends React.Component {
     );
   }
 }
-export default ProgramarOrden
+export default ProgramarOrden;

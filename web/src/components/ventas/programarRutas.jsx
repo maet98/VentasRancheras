@@ -1,12 +1,19 @@
 import React from "react";
 import rutasImg from "../../images/ruta.svg";
-import NavBar from "../ventas/NavBar";
-import "../login/style.scss"
+import "../login/style.scss";
+import api from "../../api/api";
+import Axios from "axios";
 
 export class ProgramarRutas extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+	constructor(props) {
+		super(props);
+		this.onChangeSelectedName = this.onChangeSelectedName.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+		this.state = {
+			selectedName: 0,
+			names: [],
+		};
+	}
 
   render() {
     return (
@@ -37,4 +44,4 @@ export class ProgramarRutas extends React.Component {
     );
   }
 }
-export default ProgramarRutas
+export default ProgramarRutas;
