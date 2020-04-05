@@ -1,7 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { SearchBar, ListItem } from "react-native-elements";
+import { SearchBar } from "react-native-elements";
+import { FlatList, SafeAreaView, TouchableHighlight, TouchableOpacity } from "react-native";
+import update from "react-addons-update"; // ES6
+//var update = require("react-addons-update"); // ES5 with npm
+import CardViewOrder from "../components/CardViewOrder";
 
+import ViewCardProduct from "../../../menu/src/components/ViewCard";
 import { Text, View, Button, StyleSheet, ActivityIndicator, ScrollView, Platform } from "react-native";
 
 class CreateOder extends React.Component {
@@ -14,36 +19,82 @@ class CreateOder extends React.Component {
 			viewFlat: true,
 			saveOldArray: true,
 			setIt: true,
-			dataSource: this.props.listProduct,
+			//dataSource: this.props.listProduct,
 			userType: true,
-			arrSelected: {}
-		};
-		this.arrayholder = [];
+			arrSelected: [
+				{
+					nameItem: "aceite",
+					IdItem: 4,
+					Amount: 6,
+					price: 200
+				},
+				{
+					nameItem: "ace",
+					IdItem: 10,
+					Amount: 7,
+					price: 100
+				}
+			],
+			listProduct: [
+				{
+					Description: "aceite De Fabrica",
+					Name: "aceite",
 
-		this.arrayOrder = [];
+					UnitPrice: 200
+				},
+				{
+					nameItem: "ace De Santiago",
+					Name: "ace",
+
+					UnitPrice: 100
+				}
+			]
+		};
+		this.arrayholder = this.state.arrSelected;
+
+		this.arrayOrder = this.state.arrSelected;
 		this.tempArrayOrder = [];
 	}
 
-	addItemToArrSelected = async () => {
-		const newjectObItem = ["nameItem", "IdTtem", "Amount"];
-		this.tempArrayOrder = this.state.arrSelected;
+	addItemToArrSelected = async (nameItem = "aceite", IdItem = 4, Amount = 6) => {
+		const songs = this.state.arrSelected;
+		//console.log("songs : ", songs);
+		const newjectObItem = [{ nameItem: nameItem, IdTtem: IdItem, Amount: Amount }];
+		const totalSongs = songs.push(newjectObItem);
+		//console.log(" totalSongs : ", totalSongs);
+		//console.log(songs);
+		// var tpArrayOrder = [];
+		// tpArrayOrder = this.state.arrSelected;
+		// tpArrayOrder.add(newjectObItem);
 
-		this.setState({
-			arrSelected: [...this.tempArrayOrder, newjectObItem]
-		});
+		// this.setState({
+		// 	arrSelected: tpArrayOrder
+		// });
+		this.arrayholder = this.state.arrSelected;
 
-		console.log("ArrSelected : ", this.state.arrSelected);
+		console.log("ArrSelected : ", this.arrayOrder);
 	};
 
-	updateAmountItem = async Item => {
-		var Items = Object.assign({}, { nameItem: nameItem, IdItem: IdItem, amount: amount });
-		this.setState(prevState => ({
-			arrSelected: [...prevState.arrSelected, Items]
-		}));
-		// var tempArr = this.state.arrSelected;
-		this.setState(state => update(state, { arrSelected: { $push: [4] } }));
+	// updateAmountItem = async Item => {
+	// 	var Items = Object.assign({}, { nameItem: nameItem, IdItem: IdItem, amount: amount });
+	// 	this.setState(prevState => ({
+	// 		arrSelected: [...prevState.arrSelected, Items]
+	// 	}));
+	// 	// var tempArr = this.state.arrSelected;
+	// 	this.setState(state => update(state, { arrSelected: { $push: [4] } }));
 
-		console.log("ArrSelected : ", this.state.arrSelected);
+	// 	//	console.log("ArrSelected : ", this.state.arrSelected);
+	// };
+
+	componentDidUpdate() {
+		this.arrayOrder = this.state.arrSelected;
+		this.arrayholder = this.state.arrSelected;
+		//console.log("arrayOrder : ", this.arrayOrder);
+	}
+
+	_onPress = item => {
+		console.log("value : ", item);
+		//alert("Item Selected : ", item.Description);
 	};
 
 	SearchFilterFunction = text => {
@@ -61,7 +112,7 @@ class CreateOder extends React.Component {
 			this.setState({
 				//setting the filtered newData on datasource
 				//After setting the data it will automatically re-render the view
-				dataSource: this.arrayholder,
+				//dataSource: this.arrayholder,
 				saveOldArray: false
 			});
 		}
@@ -73,7 +124,7 @@ class CreateOder extends React.Component {
 		if (newData.length > 0) {
 			this.arrayholder = newData;
 		} else {
-			this.arrayholder = this.state.dataSource;
+			//this.arrayholder = this.state.dataSource;
 		}
 	};
 
@@ -89,22 +140,59 @@ class CreateOder extends React.Component {
 					value={this.state.search}
 				/>
 
-				{/* <FlatList
-						data={this.arrayholder}
-						ItemSeparatorComponent={this.ListViewItemSeparator}
-						//Item Separator View
-						renderItem={({ item }) => (
-							// Single Comes here which will be repeatative for the FlatListItems
-							<TouchableHighlight onPress={() => this._onPress(item)}>
-								<ViewCard Item={item} />
-							</TouchableHighlight>
-						)}
-						enableEmptySections={true}
-						style={{ marginTop: 10 }}
-						keyExtractor={(item, index) => index.toString()}
-					/> */}
+				<View style={{ height: 200, paddingBottom: "20px" }}>
+					<SafeAreaView>
+						<FlatList
+							data={this.state.listProduct}
+							extraData={this.state}
+							ItemSeparatorComponent={this.ListViewItemSeparator}
+							//Item Separator View
+							renderItem={({ item }) => (
+								// Single Comes here which will be repeatative for the FlatListItems
+								<TouchableHighlight onPress={() => this._onPress(item)}>
+									<ViewCardProduct Item={item} />
+								</TouchableHighlight>
+							)}
+							enableEmptySections={true}
+							style={{ marginTop: 10 }}
+							keyExtractor={(item, index) => index.toString()}
+						/>
+						<View style={styles.actionBody}>
+							<TouchableOpacity onPress={this.clickPaying} style={styles.actionButton2}>
+								<Text style={styles.actionText2}>Add To Cart</Text>
+							</TouchableOpacity>
+						</View>
+					</SafeAreaView>
+				</View>
+				<View
+					style={{
+						paddingTop: "10px",
 
-				<Button onPress={this.addItemToArrSelected} title="Click button" />
+						backgroundColor: "grey",
+						borderWidth: 5,
+						margin: "10px"
+					}}
+				>
+					<SafeAreaView>
+						<FlatList
+							extraData={this.state}
+							data={this.state.arrSelected}
+							ItemSeparatorComponent={this.ListViewItemSeparator}
+							//Item Separator View
+							renderItem={({ item }) => (
+								// Single Comes here which will be repeatative for the FlatListItems
+								<TouchableHighlight onPress={() => this._onPress(item)}>
+									<CardViewOrder Item={item} />
+								</TouchableHighlight>
+							)}
+							enableEmptySections={true}
+							style={{ marginTop: 10 }}
+							keyExtractor={(item, index) => index.toString()}
+						/>
+					</SafeAreaView>
+				</View>
+
+				<Button style={{ position: "absoulute" }} onPress={() => this.addItemToArrSelected()} title="Click button" />
 			</View>
 		);
 	}
@@ -146,6 +234,10 @@ const styles = StyleSheet.create({
 		color: "#FFFFFF",
 		fontSize: 24,
 		opacity: 0.8
+	},
+	cardBody: {
+		flexDirection: "row",
+		justifyContent: "space-between"
 	},
 	btn1Text: {
 		color: "#FFFFFF",

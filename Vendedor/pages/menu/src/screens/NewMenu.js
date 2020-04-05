@@ -79,7 +79,7 @@ class Menu extends React.Component {
 	};
 
 	addNewOrden = () => {
-		this.props.navigation.navigate("NewOrden");
+		this.props.navigation.navigate("CreateOrder");
 	};
 
 	renderFlatList = Item => {
