@@ -8,7 +8,6 @@ export class ProgramarRutas extends React.Component {
     super(props);
   }
 
-
   render() {
     return (
 
@@ -27,7 +26,7 @@ export class ProgramarRutas extends React.Component {
               <input type="text" name="delivery" placeholder="Nombre del Delivery" />
             </div>
             <div className = "form-group">
-            <button type="button" className="btn" src="./components/ventas/verRutas">
+            <button type="button" className="btn">
               Programar
           </button>
             </div>

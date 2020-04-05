@@ -13,7 +13,7 @@ export class ProgramarOrden extends React.Component {
     return (
 
       <div className="base-container" ref={this.props.containerRef}>
-           <div>
+        <div>
           <NavBar />
         </div>
         <div className="header">Programar Orden</div>
@@ -26,14 +26,13 @@ export class ProgramarOrden extends React.Component {
               <label htmlFor="vendedor">Nombre del Vendedor </label>
               <input type="text" name="vendedor" placeholder="Nombre del Vendedor" />
             </div>
-            <div className = "form-group">
-            <button type="button" className="btn" src="./components/ventas/verClientes">
-              Programar
-          </button>
+            <div className="form-group">
+              <button type="button" className="btn" >
+              </button>
             </div>
           </div>
         </div>
-     
+
       </div>
     );
   }
