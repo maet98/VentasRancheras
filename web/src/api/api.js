@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "rancheras.ddns.net";
+const baseUrl = "http://152.0.34.162:3000";
 
 export default {
 	auth(url = baseUrl + "/auth/login") {
@@ -19,6 +19,7 @@ export default {
 		return {
 			getAll: () => axios.get(url),
 			getByCustomerId: (id) => axios.get(url + `/employee/${id}`),
+			getAvailable: () => axios.get(url + "/available")
 		};
 	},
 	client(url = baseUrl + "/client") {

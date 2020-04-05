@@ -48,6 +48,7 @@ export class Login extends React.Component {
 				window.location = "/menu";
 			})
 			.catch((e) => {
+				console.log(e);
 				toast("error logging in, try again");
 			});
 		this.setState({

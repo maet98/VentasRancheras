@@ -2,6 +2,7 @@ import React from "react";
 import rutasImg from "../../images/ruta.svg";
 import "../login/style.scss";
 import api from "../../api/api";
+import Axios from "axios";
 
 export class ProgramarRutas extends React.Component {
 	constructor(props) {
@@ -9,12 +10,15 @@ export class ProgramarRutas extends React.Component {
 		this.onChangeSelectedName = this.onChangeSelectedName.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 		this.state = {
-			selectedName: "",
+			selectedName: 0,
 			names: [],
 		};
 	}
 
 	componentDidMount() {
+		Axios.get("http://152.0.34.162:3000/client")
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
 		api
 			.employee()
 			.getAll()
@@ -22,7 +26,8 @@ export class ProgramarRutas extends React.Component {
 				this.setState({
 					names: res.data.Employee,
 				});
-			});
+			})
+			.catch((err) => console.log(err));
 	}
 
 	onChangeSelectedName(e) {
