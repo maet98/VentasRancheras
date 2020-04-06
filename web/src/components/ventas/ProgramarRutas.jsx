@@ -1,7 +1,6 @@
 import React from 'react';
 import rutasImg from '../../images/ruta.svg';
 import '../login/style.scss';
-import { NavBar } from 'react';
 import api from '../../api/api';
 
 export default class ProgramarRutas extends React.Component {

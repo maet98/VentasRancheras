@@ -113,7 +113,7 @@ export default function VerOrdenes() {
 	return (
 		<div>
 			<div className='base-container'>
-				<div className='header'>Asignar Ordenes al cliente:</div>
+				<div className='header'>Asignar Ordenes al Repartidor: {id}</div>
 				<div className='content'>
 					<div className='image'>
 						<img className='centrado' src={rutasImg} alt='desc' />
@@ -130,7 +130,7 @@ export default function VerOrdenes() {
 							expandIcon={<ExpandMoreIcon />}
 							aria-controls='panel1a-content'
 							id='panel1a-header'>
-							<Typography classname={classes.heading}>
+							<Typography className={classes.heading}>
 								{id + ':  ' + record.CustomerRef.name + '				' + record.TxnDate}
 							</Typography>
 						</ExpansionPanelSummary>
