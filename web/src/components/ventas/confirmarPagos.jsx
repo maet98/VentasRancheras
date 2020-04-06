@@ -1,8 +1,8 @@
-import React from "react";
-import pagosImg from "../../images/pagos.svg";
-import "../login/style.scss";
-import api from "../../api/api";
-import { Table, Button } from "react-bootstrap";
+import React from 'react';
+import pagosImg from '../../images/pagos.svg';
+import '../login/style.scss';
+import api from '../../api/api';
+import { Table, Button } from 'react-bootstrap';
 
 export class ConfirmarPagos extends React.Component {
 	constructor(props) {
@@ -15,36 +15,36 @@ export class ConfirmarPagos extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("Executing Request...");
+		console.log('Executing Request...');
 		api
 			.employee()
 			.getAll()
-			.then((res) => {
+			.then(res => {
 				this.setState({
-					Employees: res.data.Employee,
+					Employees: res.data,
 				});
 			});
 	}
 
 	ReRoute(e, ID) {
 		e.preventDefault();
-		window.location = "/Desempeño/" + ID;
+		window.location = '/Desempeño/' + ID;
 	}
 
 	render() {
 		let Employee = this.state.Employees;
 		let count = 0;
 		return (
-			<div className="base-container" ref={this.props.containerRef}>
-				<div className="header">
+			<div className='base-container' ref={this.props.containerRef}>
+				<div className='header'>
 					Listado de Vendedores{this.props.match.params.id}
 				</div>
-				<div className="content">
-					<div className="image">
-						<img className="centrado" src={pagosImg} alt="desc" />
+				<div className='content'>
+					<div className='image'>
+						<img className='centrado' src={pagosImg} alt='desc' />
 					</div>
 				</div>
-				<Table responsive="sm" bordered hover>
+				<Table responsive='sm' bordered hover>
 					<thead>
 						<tr>
 							<th>#</th>
@@ -63,7 +63,9 @@ export class ConfirmarPagos extends React.Component {
 										<td>{Employee.Id}</td>
 										<td>{Employee.GivenName}</td>
 										<td>
-											<Button variant="link" onClick={(e) => this.ReRoute(e, Employee.Id)}>
+											<Button
+												variant='link'
+												onClick={e => this.ReRoute(e, Employee.Id)}>
 												Ver Desempeño
 											</Button>
 										</td>

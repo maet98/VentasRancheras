@@ -1,8 +1,8 @@
-import React from "react";
-import rutasImg from "../../images/ruta.svg";
-import "../login/style.scss";
-import { NavBar } from "react";
-import api from "../../api/api";
+import React from 'react';
+import rutasImg from '../../images/ruta.svg';
+import '../login/style.scss';
+import { NavBar } from 'react';
+import api from '../../api/api';
 
 export default class ProgramarRutas extends React.Component {
 	constructor(props) {
@@ -19,12 +19,12 @@ export default class ProgramarRutas extends React.Component {
 		api
 			.employee()
 			.getAll()
-			.then((res) => {
+			.then(res => {
 				this.setState({
-					names: res.data.Employee,
+					names: res.data,
 				});
 			})
-			.catch((err) => console.log(err));
+			.catch(err => console.log(err));
 	}
 
 	onChangeSelectedName(e) {
@@ -35,17 +35,18 @@ export default class ProgramarRutas extends React.Component {
 	handleClick(e) {
 		e.preventDefault();
 		const id = this.state.selectedName;
+		console.log('executing request...');
 		api
 			.employee()
 			.getById(id)
-			.then((res) => {
-				if (res.data.type === "Repartidor") {
-					window.location = "/verOrdenes/" + id;
-				} else if (res.data.type === "Vendedor") {
-					window.location = "/verClientes/" + id;
+			.then(res => {
+				if (res.data.type === 'Repartidor') {
+					window.location = '/verOrdenes/' + id;
+				} else if (res.data.type === 'Vendedor') {
+					window.location = '/verClientes/' + id;
 				}
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log(err);
 			});
 	}
@@ -53,23 +54,22 @@ export default class ProgramarRutas extends React.Component {
 	render() {
 		let names = this.state.names;
 		return (
-			<div className="base-container" ref={this.props.containerRef}>
-				<div className="header">Programar Rutas</div>
-				<div className="content">
-					<div className="image">
-						<img className="centrado" src={rutasImg} alt="desc" />
+			<div className='base-container' ref={this.props.containerRef}>
+				<div className='header'>Programar Rutas</div>
+				<div className='content'>
+					<div className='image'>
+						<img className='centrado' src={rutasImg} alt='desc' />
 					</div>
-					<div className="form">
-						<div className="form-group">
-							<label htmlFor="delivery">Nombre del Empleado</label>
+					<div className='form'>
+						<div className='form-group'>
+							<label htmlFor='delivery'>Nombre del Empleado</label>
 							<select
-								type="text"
-								id="inputName"
-								className="form-control"
+								type='text'
+								id='inputName'
+								className='form-control'
 								value={this.state.selectedName}
-								onChange={this.onChangeSelectedName}
-							>
-								<option value="" hidden>
+								onChange={this.onChangeSelectedName}>
+								<option value='' hidden>
 									Elegir Empleado
 								</option>
 								{names.map((name, index) => {
@@ -81,8 +81,8 @@ export default class ProgramarRutas extends React.Component {
 								})}
 							</select>
 						</div>
-						<div className="form-group">
-							<button type="button" className="btn" onClick={this.handleClick}>
+						<div className='form-group'>
+							<button type='button' className='btn' onClick={this.handleClick}>
 								Continuar
 							</button>
 						</div>
