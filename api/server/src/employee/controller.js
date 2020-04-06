@@ -18,11 +18,27 @@ export async function getAll(req, res) {
         fetchAll: true
     }, (err, ans) => {
         if (err) {
-            res.status(400).json(err);
-        } else {
-            res.json(ans.QueryResponse);
+            return res.status(400).json(err);
         }
-    });
+        employee.findAll().then(resp => {
+            console.log(resp);
+            var map = new Map();
+            for (let i = 0; i < resp.length; i++) {
+                console.log(resp[i].dataValues.employeeId)
+                console.log(resp[i].dataValues.type)
+                map.set(resp[i].dataValues.employeeId, resp[i].dataValues.type);
+            }
+            ans = ans.QueryResponse.Employee;
+            var arr = [];
+            for (let i = 0; i < ans.length; i++) {
+                console.log(map.get())
+                if (map.get(parseInt(ans[i].Id)) !== "Supervisor") {
+                    arr.push(ans[i]);
+                }
+            }
+            res.json(arr);
+        })
+    }).catch(err => res.status(400).json(err))
 }
 
 export async function filterName(req, res) {
