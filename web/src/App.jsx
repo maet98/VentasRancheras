@@ -5,7 +5,7 @@ import NavBar from "./components/ventas/NavBar";
 import PantallaInicial from "./components/login/PantallaInicial.jsx";
 import Menu from "./components/ventas/menu.jsx";
 import confirmarPagos from "./components/ventas/confirmarPagos";
-import programarRutas from "./components/ventas/programarRutas";
+import ProgramarRutas from "./components/ventas/ProgramarRutas";
 import Registrar from "./components/login/register";
 import verPedidos from "./components/ventas/verPedidos";
 import editarInventario from "./components/ventas/editarInventario";
@@ -26,7 +26,7 @@ function App() {
 						<Switch>
 							<Route path="/menu" component={Menu} />
 							<Route path="/verDesempeño" component={confirmarPagos} />
-							<Route path="/programarRutas" component={programarRutas} />
+							<Route path="/programarRutas" component={ProgramarRutas} />
 							<Route path="/registrar" component={Registrar} />
 							<Route path="/verPedidos" component={verPedidos} />
 							<Route path="/editarInventario" component={editarInventario} />

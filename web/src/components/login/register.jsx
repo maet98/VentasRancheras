@@ -1,6 +1,5 @@
 import React from "react";
 import loginImg from "../../images/login.svg";
-import Navbar from "../ventas/NavBar";
 import "../login/style.scss";
 import api from "../../api/api";
 import { toast } from "react-toastify";
@@ -84,9 +83,6 @@ export class Register extends React.Component {
 	render() {
 		return (
 			<div className="base-container" ref={this.props.containerRef}>
-				<div>
-					<Navbar />
-				</div>
 				<form onSubmit={this.onSubmit}>
 					<div className="header">Registrar Empleado</div>
 					<div className="content">
