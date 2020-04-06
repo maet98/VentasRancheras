@@ -1,11 +1,11 @@
 {
     "salt": "$2a$10$5EmjEqcTXftT3ujBK770Nu",
-    "jwtSecret":"12345678s",
+    "jwtSecret": "12345678s",
     "development": {
         "username": "admindb",
         "password": "Password",
         "database": "RancherasDB",
-        "host": "152.0.49.179",
+        "host": "152.0.34.162",
         "dialect": "mysql",
         "operatorsAliases": false
     },
@@ -25,36 +25,36 @@
         "dialect": "mysql",
         "operatorsAliases": false
     },
-    "quickbooks":{
-        "url":"http://localhost:3000",
-        "token":"eyJraWQiOiJPUElDUFJEMDkxODIwMTQiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjOWJmOTE5Ny04MTY0LTQ1NTEtOWE1Yy1lNWZkYWE0YjQzYTciLCJhdWQiOlsiQUJ4elFBZnB6b0JKRmw0dkJZVmw0aVhRalhhZnl4WHBhSnhkNzRNNGpkUzFscjBOc3ciXSwicmVhbG1pZCI6IjQ2MjA4MTYzNjUwMzg3ODQwMjAiLCJhdXRoX3RpbWUiOjE1ODUwNjIyNTYsImlzcyI6Imh0dHBzOlwvXC9vYXV0aC5wbGF0Zm9ybS5pbnR1aXQuY29tXC9vcFwvdjEiLCJleHAiOjE1ODUwNjY3MDEsImlhdCI6MTU4NTA2MzEwMX0.MYyM8EQl9olm6msD7uNM0tcgqjahCrcS-JkbvplB_In6DTLIcDSWMHJ8SfvuSgnm4lMWmLIX3M5LqemTUGspNBm4fdjfPQpHCe8u0KvIE60q3R_5pQxHHtc4VrbbYWi5-vhz5DWWJhhwAPt1oSWVvGBUcIZTW2nulNnPvrqheJM",
-        "refresh":"AB11593789501PJSKwLnlt16sI3rCatYzVC8SfagqLutPE2ux5",
-        "clientId":"ABxzQAfpzoBJFl4vBYVl4iXQjXafyxXpaJxd74M4jdS1lr0Nsw",
+    "quickbooks": {
+        "url": "http://localhost:3000",
+        "token": "eyJraWQiOiJPUElDUFJEMDkxODIwMTQiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjOWJmOTE5Ny04MTY0LTQ1NTEtOWE1Yy1lNWZkYWE0YjQzYTciLCJhdWQiOlsiQUJ4elFBZnB6b0JKRmw0dkJZVmw0aVhRalhhZnl4WHBhSnhkNzRNNGpkUzFscjBOc3ciXSwicmVhbG1pZCI6IjQ2MjA4MTYzNjUwMzg3ODQwMjAiLCJhdXRoX3RpbWUiOjE1ODUwNjIyNTYsImlzcyI6Imh0dHBzOlwvXC9vYXV0aC5wbGF0Zm9ybS5pbnR1aXQuY29tXC9vcFwvdjEiLCJleHAiOjE1ODUwNjY3MDEsImlhdCI6MTU4NTA2MzEwMX0.MYyM8EQl9olm6msD7uNM0tcgqjahCrcS-JkbvplB_In6DTLIcDSWMHJ8SfvuSgnm4lMWmLIX3M5LqemTUGspNBm4fdjfPQpHCe8u0KvIE60q3R_5pQxHHtc4VrbbYWi5-vhz5DWWJhhwAPt1oSWVvGBUcIZTW2nulNnPvrqheJM",
+        "refresh": "AB11593789501PJSKwLnlt16sI3rCatYzVC8SfagqLutPE2ux5",
+        "clientId": "ABxzQAfpzoBJFl4vBYVl4iXQjXafyxXpaJxd74M4jdS1lr0Nsw",
         "clientSecret": "0NDN2HuaN414jEONf2TgmobtRs3MlaBIh5KIyjij",
-        "realmId": "4620816365038784020",
+        "realmId": "4620816365043978300",
         "redirectUri": "http://localhost:3000/callback",
         "configurationEndpoint": "https://developer.api.intuit.com/.well-known/openid_sandbox_configuration/",
         "api_uri": "https://sandbox-quickbooks.api.intuit.com/v3/company/",
         "scopes": {
             "sign_in_with_intuit": [
-            "openid",
-            "profile",
-            "email",
-            "phone",
-            "address"
+                "openid",
+                "profile",
+                "email",
+                "phone",
+                "address"
             ],
             "connect_to_quickbooks": [
-            "com.intuit.quickbooks.accounting",
-            "com.intuit.quickbooks.payment"
+                "com.intuit.quickbooks.accounting",
+                "com.intuit.quickbooks.payment"
             ],
             "connect_handler": [
-            "com.intuit.quickbooks.accounting",
-            "com.intuit.quickbooks.payment",
-            "openid",
-            "profile",
-            "email",
-            "phone",
-            "address"
+                "com.intuit.quickbooks.accounting",
+                "com.intuit.quickbooks.payment",
+                "openid",
+                "profile",
+                "email",
+                "phone",
+                "address"
             ]
         }
     }
