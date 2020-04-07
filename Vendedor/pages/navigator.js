@@ -31,10 +31,10 @@ export const Tabs = createAppContainer(
 			NewOrden,
 			CreateOrder,
 
-			Login
+			Login,
 		},
 		{
-			initialRouteName: "Welcome"
+			initialRouteName: "Welcome",
 		}
 	)
 );

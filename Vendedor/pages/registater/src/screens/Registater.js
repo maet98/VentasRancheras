@@ -119,47 +119,64 @@ export default Registater;*/
 import React, { PureComponent } from "react";
 import { View, Button, TextInput, StyleSheet } from "react-native";
 
+import Axios from "../../../../apis/api";
+
 export default class Registater extends PureComponent {
 	state = {
-		username: "",
-		password: "",
-		email: "",
-		type: "",
-		firstName: "",
-		lastName: ""
+		address: "",
+
+		DisplayName: "",
+		CompanyName: "",
+
+		FreeFormNumber: "",
+		Lat: "",
+		Long: "",
 	};
 	onChangeText = (key, val) => {
 		this.setState({ [key]: val });
 	};
 
-	handleEmail = text => {
-		this.setState({ email: text });
+	handleEmail = (text) => {
+		this.setState({ address: text });
 	};
-	handlePassword = text => {
-		this.setState({ password: text });
+	handleLat = (text) => {
+		this.setState({ Lat: text });
+	};
+	handleLong = (text) => {
+		this.setState({ Long: text });
 	};
 
-	handleFirstName = text => {
-		this.setState({ firstName: text });
+	handleLastName = (text) => {
+		this.setState({ DisplayName: text });
 	};
-	handleLastName = text => {
-		this.setState({ lastName: text });
+	handleType = (text) => {
+		this.setState({ FreeFormNumber: text });
 	};
-	handleType = text => {
-		this.setState({ type: text });
+	handleUserName = (text) => {
+		this.setState({ CompanyName: text });
 	};
-	handleUserName = text => {
-		this.setState({ username: text });
-	};
-	signUp = async (email, password, type, firstName, lastName, username) => {
+	signUp = async (address, DisplayName, CompanyName, FreeFormNumber, Lat, Long) => {
+		const PrimaryEmailAddr = { Address: address };
+
+		const PrimaryPhone = {
+			FreeFormNumber: FreeFormNumber,
+		};
+		Axios.post("/client", {
+			DisplayName,
+			CompanyName,
+			PrimaryEmailAddr,
+			PrimaryPhone,
+			Lat,
+			Long,
+		}).then((response) => {
+			//console.log("response: ", response);
+			if (response.data) {
+				alert("Client Registrated");
+				this.props.navigation.navigate("Welcome");
+			}
+		});
+
 		//const { username, password, email, firstName, type, lastName } = this.state;
-		try {
-			// here place your signup logic
-			console.log("user successfully signed up!: ");
-			this.props.navigation.navigate("Login");
-		} catch (err) {
-			console.log("error signing up: ", err);
-		}
 	};
 
 	render() {
@@ -167,7 +184,7 @@ export default class Registater extends PureComponent {
 			<View style={styles.container}>
 				<TextInput
 					style={styles.input}
-					placeholder="Last Name"
+					placeholder="DisplayName"
 					autoCapitalize="none"
 					placeholderTextColor="white"
 					onChangeText={this.handleLastName}
@@ -175,26 +192,12 @@ export default class Registater extends PureComponent {
 
 				<TextInput
 					style={styles.input}
-					placeholder="First Name"
-					autoCapitalize="none"
-					placeholderTextColor="white"
-					oonChangeText={this.handleFirstName}
-				/>
-				<TextInput
-					style={styles.input}
-					placeholder="Username"
+					placeholder="CompanyName"
 					autoCapitalize="none"
 					placeholderTextColor="white"
 					onChangeText={this.handleUserName}
 				/>
-				<TextInput
-					style={styles.input}
-					placeholder="Password"
-					secureTextEntry={true}
-					autoCapitalize="none"
-					placeholderTextColor="white"
-					onChangeText={this.handlePassword}
-				/>
+
 				<TextInput
 					style={styles.input}
 					placeholder="Email"
@@ -204,27 +207,41 @@ export default class Registater extends PureComponent {
 				/>
 				<TextInput
 					style={styles.input}
-					placeholder="Type"
+					placeholder="phone number"
 					autoCapitalize="none"
 					placeholderTextColor="white"
 					onChangeText={this.handleType}
+				/>
+
+				<TextInput
+					style={styles.input}
+					placeholder="Lat"
+					autoCapitalize="none"
+					placeholderTextColor="white"
+					onChangeText={this.handleLat}
+				/>
+
+				<TextInput
+					style={styles.input}
+					placeholder="Long"
+					autoCapitalize="none"
+					placeholderTextColor="white"
+					onChangeText={this.handleLong}
 				/>
 
 				<Button
 					title="Sign UP"
 					onPress={() =>
 						this.signUp(
-							this.state.email,
-							this.state.password,
-							this.state.type,
-							this.state.firstName,
-							this.state.lastName,
-							this.state.username
+							this.state.address,
+							this.state.DisplayName,
+							this.state.CompanyName,
+							this.state.FreeFormNumber,
+							this.state.Lat,
+							this.state.Long
 						)
 					}
-				>
-					LOGIN
-				</Button>
+				/>
 			</View>
 		);
 	}
@@ -240,11 +257,11 @@ const styles = StyleSheet.create({
 		color: "white",
 		borderRadius: 14,
 		fontSize: 18,
-		fontWeight: "500"
+		fontWeight: "500",
 	},
 	container: {
 		flex: 1,
 		justifyContent: "center",
-		alignItems: "center"
-	}
+		alignItems: "center",
+	},
 });

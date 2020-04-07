@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Button } from "react-native";
 import MaterialCardWithTextOverImage1 from "../components/MaterialCardWithTextOverImage1";
 import MaterialButtonViolet from "../components/MaterialButtonViolet";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
@@ -19,13 +19,24 @@ class Welcom extends PureComponent {
 					<MaterialCardWithTextOverImage1 style={styles.materialCardWithTextOverImage1}>
 						<Text style={styles.ventasRancheras}>Ventas Rancheras</Text>
 					</MaterialCardWithTextOverImage1>
-
-					<MaterialButtonViolet onPress={this.onPressSignIN} style={styles.materialButtonViolet}></MaterialButtonViolet>
 				</View>
-				<MaterialButtonViolet1
+				<View
+					style={{
+						flex: 1,
+						flexDirection: "row",
+						alignContent: "center",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<Button onPress={this.onPressSignIN} title="LOGIN" />
+					<Button onPress={this.onPressRegister} title="Register" />
+				</View>
+
+				{/* <MaterialButtonViolet1
 					onPress={this.onPressRegister}
 					style={styles.materialButtonViolet1}
-				></MaterialButtonViolet1>
+				></MaterialButtonViolet1> */}
 			</View>
 		);
 	}
@@ -34,7 +45,7 @@ class Welcom extends PureComponent {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "rgba(180,180,180,1)"
+		backgroundColor: "rgba(180,180,180,1)",
 	},
 	materialCardWithTextOverImage1: {
 		flex: 1,
@@ -43,8 +54,8 @@ const styles = StyleSheet.create({
 		top: 0,
 		left: 0,
 		width: 377,
-		height: 474,
-		position: "absolute"
+		height: 204,
+		position: "absolute",
 	},
 	ventasRancheras: {
 		flex: 1,
@@ -54,26 +65,26 @@ const styles = StyleSheet.create({
 		//position: "absolute",
 		fontSize: 45,
 		fontFamily: "georgia-regular",
-		lineHeight: 14
+		lineHeight: 14,
 	},
 	materialButtonViolet: {
-		top: 456,
+		top: 200,
 		left: 100,
 		width: 188,
 		height: 49,
-		position: "absolute"
+		position: "absolute",
 	},
 	materialCardWithTextOverImage1Stack: {
 		width: 377,
-		height: 505,
-		marginLeft: -2
+		height: 305,
+		marginLeft: -2,
 	},
 	materialButtonViolet1: {
 		width: 317,
 		height: 49,
 		marginTop: 59,
-		marginLeft: 22
-	}
+		marginLeft: 22,
+	},
 });
 
 export default Welcom;

@@ -85,7 +85,9 @@ const styles = StyleSheet.create({
 
 export default Untitled1;*/
 
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
 
 import {
 	StyleSheet,
@@ -96,7 +98,7 @@ import {
 	TextInput,
 	Button,
 	TouchableOpacity,
-	Image
+	Image,
 } from "react-native";
 
 //import { selectSong, fetchClient } from "../../../../redux/actions";
@@ -127,13 +129,13 @@ class Untitled1 extends Component {
 			email: "",
 			password: "",
 			list: [],
-			isLoged: false
+			isLoged: false,
 		};
 	}
-	handleEmail = text => {
+	handleEmail = (text) => {
 		this.setState({ email: text });
 	};
-	handlePassword = text => {
+	handlePassword = (text) => {
 		this.setState({ password: text });
 	};
 	_login = async (email, password) => {
@@ -210,32 +212,32 @@ const styles = StyleSheet.create({
 		color: "white",
 		borderRadius: 14,
 		fontSize: 18,
-		fontWeight: "500"
+		fontWeight: "500",
 	},
 	container: {
 		flex: 1,
 		justifyContent: "center",
-		alignItems: "center"
+		alignItems: "center",
 	},
 
 	btnEye: {
 		position: "absolute",
 		top: 55,
-		right: 28
+		right: 28,
 	},
 	iconEye: {
 		width: 25,
 		height: 25,
-		tintColor: "rgba(0,0,0,0.2)"
-	}
+		tintColor: "rgba(0,0,0,0.2)",
+	},
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	//console.log("State In Login Page :", state.userLogin);
 	const listProduct = state.listProduct;
 	return {
 		user: state.userLogin,
-		listProduct: listProduct
+		listProduct: listProduct,
 	};
 };
 
