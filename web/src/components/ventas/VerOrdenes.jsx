@@ -1,14 +1,14 @@
-import React from "react";
-import api from "../../api/api";
-import { makeStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import "../login/style.scss";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useParams } from "react-router-dom";
-import rutasImg from "../../images/ruta.svg";
+import React from 'react';
+import api from '../../api/api';
+import { makeStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import '../login/style.scss';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useParams } from 'react-router-dom';
+import rutasImg from '../../images/ruta.svg';
 import {
 	Table,
 	TableRow,
@@ -19,11 +19,11 @@ import {
 	withStyles,
 	Button,
 	TextField,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	root: {
-		width: "100%",
+		width: '100%',
 	},
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
@@ -44,7 +44,7 @@ export default function VerOrdenes() {
 		api
 			.order()
 			.getAvailable()
-			.then((res) => {
+			.then(res => {
 				var obj = new Map();
 				var prio = {};
 				for (let i = 0; i < res.data.orders.length; i++) {
@@ -59,18 +59,18 @@ export default function VerOrdenes() {
 		api
 			.employee()
 			.getById(id)
-			.then((res) => {
+			.then(res => {
 				console.log(res.data);
 				setEmployee(res.data);
 			});
 		api
 			.client()
 			.getAll()
-			.then((res) => {
+			.then(res => {
 				console.log(res.data);
 				setCustomers(res.data);
 			})
-			.catch((err) => console.log(err));
+			.catch(err => console.log(err));
 	}, []);
 
 	const handleSubmit = () => {
@@ -104,7 +104,7 @@ export default function VerOrdenes() {
 			}
 		}
 		if (stops.length === 0) {
-			alert("Debe seleccionar alguna orden");
+			alert('Debe seleccionar alguna orden');
 		} else {
 			var data = {
 				user: id,
@@ -112,20 +112,21 @@ export default function VerOrdenes() {
 			};
 			console.log(data);
 			api.route().create(data);
+			window.location = '/programarRutas';
 		}
 	};
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		setSelected(selected.set(e.target.name, e.target.checked));
 	};
 
-	const handlePriorityChange = (e) => {
+	const handlePriorityChange = e => {
 		var temp = priority;
 		temp[parseInt(e.target.name)] = parseInt(e.target.value);
 		setPriority({ ...temp });
 	};
 
-	const StyledTableCell = withStyles((theme) => ({
+	const StyledTableCell = withStyles(theme => ({
 		head: {
 			backgroundColor: theme.palette.common.blue,
 			color: theme.palette.common.white,
@@ -137,11 +138,11 @@ export default function VerOrdenes() {
 
 	return (
 		<div>
-			<div className="base-container">
-				<div className="header">Asignar Ordenes al Repartidor: {id}</div>
-				<div className="content">
-					<div className="image">
-						<img className="centrado" src={rutasImg} alt="desc" />
+			<div className='base-container'>
+				<div className='header'>Asignar Ordenes al Repartidor: {id}</div>
+				<div className='content'>
+					<div className='image'>
+						<img className='centrado' src={rutasImg} alt='desc' />
 					</div>
 				</div>
 				<Button onClick={handleSubmit}>print</Button>
@@ -151,34 +152,35 @@ export default function VerOrdenes() {
 				return (
 					<ExpansionPanel key={id}>
 						<ExpansionPanelSummary
-							className="centrado"
+							className='centrado'
 							expandIcon={<ExpandMoreIcon />}
-							aria-controls="panel1a-content"
-							id="panel1a-header"
-						>
+							aria-controls='panel1a-content'
+							id='panel1a-header'>
 							<Typography className={classes.heading}>
-								{id + ":  " + record.CustomerRef.name + "				" + record.TxnDate}
+								{id + ':  ' + record.CustomerRef.name + '				' + record.TxnDate}
 							</Typography>
 						</ExpansionPanelSummary>
 						<ExpansionPanelDetails>
 							<div>
 								<h3>Items:</h3>
 								<br />
-								<Table className={classes.table} aria-label="customized table">
+								<Table className={classes.table} aria-label='customized table'>
 									<TableHead>
 										<TableRow>
-											<StyledTableCell align="right">Id</StyledTableCell>
-											<StyledTableCell align="right">Name</StyledTableCell>
-											<StyledTableCell align="right">Qty</StyledTableCell>
-											<StyledTableCell align="right">Ammount</StyledTableCell>
+											<StyledTableCell align='right'>Id</StyledTableCell>
+											<StyledTableCell align='right'>Name</StyledTableCell>
+											<StyledTableCell align='right'>Qty</StyledTableCell>
+											<StyledTableCell align='right'>Ammount</StyledTableCell>
 										</TableRow>
 									</TableHead>
 									<TableBody>
 										{record.Line.map((other, index) => {
-											return "SalesItemLineDetail" in other ? (
+											return 'SalesItemLineDetail' in other ? (
 												<TableRow key={index}>
 													<TableCell>{other.Id}</TableCell>
-													<TableCell>{other.SalesItemLineDetail.ItemRef.name}</TableCell>
+													<TableCell>
+														{other.SalesItemLineDetail.ItemRef.name}
+													</TableCell>
 													<TableCell>{other.SalesItemLineDetail.Qty}</TableCell>
 													<TableCell>{other.Amount}</TableCell>
 												</TableRow>
@@ -190,24 +192,23 @@ export default function VerOrdenes() {
 									checked={selected.get(record.id)}
 									onChange={handleChange}
 									name={record.Id}
-									inputProps={{ "arial-label": "primary checkbox" }}
-								>
+									inputProps={{ 'arial-label': 'primary checkbox' }}>
 									Seleccionar?
 								</Checkbox>
 								<TextField
-									variant="outlined"
+									variant='outlined'
 									name={record.Id}
 									value={priority[record.Id]}
 									onChange={handlePriorityChange}
-									label="Priority"
-									type="number"
+									label='Priority'
+									type='number'
 								/>
 							</div>
 						</ExpansionPanelDetails>
 					</ExpansionPanel>
 				);
 			})}
-			<Button variant="contained" onClick={handleSubmit}>
+			<Button variant='contained' onClick={handleSubmit}>
 				Realizar Ruta
 			</Button>
 		</div>
