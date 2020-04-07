@@ -27,6 +27,7 @@ export default {
 		return {
 			getAll: () => axios.get(url),
 			filterByName: (name) => axios.get(url + "/name/" + name),
+			getAvailable: () => axios.get(url+`/available`)
 		};
 	},
 	product(url = baseUrl + "/product") {
