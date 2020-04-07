@@ -12,6 +12,7 @@ export default {
 		return {
 			register: (user) => axios.post(url, user),
 			getAll: () => axios.get(url),
+			getClients: (id) => axios.get(url + `/customer/${id}`),
 			getById: (id) => axios.get(url + `/${id}`),
 		};
 	},
