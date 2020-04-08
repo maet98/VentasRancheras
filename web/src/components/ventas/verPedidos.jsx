@@ -1,7 +1,7 @@
-import React from "react";
-import pedidoImg from "../../images/pedido.svg";
-import "../login/style.scss";
-import api from "../../api/api";
+import React from 'react';
+import pedidoImg from '../../images/pedido.svg';
+import '../login/style.scss';
+import api from '../../api/api';
 
 export class VerPedido extends React.Component {
 	constructor(props) {
@@ -13,7 +13,7 @@ export class VerPedido extends React.Component {
 
 		this.state = {
 			names: [],
-			selectedName: "",
+			selectedName: '',
 		};
 	}
 
@@ -21,7 +21,7 @@ export class VerPedido extends React.Component {
 		api
 			.client()
 			.getAll()
-			.then((res) => {
+			.then(res => {
 				this.setState({
 					names: res.data,
 				});
@@ -39,29 +39,37 @@ export class VerPedido extends React.Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		window.location = "/pedidos/" + this.state.selectedName;
+		api
+			.client()
+			.filterByName(this.state.selectedName)
+			.then(res => {
+				console.log(res);
+				window.location = '/pedidos/' + res.data.Customer[0].Id;
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
 
 	render() {
 		let names = this.state.names;
 		return (
-			<div className="base-container" ref={this.props.containerRef}>
-				<div className="header">Ver Pedidos</div>
-				<div className="content">
-					<div className="image">
-						<img className="centrado" src={pedidoImg} alt="desc" />
+			<div className='base-container' ref={this.props.containerRef}>
+				<div className='header'>Ver Pedidos</div>
+				<div className='content'>
+					<div className='image'>
+						<img className='centrado' src={pedidoImg} alt='desc' />
 					</div>
-					<div className="form">
-						<div className="form-group">
-							<label htmlFor="inputName">Cliente</label>
+					<div className='form'>
+						<div className='form-group'>
+							<label htmlFor='inputName'>Cliente</label>
 							<select
-								type="text"
-								id="inputName"
-								className="form-control"
+								type='text'
+								id='inputName'
+								className='form-control'
 								value={this.state.selectedName}
-								onChange={this.onChangeSelectedName}
-							>
-								<option value="" hidden>
+								onChange={this.onChangeSelectedName}>
+								<option value='' hidden>
 									Elegir Cliente
 								</option>
 								{names.map((name, index) => {
@@ -73,8 +81,8 @@ export class VerPedido extends React.Component {
 								})}
 							</select>
 						</div>
-						<div className="form-group">
-							<button type="submit" className="btn" onClick={this.onSubmit}>
+						<div className='form-group'>
+							<button type='submit' className='btn' onClick={this.onSubmit}>
 								Confirmar
 							</button>
 						</div>

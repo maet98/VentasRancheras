@@ -1,7 +1,7 @@
-import React from "react";
-import { Table } from "react-bootstrap";
-import pedidosImg from "../../images/pedido.svg";
-import api from "../../api/api";
+import React from 'react';
+import { Table } from 'react-bootstrap';
+import pedidosImg from '../../images/pedido.svg';
+import api from '../../api/api';
 
 export class listarOrdenesPorEmpleado extends React.Component {
 	constructor(props) {
@@ -15,8 +15,8 @@ export class listarOrdenesPorEmpleado extends React.Component {
 		let id = this.props.match.params.id;
 		api
 			.order()
-			.getByCustomerId(id)
-			.then((res) => {
+			.getById(id)
+			.then(res => {
 				console.log(res);
 				this.setState({
 					orders: res.data,
@@ -28,16 +28,16 @@ export class listarOrdenesPorEmpleado extends React.Component {
 		let orders = this.state.orders;
 		let count = 0;
 		return (
-			<div className="base-container" ref={this.props.containerRef}>
-				<div className="header">
+			<div className='base-container' ref={this.props.containerRef}>
+				<div className='header'>
 					Ordenes Encargadas por el empleado de id: {this.props.match.params.id}
 				</div>
-				<div className="content">
-					<div className="image">
-						<img className="centrado" src={pedidosImg} alt="desc" />
+				<div className='content'>
+					<div className='image'>
+						<img className='centrado' src={pedidosImg} alt='desc' />
 					</div>
 				</div>
-				<Table responsive="sm" bordered hover>
+				<Table responsive='sm' bordered hover>
 					<thead>
 						<tr>
 							<th>#</th>

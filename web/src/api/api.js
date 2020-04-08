@@ -1,43 +1,45 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseUrl = "http://152.0.34.162:3000";
+const baseUrl = 'http://186.7.237.112:3000';
 
 export default {
-	auth(url = baseUrl + "/auth/login") {
+	auth(url = baseUrl + '/auth/login') {
 		return {
-			login: (user) => axios.post(url, user),
+			login: user => axios.post(url, user),
 		};
 	},
-	employee(url = baseUrl + "/employee") {
+	employee(url = baseUrl + '/employee') {
 		return {
-			register: (user) => axios.post(url, user),
+			register: user => axios.post(url, user),
 			getAll: () => axios.get(url),
-			getClients: (id) => axios.get(url + `/customer/${id}`),
-			getById: (id) => axios.get(url + `/${id}`),
+			getClients: id => axios.get(url + `/customer/${id}`),
+			getById: id => axios.get(url + `/${id}`),
 		};
 	},
-	order(url = baseUrl + "/order") {
-		return {
-			getAll: () => axios.get(url),
-			getByCustomerId: (id) => axios.get(url + `/employee/${id}`),
-			getAvailable: () => axios.get(url + "/available")
-		};
-	},
-	client(url = baseUrl + "/client") {
+	order(url = baseUrl + '/order') {
 		return {
 			getAll: () => axios.get(url),
-			filterByName: (name) => axios.get(url + "/name/" + name),
-			getAvailable: () => axios.get(url+`/available`)
+			getByCustomerId: id => axios.get(url + `/${id}`),
+			getById: id => axios.get(url + `/employee/${id}`),
+			getAvailable: () => axios.get(url + '/available'),
 		};
 	},
-	product(url = baseUrl + "/product") {
+	client(url = baseUrl + '/client') {
+		return {
+			getAll: () => axios.get(url),
+			filterByName: name => axios.get(url + '/name/' + name),
+			getAvailable: () => axios.get(url + `/available`),
+			getById: id => axios.get(url + `/${id}`),
+		};
+	},
+	product(url = baseUrl + '/product') {
 		return {
 			getAll: () => axios.get(url),
 		};
 	},
-	route(url = baseUrl + "/route") {
+	route(url = baseUrl + '/route') {
 		return {
-			create: (data) => axios.post(url, data)
-		}
-	}
+			create: data => axios.post(url, data),
+		};
+	},
 };

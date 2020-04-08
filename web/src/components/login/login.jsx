@@ -1,8 +1,8 @@
-import React from "react";
-import loginImg from "../../images/login.svg";
-import api from "../../api/api";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React from 'react';
+import loginImg from '../../images/login.svg';
+import api from '../../api/api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class Login extends React.Component {
 	constructor(props) {
@@ -13,9 +13,9 @@ export class Login extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
 
 		this.state = {
-			email: "",
-			password: "",
-			type: "Supervisor",
+			email: '',
+			password: '',
+			type: 'Supervisor',
 			errorFlag: 0,
 		};
 	}
@@ -39,58 +39,65 @@ export class Login extends React.Component {
 			type: this.state.type,
 		};
 
-		console.log("Executing Request....");
+		console.log('Executing Request....');
 		api
 			.auth()
 			.login(newUser)
-			.then((res) => {
+			.then(res => {
 				console.log(res.data);
-				window.location = "/menu";
+				window.location = '/menu';
 			})
-			.catch((e) => {
+			.catch(e => {
 				console.log(e);
-				toast("error logging in, try again");
+				toast.error('error logging in, please try again', {
+					position: 'top-center',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: true,
+					draggable: false,
+				});
 			});
 		this.setState({
-			email: "",
-			password: "",
+			email: '',
+			password: '',
 		});
 	}
 
 	render() {
 		return (
-			<div className="base-container" ref={this.props.containerRef}>
+			<div className='base-container' ref={this.props.containerRef}>
 				<form onSubmit={this.onSubmit}>
-					<div className="header">Login</div>
-					<div className="content">
-						<div className="image">
-							<img src={loginImg} alt="desc" />
+					<div className='header'>Login</div>
+					<div className='content'>
+						<div className='image'>
+							<img src={loginImg} alt='desc' />
 						</div>
-						<div className="form">
-							<div className="form-group">
-								<label htmlFor="Email">Email</label>
+						<div className='form'>
+							<div className='form-group'>
+								<label htmlFor='Email'>Email</label>
 								<input
-									type="text"
-									name="Email"
-									placeholder="Email"
+									type='text'
+									name='Email'
+									placeholder='Email'
 									value={this.state.email}
 									onChange={this.onChangeEmail}
 								/>
 							</div>
-							<div className="form-group">
-								<label htmlFor="password">Password</label>
+							<div className='form-group'>
+								<label htmlFor='password'>Password</label>
 								<input
-									type="password"
-									name="password"
-									placeholder="password"
+									type='password'
+									name='password'
+									placeholder='password'
 									value={this.state.password}
 									onChange={this.onChangePassword}
 								/>
 							</div>
 						</div>
 					</div>
-					<div className="footer">
-						<button type="submit" className="btn">
+					<div className='footer'>
+						<button type='submit' className='btn'>
 							Login
 						</button>
 					</div>

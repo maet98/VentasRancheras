@@ -1,8 +1,8 @@
-import React from "react";
-import pedidosImg from "../../images/pedido.svg";
-import "../login/style.scss";
-import { Table } from "react-bootstrap";
-import api from "../../api/api";
+import React from 'react';
+import pedidosImg from '../../images/pedido.svg';
+import '../login/style.scss';
+import { Table } from 'react-bootstrap';
+import api from '../../api/api';
 
 export class ListarPedidos extends React.Component {
 	constructor(props) {
@@ -14,16 +14,29 @@ export class ListarPedidos extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("Executing Request...");
+		console.log('Executing Request...');
 		const id = this.props.match.params.id;
+		api
+			.client()
+			.getById(id)
+			.then(res => {
+				this.setState({
+					Balance: res.data.Balance,
+				});
+			});
 		api
 			.order()
 			.getByCustomerId(id)
-			.then((res) => {
-				let arr1 = res.data;
-				let arr2 = arr1.filter(function (element) {
-					return element.CustomerRef.name === id;
-				});
+			.then(res => {
+				let arr2;
+				let arr1 = res.data.QueryResponse.Invoice;
+				if (res.data.QueryResponse.Invoice != undefined) {
+					arr2 = arr1.filter(function (element) {
+						return element.CustomerRef.value === id;
+					});
+				} else {
+					arr2 = [];
+				}
 				this.setState({
 					orders: arr2,
 				});
@@ -34,17 +47,19 @@ export class ListarPedidos extends React.Component {
 		let orders = this.state.orders;
 		let count = 0;
 		return (
-			<div className="base-container" ref={this.props.containerRef}>
-				<div className="header">
+			<div className='base-container' ref={this.props.containerRef}>
+				<div className='header'>
 					Ordenes Realizadas por {this.props.match.params.id}
 				</div>
-				<div className="content">
-					<div className="image">
-						<img className="centrado" src={pedidosImg} alt="desc" />
-						<div className="subheader">Balance Pendiente: {this.state.Balance}</div>
+				<div className='content'>
+					<div className='image'>
+						<img className='centrado' src={pedidosImg} alt='desc' />
+						<div className='subheader'>
+							Balance Pendiente: {this.state.Balance}
+						</div>
 					</div>
 				</div>
-				<Table responsive="sm" bordered hover>
+				<Table responsive='sm' bordered hover>
 					<thead>
 						<tr>
 							<th>#</th>
