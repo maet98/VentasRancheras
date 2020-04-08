@@ -10,7 +10,9 @@ import {
 	Button,
 	ActivityIndicator,
 	ScrollView,
+	Linking,
 	Platform,
+	Alert,
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SearchBar, ListItem } from "react-native-elements";
@@ -34,6 +36,9 @@ class Menu extends React.Component {
 			viewFlat: false,
 			saveOldArray: true,
 			setIt: true,
+			routeList: [],
+			routeListData: [],
+
 			//dataSource: this.props.listProduct,
 			dataSource: [],
 			dataComplete: [],
@@ -43,6 +48,23 @@ class Menu extends React.Component {
 		this.arrayholder = [];
 
 		this.arrayOrder = [];
+	}
+
+	async componentDidMount() {
+		if (this.props.user.type === "Repartidor") {
+			await Axios.get(`/route/${this.props.user.Id}`).then((response) => {
+				this.setState({ routeList: response.data[0].stops, routeListData: response.data });
+			});
+
+			this.setState({ userType: false, viewFlat: true });
+
+			//console.log("this : ", this.state.routeList);
+		}
+
+		//console.log("Component Did Mount");
+
+		await this.allOrder();
+		await this.allProduct();
 	}
 
 	allOrder = async () => {
@@ -56,6 +78,18 @@ class Menu extends React.Component {
 		});
 	};
 
+	openThreeButtonAlert = (item) => {
+		Alert.alert(
+			"Order",
+			"Click OK To Confirm This Order",
+			[
+				{ text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" },
+				{ text: "OK", onPress: () => this.PayOrder(item) },
+			],
+			{ cancelable: false }
+		);
+	};
+
 	allProduct = async () => {
 		await Axios.get("/product").then((response) => {
 			//console.log("Response All product", response);
@@ -65,6 +99,33 @@ class Menu extends React.Component {
 		});
 	};
 
+	filterOrderByItemId = async (item) => {
+		var dataSave = {};
+		const uniqueItem = await this.state.dataComplete.filter((items) => {
+			if (parseInt(items.Id) === parseInt(item.orderId)) {
+				dataSave = items;
+			}
+			parseInt(items.Id) === parseInt(item.orderId);
+		});
+
+		console.log("dataSave : ", dataSave.EmailStatus);
+
+		return dataSave.EmailStatus;
+
+		// console.log("hi");
+		// Alert.alert(
+		// 	"Alert Title",
+
+		// 	"My Alert Msg",
+		// 	[
+		// 		{ text: "Ask me later", onPress: () => console.log("Ask me later pressed", dataSave) },
+		// 		{ text: "Cancel", onPress: () => console.log("Cancel Pressed"), style: "cancel" },
+		// 		{ text: "OK", onPress: () => console.log("OK Pressed") },
+		// 	],
+		// 	{ cancelable: false }
+		// );
+	};
+
 	handleButtonChange(value) {
 		this.setState({
 			dataSource: value,
@@ -72,19 +133,14 @@ class Menu extends React.Component {
 		});
 		this.arrayholder = value;
 	}
-	async componentDidMount() {
-		if (this.props.user.type === "Repartidor") {
-			this.setState({ userType: false, viewFlat: true });
-		}
-
-		//console.log("Component Did Mount");
-
-		await this.allOrder();
-		await this.allProduct();
-	}
 
 	onPressSignIN = () => {
 		this.props.navigation.navigate("Login");
+	};
+
+	onPressRegister = () => {
+		console.log("aqui register");
+		this.props.navigation.navigate("Register");
 	};
 
 	addNewOrden = () => {
@@ -167,24 +223,47 @@ class Menu extends React.Component {
 	};
 
 	PayOrder = async (item) => {
+		//console.log("item : ", item);
 		console.log("Item a Pagar : ", item);
-		const ClientId = item.Id;
-		const TotalAmt = item.Balance;
+		var dataSave = {};
+		const uniqueItem = await this.state.dataComplete.filter((items) => {
+			if (parseInt(items.Id) === parseInt(item.orderId)) {
+				dataSave = items;
+			}
+			parseInt(items.Id) === parseInt(item.orderId);
+		});
+
+		//console.log("dataSave : ", dataSave);
+		const ClientId = dataSave.Id;
+		const TotalAmt = dataSave.Balance;
+
+		console.log("ClientId : ", ClientId);
+		console.log("TotalAmt : ", TotalAmt);
 		Axios.post(`/order/confirmOrder/${ClientId}`, {
 			ClientId,
 			TotalAmt,
 		}).then((response) => {
 			//console.log("response: ", response);
 			if (response.data) {
-				alert("Confirmado");
+				alert("Confirmed");
 			}
 		});
 		await Axios.get("/client").then((Response) => {
 			this.setState({ listClient: Response.data, backupListClient: Response.data });
 		});
 		await Axios.get("/order").then((Response) => {
-			this.setState({ dataSource: response.data, dataComplete: response.data });
+			this.setState({ dataSource: Response.data, dataComplete: Response.data });
 		});
+	};
+
+	openGps = (lat, lng) => {
+		// lat = -25;
+		// lng = 80;
+		console.log("Lat : ", lat);
+		console.log("long : ", lng);
+		var scheme = Platform.OS === "ios" ? "maps:" : "geo:";
+		var url = scheme + `${lat},${lng}`;
+		Linking.openURL(url);
 	};
 
 	render() {
@@ -205,7 +284,7 @@ class Menu extends React.Component {
 
 					<FlatList
 						extraData={this.state}
-						data={this.state.dataSource}
+						data={this.state.routeList}
 						ItemSeparatorComponent={this.ListViewItemSeparator}
 						//renderItem={this.renderItemOrder}
 						Item
@@ -213,19 +292,24 @@ class Menu extends React.Component {
 						View
 						renderItem={({ item }) => (
 							// Single Comes here which will be repeatative for the FlatListItems
-							<TouchableHighlight onPress={() => this._onPress(item)}>
+							<TouchableHighlight onPress={() => this.openThreeButtonAlert(item)}>
 								{/* <ViewCard Item={item} /> */}
 
 								<View style={[styleCard.container]}>
 									<View style={styleCard.cardBody}>
 										<View style={styleCard.bodyContent}>
-											<Text style={styleCard.titleStyle}>{item.Description}</Text>
+											{/* <Text style={styleCard.titleStyle}>{item.Description}</Text> */}
 											{/* <Text style={styles.subtitleStyle}>Address: {this.props.Item.address}</Text> */}
-											<Text style={styleCard.subtitleStyle}>employeeId: {item.employeeId}</Text>
-											<Text style={styleCard.subtitleStyle}>Id Item : {item.Id}</Text>
-											<Text style={styleCard.subtitleStyle}>Status : {item.EmailStatus}</Text>
-											<Text style={styleCard.subtitleStyle}>Balance : {item.Balance}</Text>
-											<Text style={styleCard.subtitleStyle}>CreatedAt : {item.MetaData.CreateTime}</Text>
+											<Text style={styleCard.subtitleStyle}>name: {item.name}</Text>
+											{item.entregado ? (
+												<Text style={styleCard.subtitleStyle}>Entrago : Yes</Text>
+											) : (
+												<Text style={styleCard.subtitleStyle}>Entrago : No</Text>
+											)}
+
+											<Text style={styleCard.subtitleStyle}>latitude : {item.latitude}</Text>
+											<Text style={styleCard.subtitleStyle}>longitude : {item.longitude}</Text>
+											<Text style={styleCard.subtitleStyle}>priority : {item.priority}</Text>
 										</View>
 										{/* <Image
 											style={styleCard.cardItemImagePlace}
@@ -235,12 +319,24 @@ class Menu extends React.Component {
 												}
 											}
 										></Image> */}
-										<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-											{item.EmailStatus === "EmailSent" ? (
-												<Text>Confirmed</Text>
-											) : (
-												<Button onPress={() => this.PayOrder(item)} title="To Confirm" />
-											)}
+										<View style={{ flexDirection: "row", flex: 1, justifyContent: "center", alignItems: "center" }}>
+											<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+												{/* {
+													this.filterOrderByItemId(item) === "undefined" ? (
+														<Text>Error</Text>
+													) : this.filterOrderByItemId(item) !== "NotSet" ? (
+														<Text>Confirmed</Text>
+													) : (
+														<Button onPress={() => this.PayOrder(item)} title="To Confirm" />
+													)
+
+													// <Button onPress={() => this.PayOrder(item)} title="To Confirm" />
+												} */}
+
+												<Button onPress={() => this.openThreeButtonAlert(item)} title="Order" />
+											</View>
+
+											<Button onPress={() => this.openGps(item.latitude, item.longitude)} title="Go to" />
 										</View>
 
 										{/* <Image source={require("../assets/images/cardImage4.png")} style={styles.cardItemImagePlace}></Image> */}
@@ -281,6 +377,11 @@ class Menu extends React.Component {
 							<MaterialCommunityIconsIcon name="square-inc-cash" style={styles.icon3}></MaterialCommunityIconsIcon>
 							<Text style={styles.btn3Text}>Pay</Text>
 						</TouchableOpacity>
+
+						<TouchableOpacity style={styles.btnWrapper3}>
+							<MaterialCommunityIconsIcon name="car" style={styles.icon3}></MaterialCommunityIconsIcon>
+							<Text style={styles.btn3Text}>Route</Text>
+						</TouchableOpacity>
 						{/* <TouchableOpacity onPress={this.onPressSignIN} style={styles.button}>
 							<MaterialCommunityIconsIcon name="xamarin-outline" style={styles.icon4}></MaterialCommunityIconsIcon>
 							<Text style={styles.pay}>close</Text>
@@ -299,6 +400,11 @@ class Menu extends React.Component {
 						onClear={(text) => this.SearchFilterFunction("")}
 						placeholder="Type Here..."
 						value={this.state.search}
+					/>
+					<Button
+						style={{ alignItems: "left", justifyContent: "left" }}
+						onPress={() => this.onPressRegister()}
+						title="Register Client"
 					/>
 
 					<FlatList
@@ -379,6 +485,7 @@ class Menu extends React.Component {
 							<MaterialCommunityIconsIcon name="square-inc-cash" style={styles.icon3}></MaterialCommunityIconsIcon>
 							<Text style={styles.btn3Text}>Pay</Text>
 						</TouchableOpacity>
+
 						{/* <TouchableOpacity onPress={this.onPressSignIN} style={styles.button}>
 							<MaterialCommunityIconsIcon name="xamarin-outline" style={styles.icon4}></MaterialCommunityIconsIcon>
 							<Text style={styles.pay}>close</Text>

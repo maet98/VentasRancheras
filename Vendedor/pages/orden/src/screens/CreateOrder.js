@@ -236,9 +236,9 @@ class CreateOder extends React.Component {
 		const employeeId = this.props.user.Id;
 		const clientId = this.state.clientSelected.Id;
 
-		console.log("Items : ", Items);
-		console.log("employeeId : ", employeeId);
-		console.log("clientId : ", clientId);
+		// console.log("Items : ", Items);
+		// console.log("employeeId : ", employeeId);
+		// console.log("clientId : ", clientId);
 
 		this.setState({ arrSelected: [] });
 		if (this.state.clientSelected.Balance == 0) {
@@ -250,6 +250,10 @@ class CreateOder extends React.Component {
 				//console.log("response: ", response);
 				if (response.data) {
 					alert("Order Create");
+					this.props.navigation.navigate("AppVenta");
+				} else {
+					alert("error, try again");
+					this.props.navigation.navigate("AppVenta");
 				}
 			});
 		}
@@ -300,7 +304,7 @@ class CreateOder extends React.Component {
 						/>
 					</View>
 
-					<View style={{ height: 150 }}>
+					<View style={{ height: 100 }}>
 						<SafeAreaView>
 							<FlatList
 								extraData={this.state}

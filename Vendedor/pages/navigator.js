@@ -7,8 +7,8 @@ import CreateOrder from "../pages/orden/src/screens/CreateOrder.js";
 import AddProduct from "../pages/addProduct/src/screens/AddProduct.js";
 
 import OneProduct from "../pages/addProduct/src/screens/ViewOneProduct.js";
-import Menu from "../pages/menu/src/screens/Menu.js";
-import NewMenu from "../pages/menu/src/screens/NewMenu";
+
+import AppVenta from "../pages/menu/src/screens/NewMenu";
 import Register from "../pages/registater/src/screens/Registater.js";
 import NewOrden from "../pages/newOrden/src/screens/Neworden.js";
 export const Tabs = createAppContainer(
@@ -23,11 +23,10 @@ export const Tabs = createAppContainer(
 			// }
 			Orden,
 			OneProduct,
-			NewMenu,
+			AppVenta,
 			Register,
 			AddProduct,
 			Welcome,
-			Menu,
 			NewOrden,
 			CreateOrder,
 

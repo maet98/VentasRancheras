@@ -30,7 +30,7 @@ class Welcom extends PureComponent {
 					}}
 				>
 					<Button onPress={this.onPressSignIN} title="LOGIN" />
-					<Button onPress={this.onPressRegister} title="Register" />
+					{/* <Button onPress={this.onPressRegister} title="Register" /> */}
 				</View>
 
 				{/* <MaterialButtonViolet1

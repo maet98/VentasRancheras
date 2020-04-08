@@ -158,7 +158,7 @@ class Untitled1 extends Component {
 		if (listClient.Id != null) {
 			//	console.log("listClient.token : ", listClient.token);
 
-			this.props.navigation.navigate("NewMenu");
+			this.props.navigation.navigate("AppVenta");
 		} else {
 			//console.log("listClient : ", listClient.token);
 		}
