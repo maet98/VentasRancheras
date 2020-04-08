@@ -30,7 +30,7 @@ export class ListarPedidos extends React.Component {
 			.then(res => {
 				let arr2;
 				let arr1 = res.data.QueryResponse.Invoice;
-				if (res.data.QueryResponse.Invoice != undefined) {
+				if (res.data.QueryResponse.Invoice !== undefined) {
 					arr2 = arr1.filter(function (element) {
 						return element.CustomerRef.value === id;
 					});
