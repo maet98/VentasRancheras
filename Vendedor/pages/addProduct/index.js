@@ -1,0 +1,1 @@
+export { default as AddProduct } from "./src/screens/AddProduct.js";

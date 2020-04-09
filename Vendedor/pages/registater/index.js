@@ -1,0 +1,1 @@
+export { default as Registater } from "./src/screens/Registater.js";
