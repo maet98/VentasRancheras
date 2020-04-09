@@ -25,7 +25,6 @@ export class Register extends React.Component {
 		};
 	}
 
-	notify = () => toast("Succesfull register");
 	onChangeFirstName(e) {
 		this.setState({
 			firstName: e.target.value,
@@ -52,7 +51,10 @@ export class Register extends React.Component {
 			type: e.target.value,
 		});
 	}
+
+
 	onSubmit(e) {
+		toast.configure()
 		e.preventDefault();
 		const newUser = {
 			firstName: this.state.firstName,
@@ -67,8 +69,14 @@ export class Register extends React.Component {
 			.employee()
 			.register(newUser)
 			.then((res) => {
-				console.log(res.data);
-				this.notify();
+				toast.success("Empleado Registrado", {
+					position: 'top-center',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: true,
+					draggable: false,
+				});
 			});
 
 		this.setState({
