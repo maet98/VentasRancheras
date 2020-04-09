@@ -45,21 +45,22 @@ let createStop = async function(element,route,user) {
     element.route_id = route;
     stop.create(element)
     .then((ans) =>{
-        if(element.hasOwnProperty("client")){
-            console.log(element);
-            employeeCustomer.create(
-            {CustomerId: element.client,employeeId:user})
-            .then(a =>{
-                return ans;
-            })
-        }
-        else{
-            return ans;
-        }
+        console.log(element);
+        console.log(element.hasOwnProperty("client"));   
     })
     .catch(err =>{
         return null;
     })
+    if(element.hasOwnProperty("client")){
+        employeeCustomer.create(
+        {CustomerId: element.client,employeeId:user})
+        .then(a =>{
+            return a;
+        })
+        .catch(err =>{
+            console.error(err);
+        })
+    }
 }
 let createStops = async (stops, id, user) =>{
     var arr = [];
@@ -70,11 +71,12 @@ let createStops = async (stops, id, user) =>{
     return arr;
 }
 
-export async function createRoute(req,res,next) {
+export async function createRoute(req,res) {
     const {stops, user} = req.body;
     let count = stops.lenght;
     route.create({user:user})
     .then(async (ans) => {
+        console.log(stops);
         ans.stops = await createStops(stops,ans.id,user)
         console.log(ans);
         return res.json(ans);

@@ -5,7 +5,7 @@
         "username": "admindb",
         "password": "Password",
         "database": "RancherasDB",
-        "host": "152.0.34.162",
+        "host": "186.7.237.112",
         "dialect": "mysql",
         "operatorsAliases": false
     },
